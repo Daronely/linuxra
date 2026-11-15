@@ -1,0 +1,79 @@
+{
+  "slug": "smartctl",
+  "name": "smartctl",
+  "category": "disk-storage",
+  "subcategory": "Disk health",
+  "difficulty": "advanced",
+  "description": "Reads S.M.A.R.T. self-monitoring data from disks: reallocated sectors, pending sectors, temperature, and overall health. Requires root.",
+  "syntax": "smartctl [OPTIONS] DEVICE",
+  "flags": [
+    {
+      "flag": "-a",
+      "description": "All SMART information (the full report)."
+    },
+    {
+      "flag": "-H",
+      "description": "Just the overall health verdict: PASSED or FAILED."
+    },
+    {
+      "flag": "-i",
+      "description": "Device identity: model, serial, firmware."
+    },
+    {
+      "flag": "-t short / -t long",
+      "description": "Run a self-test (short ~2 min, long = hours)."
+    },
+    {
+      "flag": "-l selftest",
+      "description": "Show results of previous self-tests."
+    },
+    {
+      "flag": "-d nvme,NVMe-specific output."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo smartctl -H /dev/sda",
+      "output": "\nSMART overall-health self-assessment test result: PASSED\n",
+      "explanation": "The quick verdict. FAILED means the disk reports imminent failure — replace it."
+    },
+    {
+      "command": "sudo smartctl -a /dev/sda | grep -i reallocated",
+      "output": "\n5 Reallocated_Sector_Ct   0x0033   100  100  010  Pre-fail  Always  -  0\n",
+      "explanation": "Reallocated sector count: 0 is ideal; a growing number means the disk is remapping bad sectors and will eventually fail."
+    },
+    {
+      "command": "sudo smartctl -t short /dev/sda",
+      "output": null,
+      "explanation": "Starts a short self-test; check results with smartctl -l selftest /dev/sda."
+    }
+  ],
+  "related": [
+    "fsck",
+    "lsblk",
+    "dmesg"
+  ],
+  "tags": [
+    "smart",
+    "health",
+    "disk",
+    "failure",
+    "predict"
+  ],
+  "docs": "https://www.smartmontools.org/",
+  "about": [
+    "SMART attributes are vendor-specific but a few are universal health indicators: 05 Reallocated_Sector_Ct, 197 Current_Pending_Sector, 198 Offline_Uncorrectable. Any nonzero pending/reallocated value rising over time predicts failure. SMART must be enabled (smartctl -s on) and monitored — it does nothing by itself."
+  ],
+  "useCases": [
+    "Predict disk failures before they happen.",
+    "Verify used disks are healthy.",
+    "Baseline health after incidents."
+  ],
+  "mistakes": [
+    "Trusting PASSED alone — a disk can pass while pending sectors grow; read the attributes.",
+    "Forgetting to install smartmontools first."
+  ],
+  "warnings": [
+    "A \"PASSED\" verdict does not guarantee health; monitor attribute trends. RAID controllers often hide SMART data behind -d megaraid,N or -d sat."
+  ]
+}

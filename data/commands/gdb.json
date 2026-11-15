@@ -1,0 +1,79 @@
+{
+  "slug": "gdb",
+  "name": "gdb",
+  "category": "dev-tools",
+  "subcategory": "Development utilities",
+  "difficulty": "advanced",
+  "description": "The GNU debugger: pauses programs, inspects memory and variables, and steps through code line by line.",
+  "syntax": "gdb [OPTIONS] [PROGRAM [CORE]]",
+  "flags": [
+    {
+      "flag": "run ARGS",
+      "description": "Start the program (with arguments)."
+    },
+    {
+      "flag": "break FILE:LINE / break FUNC",
+      "description": "Set a breakpoint."
+    },
+    {
+      "flag": "next / step",
+      "description": "Next line (over calls) / into calls."
+    },
+    {
+      "flag": "print VAR",
+      "description": "Show a variable's value."
+    },
+    {
+      "flag": "bt",
+      "description": "Backtrace: the call stack at a crash."
+    },
+    {
+      "flag": "continue",
+      "description": "Resume until the next breakpoint."
+    },
+    {
+      "flag": "-c CORE",
+      "description": "Analyze a core dump post-mortem."
+    }
+  ],
+  "examples": [
+    {
+      "command": "gdb ./app",
+      "output": "\n(gdb) break main\n(gdb) run\nBreakpoint 1, main () at main.c:5\n",
+      "explanation": "Stops at main — you can now inspect state before anything runs."
+    },
+    {
+      "command": "(gdb) bt",
+      "output": "\n#0  0x... in strlen () from libc\n#1  0x... in process (name=0x0) at utils.c:42\n",
+      "explanation": "A crashed program's stack: process() called strlen with a NULL pointer at utils.c:42. This is how segfaults get solved."
+    },
+    {
+      "command": "gdb ./app core",
+      "output": null,
+      "explanation": "Loads a core dump (enable with ulimit -c unlimited) for post-mortem analysis."
+    }
+  ],
+  "related": [
+    "gcc",
+    "strace",
+    "make"
+  ],
+  "tags": [
+    "debug",
+    "debugger",
+    "crash",
+    "development"
+  ],
+  "docs": "https://sourceware.org/gdb/documentation/",
+  "about": [
+    "Compile with gcc -g so gdb can map machine code to source. Core dumps (ulimit -c unlimited, /proc/sys/kernel/core_pattern) capture a crashed program's memory for later bt analysis. gdb also debugs running processes (gdb -p PID)."
+  ],
+  "useCases": [
+    "Find segfaults and their exact line.",
+    "Step through algorithms.",
+    "Post-mortem analysis of crashes."
+  ],
+  "mistakes": [
+    "Debugging a binary built without -g — no line numbers, no variable names."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "slug": "blkid",
+  "name": "blkid",
+  "category": "disk-storage",
+  "subcategory": "Storage inspection",
+  "difficulty": "intermediate",
+  "description": "Locates and prints block device attributes: filesystem type, UUID, and label — the source for /etc/fstab entries.",
+  "syntax": "blkid [OPTIONS] [DEVICE...]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "All detected partitions with TYPE, UUID, LABEL."
+    },
+    {
+      "flag": "DEVICE",
+      "description": "Attributes of one device."
+    },
+    {
+      "flag": "-o list",
+      "description": "Friendly tabular output."
+    },
+    {
+      "flag": "-o value -s UUID",
+      "description": "Script-friendly: just the UUID."
+    }
+  ],
+  "examples": [
+    {
+      "command": "blkid",
+      "output": "\n/dev/sda1: UUID=\"4F0B-1A2C\" TYPE=\"vfat\" PARTUUID=\"...\"\n/dev/sda2: UUID=\"8c1e4d2a-...\" TYPE=\"ext4\"\n/dev/sdb1: UUID=\"a1b2c3d4-...\" TYPE=\"xfs\"\n",
+      "explanation": "Every partition with its filesystem and UUID. UUIDs are what /etc/fstab should reference — device names can change between boots."
+    },
+    {
+      "command": "blkid -o value -s UUID /dev/sda2",
+      "output": "\n8c1e4d2a-3f5b-4c6d-8e9f-0a1b2c3d4e5f\n",
+      "explanation": "Extracts just the UUID for use in scripts and fstab lines."
+    }
+  ],
+  "related": [
+    "lsblk",
+    "mount",
+    "mkfs",
+    "fdisk"
+  ],
+  "tags": [
+    "uuid",
+    "filesystem",
+    "fstab",
+    "storage"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+  "about": [
+    "blkid uses libblkid to probe partitions. UUIDs persist across device renames (sdb becoming sdc), which is why fstab, GRUB, and systemd mount units reference them. lsblk -f shows the same data in tree form."
+  ],
+  "useCases": [
+    "Prepare /etc/fstab entries.",
+    "Identify filesystems on unknown disks.",
+    "Script UUID extraction."
+  ],
+  "mistakes": [
+    "Using device names (/dev/sdb1) in fstab — they can change; use UUID=."
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "slug": "find",
+  "name": "find",
+  "category": "file-directory",
+  "subcategory": "Finding files",
+  "difficulty": "intermediate",
+  "description": "Searches for files and directories in a directory hierarchy, matching by name, size, time, type, permissions, and more, and can execute actions on results.",
+  "syntax": "find [PATH...] [EXPRESSION]",
+  "flags": [
+    {
+      "flag": "-name PATTERN",
+      "description": "Match file names, case-sensitively; -iname ignores case. Wildcards must be quoted."
+    },
+    {
+      "flag": "-type f / -type d",
+      "description": "Match regular files / directories."
+    },
+    {
+      "flag": "-size +100M",
+      "description": "Match files larger than 100 megabytes (units: c, k, M, G)."
+    },
+    {
+      "flag": "-mtime -7",
+      "description": "Modified within the last 7 days; +7 means older than 7 days."
+    },
+    {
+      "flag": "-user NAME",
+      "description": "-perm MODE: match by owner / permission bits."
+    },
+    {
+      "flag": "-exec CMD {} ;",
+      "description": "Run CMD on each match, replacing {} with the path. Use \\+ to batch."
+    },
+    {
+      "flag": "-maxdepth N",
+      "description": "Descend at most N directory levels."
+    },
+    {
+      "flag": "-delete",
+      "description": "Delete matched files (use with extreme care)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "find . -name \"*.log\"",
+      "output": null,
+      "explanation": "Finds all .log files under the current directory, at any depth. Quotes prevent the shell from expanding the pattern first."
+    },
+    {
+      "command": "find /var/log -name \"*.gz\" -mtime +30",
+      "output": "\n/var/log/journal/old/system.journal.gz\n",
+      "explanation": "Finds rotated logs older than 30 days — typical candidates for cleanup."
+    },
+    {
+      "command": "find . -type f -size +100M -exec ls -lh {} \\;",
+      "output": "\n-rw-r--r-- 1 user user 1.4G Jan  9 22:31 ./vm-disk.img\n",
+      "explanation": "Lists every file over 100 MB with human-readable sizes."
+    },
+    {
+      "command": "find . -type d -name node_modules -prune -o -type f -name \"*.js\" -print",
+      "output": null,
+      "explanation": "Searches for .js files while skipping node_modules trees (-prune stops descending into them)."
+    },
+    {
+      "command": "find . -mtime -1 -type f",
+      "output": "\n./report.txt\n",
+      "explanation": "Shows files modified in the last 24 hours."
+    },
+    {
+      "command": "find . -name \"*.tmp\" -delete",
+      "output": null,
+      "explanation": "Deletes all .tmp files under the current tree. Always run the same find without -delete first to preview."
+    }
+  ],
+  "related": [
+    "xargs",
+    "grep",
+    "ls",
+    "du"
+  ],
+  "tags": [
+    "search",
+    "find",
+    "files",
+    "recursive",
+    "bulk"
+  ],
+  "docs": "https://www.gnu.org/software/findutils/manual/html_mono/find.html",
+  "about": [
+    "find walks the directory tree and evaluates an expression for each entry. Expressions combine tests (-name, -type, -size), operators (-and, -or, !), and actions (-print, -exec, -delete). If no action is given, -print is implied.",
+    "GNU find adds -printf for custom output formats, -regextype for different regex flavors, and -quit to stop after the first match."
+  ],
+  "useCases": [
+    "Locate files by name, size, age, or owner.",
+    "Bulk operations: change permissions, delete, or compress matched files.",
+    "Clean up build artifacts and old logs."
+  ],
+  "mistakes": [
+    "Forgetting quotes around -name patterns, letting the shell expand them first.",
+    "Using -exec {} \\; in a loop when {} \\+ or xargs would be far faster.",
+    "Running -delete before previewing the match list."
+  ],
+  "warnings": [
+    "find -delete acts immediately and irreversibly. Build the expression, verify the output, then add -delete as the last action."
+  ],
+  "distroNotes": "GNU find (findutils) supports -printf, -regextype, and -quit. BSD find lacks -printf and uses different regex defaults."
+}

@@ -1,0 +1,71 @@
+{
+  "slug": "mkdir",
+  "name": "mkdir",
+  "category": "file-directory",
+  "subcategory": "Creating directories",
+  "difficulty": "beginner",
+  "description": "Creates new directories.",
+  "syntax": "mkdir [OPTIONS] DIRECTORY...",
+  "flags": [
+    {
+      "flag": "-p",
+      "description": "Create parent directories as needed; no error if the directory already exists."
+    },
+    {
+      "flag": "-v",
+      "description": "Print a message for each created directory."
+    },
+    {
+      "flag": "-m MODE",
+      "description": "Set the permission mode (e.g. -m 700) at creation time instead of applying the umask."
+    }
+  ],
+  "examples": [
+    {
+      "command": "mkdir photos",
+      "output": null,
+      "explanation": "Creates a single directory named photos in the current location."
+    },
+    {
+      "command": "mkdir -p projects/linuxora/assets/css",
+      "output": null,
+      "explanation": "Creates the full nested path at once, creating any missing parents, and does not complain if parts already exist."
+    },
+    {
+      "command": "mkdir -v backup logs",
+      "output": "\nmkdir: created directory 'backup'\nmkdir: created directory 'logs'\n",
+      "explanation": "-v confirms each directory that was created."
+    },
+    {
+      "command": "mkdir -m 700 private",
+      "output": null,
+      "explanation": "Creates a directory readable only by its owner, useful for private data."
+    }
+  ],
+  "related": [
+    "touch",
+    "rm",
+    "ls"
+  ],
+  "tags": [
+    "create",
+    "directory",
+    "folders",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/mkdir-invocation.html",
+  "about": [
+    "mkdir creates directories with permissions determined by the mode argument (if given) and the umask. With -p it creates every missing component of the path, which makes it ideal for scripts and setup tasks."
+  ],
+  "useCases": [
+    "Create project folder structures in one command.",
+    "Safely ensure a directory exists in scripts with mkdir -p."
+  ],
+  "mistakes": [
+    "Forgetting -p when creating nested paths: mkdir a/b/c fails if a or a/b does not exist.",
+    "Trying to create a directory with the same name as an existing file."
+  ],
+  "warnings": [
+    "mkdir -p silently succeeds on existing directories, which can hide typos in the path."
+  ]
+}

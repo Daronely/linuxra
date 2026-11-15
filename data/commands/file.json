@@ -1,0 +1,66 @@
+{
+  "slug": "file",
+  "name": "file",
+  "category": "file-directory",
+  "subcategory": "File metadata",
+  "difficulty": "beginner",
+  "description": "Determines the type of a file by examining its magic numbers and content, not just its extension.",
+  "syntax": "file [OPTIONS] FILE...",
+  "flags": [
+    {
+      "flag": "-b",
+      "description": "Brief mode: omit the filename prefix."
+    },
+    {
+      "flag": "-i",
+      "description": "Output MIME type (e.g. text/plain; charset=utf-8)."
+    },
+    {
+      "flag": "-L",
+      "description": "Follow symbolic links."
+    },
+    {
+      "flag": "-z",
+      "description": "Look inside compressed files."
+    }
+  ],
+  "examples": [
+    {
+      "command": "file photo",
+      "output": "\nphoto: JPEG image data, JFIF standard 1.01, ... 1920x1080\n",
+      "explanation": "Reveals that \"photo\" (no extension) is actually a JPEG image."
+    },
+    {
+      "command": "file -i index.html",
+      "output": "\nindex.html: text/html; charset=utf-8\n",
+      "explanation": "Prints the MIME type and detected character encoding."
+    },
+    {
+      "command": "file backup.tar.gz",
+      "output": "\nbackup.tar.gz: gzip compressed data, original size 52428800\n",
+      "explanation": "Identifies the compression format regardless of the filename."
+    }
+  ],
+  "related": [
+    "stat",
+    "ls"
+  ],
+  "tags": [
+    "type",
+    "format",
+    "magic",
+    "identify"
+  ],
+  "docs": "https://www.darwinsys.com/file/",
+  "about": [
+    "file reads the beginning of a file and compares it against a database of magic signatures (/usr/share/misc/magic). This is how it detects executables, images, archives, and text encodings without relying on filenames."
+  ],
+  "useCases": [
+    "Identify files with missing or wrong extensions.",
+    "Verify that a download is really the expected format.",
+    "Check text encodings before processing files with scripts."
+  ],
+  "mistakes": [
+    "Trusting extensions: a file named data.csv may actually be a zip archive; file tells the truth."
+  ]
+}

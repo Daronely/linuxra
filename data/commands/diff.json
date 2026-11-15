@@ -1,0 +1,75 @@
+{
+  "slug": "diff",
+  "name": "diff",
+  "category": "file-directory",
+  "subcategory": "File comparison",
+  "difficulty": "intermediate",
+  "description": "Compares files line by line and reports the differences; also compares directories recursively.",
+  "syntax": "diff [OPTIONS] FILE1 FILE2",
+  "flags": [
+    {
+      "flag": "-u",
+      "description": "Unified format (with context lines) — the standard for patches."
+    },
+    {
+      "flag": "-r",
+      "description": "Compare directories recursively."
+    },
+    {
+      "flag": "-i",
+      "description": "Ignore case differences."
+    },
+    {
+      "flag": "-w",
+      "description": "Ignore all whitespace."
+    },
+    {
+      "flag": "-q",
+      "description": "Report only whether files differ, not how."
+    },
+    {
+      "flag": "-y",
+      "description": "Side-by-side comparison."
+    }
+  ],
+  "examples": [
+    {
+      "command": "diff old.conf new.conf",
+      "output": "\n5c5\n< timeout 30\n---\n> timeout 60\n",
+      "explanation": "Line 5 changed: the old file had timeout 30, the new file has timeout 60."
+    },
+    {
+      "command": "diff -u old.conf new.conf",
+      "output": "\n--- old.conf   2025-01-10 09:00:00\n+++ new.conf   2025-01-12 14:20:00\n@@ -2,7 +2,7 @@\n server {\n     listen 80;\n-    timeout 30;\n+    timeout 60;\n     root /var/www;\n",
+      "explanation": "Unified output: - lines are in FILE1 only, + lines are in FILE2 only. This is the format used by git diff and patch."
+    },
+    {
+      "command": "diff -qr dir1/ dir2/",
+      "output": "\nFiles dir1/app.js and dir2/app.js differ\nOnly in dir2: extra.txt\n",
+      "explanation": "Quick recursive check of two directory trees: which files differ and which exist on only one side."
+    }
+  ],
+  "related": [
+    "grep",
+    "git"
+  ],
+  "tags": [
+    "compare",
+    "differences",
+    "patch",
+    "files"
+  ],
+  "docs": "https://www.gnu.org/software/diffutils/manual/html_node/diff-Options.html",
+  "about": [
+    "diff output uses change commands: l#c# means lines replaced, #a# lines appended, #d# lines deleted. Unified format (-u) wraps changes with context and is what patch and git consume. diff can also produce a full patch with diff -ruN old new > changes.patch."
+  ],
+  "useCases": [
+    "Compare configuration files before and after edits.",
+    "Generate patches to share changes.",
+    "Verify directory copies or backups with diff -r."
+  ],
+  "mistakes": [
+    "Reading normal diff output when -u is far more readable.",
+    "Comparing binary files with plain diff — use cmp or checksums instead."
+  ]
+}

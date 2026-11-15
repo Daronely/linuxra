@@ -1,0 +1,82 @@
+{
+  "slug": "rpm",
+  "name": "rpm",
+  "category": "package-management",
+  "subcategory": "RHEL",
+  "difficulty": "intermediate",
+  "description": "The low-level RPM package tool: installs .rpm files, queries the package database, and verifies installed files — no dependency resolution.",
+  "syntax": "rpm [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-i FILE.rpm",
+      "description": "-Uvh: install / upgrade a local .rpm with progress."
+    },
+    {
+      "flag": "-q PKG",
+      "description": "Query: is the package installed, and what version?"
+    },
+    {
+      "flag": "-ql PKG",
+      "description": "List the files a package installed."
+    },
+    {
+      "flag": "-qf FILE",
+      "description": "Which installed package owns this file?"
+    },
+    {
+      "flag": "-Va",
+      "description": "Verify all installed packages against their recorded metadata (sizes, checksums, permissions)."
+    },
+    {
+      "flag": "-e PKG",
+      "description": "Erase (remove) a package."
+    }
+  ],
+  "examples": [
+    {
+      "command": "rpm -q bash",
+      "output": "\nbash-5.1.8-9.el9.x86_64\n",
+      "explanation": "Shows the installed bash version."
+    },
+    {
+      "command": "rpm -ql nginx | head -5",
+      "output": "\n/etc/nginx\n/etc/nginx/nginx.conf\n/usr/sbin/nginx\n",
+      "explanation": "Lists the first files the nginx package placed on the system."
+    },
+    {
+      "command": "rpm -qf /usr/bin/curl",
+      "output": "\ncurl-7.76.1-31.el9.x86_64\n",
+      "explanation": "Reverse lookup: which package owns this binary."
+    },
+    {
+      "command": "rpm -Va | head",
+      "output": null,
+      "explanation": "Verifies system integrity — changed binaries or modified configs show up with flags (S=size, 5=checksum, T=mtime)."
+    }
+  ],
+  "related": [
+    "dnf",
+    "yum",
+    "dpkg"
+  ],
+  "tags": [
+    "rpm",
+    "packages",
+    "query",
+    "verify",
+    "rhel"
+  ],
+  "docs": "https://rpm.org/",
+  "about": [
+    "rpm relates to dnf/yum exactly as dpkg relates to apt: the low-level layer that installs and queries, while the high-level tool resolves dependencies and downloads. rpm -Va is a classic integrity check for suspect systems."
+  ],
+  "useCases": [
+    "Inspect and verify installed packages.",
+    "Install vendor-provided .rpm files.",
+    "Audit changed system files."
+  ],
+  "mistakes": [
+    "Using rpm -i for packages with dependencies — use dnf install ./file.rpm, which resolves them."
+  ],
+  "distroNotes": "All RPM-based distributions (Fedora, RHEL, openSUSE uses rpm too, but its front end is zypper)."
+}

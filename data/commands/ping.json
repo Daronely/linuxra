@@ -1,0 +1,77 @@
+{
+  "slug": "ping",
+  "name": "ping",
+  "category": "networking",
+  "subcategory": "Connectivity testing",
+  "difficulty": "beginner",
+  "description": "Sends ICMP echo requests to a host and measures round-trip time and packet loss — the first tool for \"is it reachable?\".",
+  "syntax": "ping [OPTIONS] HOST",
+  "flags": [
+    {
+      "flag": "-c N",
+      "description": "Stop after N packets (otherwise ping runs forever — Ctrl+C to stop)."
+    },
+    {
+      "flag": "-i SECS",
+      "description": "Interval between packets (default 1s; sub-second needs root)."
+    },
+    {
+      "flag": "-4 / -6",
+      "description": "Force IPv4 / IPv6."
+    },
+    {
+      "flag": "-I IFACE",
+      "description": "Send via a specific interface or source IP."
+    },
+    {
+      "flag": "-s SIZE",
+      "description": "Packet size in bytes (default 56 + 28 header = 84 on the wire)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ping -c 4 google.com",
+      "output": "\nPING google.com (142.250.74.142) 56(84) bytes of data.\n64 bytes from ...: icmp_seq=1 ttl=118 time=8.42 ms\n--- google.com ping statistics ---\n4 packets transmitted, 4 received, 0% packet loss\n",
+      "explanation": "Four probes with summary: 0% loss, ~8 ms round trip. This proves DNS, routing, AND the remote host all work."
+    },
+    {
+      "command": "ping -c 3 192.168.1.1",
+      "output": null,
+      "explanation": "Pings the local gateway by IP — if this fails but the cable/link is fine, the problem is local."
+    },
+    {
+      "command": "ping -c 3 8.8.8.8",
+      "output": null,
+      "explanation": "If this works but domain names fail, the problem is DNS, not connectivity."
+    }
+  ],
+  "related": [
+    "traceroute",
+    "mtr",
+    "ip",
+    "dig"
+  ],
+  "tags": [
+    "ping",
+    "connectivity",
+    "icmp",
+    "latency",
+    "diagnose"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/ping.8.html",
+  "about": [
+    "The ping diagnostic ladder: 1) ping 127.0.0.1 (your TCP/IP stack), 2) ping your gateway (local network), 3) ping a public IP like 8.8.8.8 (internet routing), 4) ping a domain (DNS). Where it first fails tells you where the problem is. Many servers block ICMP for security, so a failed ping does not always mean the host is down."
+  ],
+  "useCases": [
+    "Basic reachability checks.",
+    "Measuring latency and jitter.",
+    "Isolating local vs DNS vs routing problems."
+  ],
+  "mistakes": [
+    "Concluding \"server down\" from a failed ping when ICMP is merely firewalled — test the actual service port instead.",
+    "Letting an unbounded ping run in scripts; always use -c."
+  ],
+  "warnings": [
+    "Continuous ping without -c generates endless traffic; in scripts always bound it."
+  ]
+}

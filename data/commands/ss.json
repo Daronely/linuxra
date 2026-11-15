@@ -1,0 +1,83 @@
+{
+  "slug": "ss",
+  "name": "ss",
+  "category": "networking",
+  "subcategory": "Port inspection",
+  "difficulty": "intermediate",
+  "description": "Socket statistics: shows listening ports, established connections, and their processes — the modern replacement for netstat.",
+  "syntax": "ss [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-t",
+      "description": "-tcp: TCP sockets. Add -u for UDP."
+    },
+    {
+      "flag": "-l",
+      "description": "Listening sockets only."
+    },
+    {
+      "flag": "-n",
+      "description": "Numeric ports and addresses (no name resolution — faster)."
+    },
+    {
+      "flag": "-p",
+      "description": "Show the process owning each socket (needs root for other users' sockets)."
+    },
+    {
+      "flag": "-a",
+      "description": "All sockets including non-listening."
+    },
+    {
+      "flag": "-s",
+      "description": "Summary statistics."
+    },
+    {
+      "flag": "state established",
+      "description": "Filter by socket state."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ss -tulpn",
+      "output": "\nNetid State  Local Address:Port   Process\ntcp   LISTEN 0.0.0.0:22           sshd\nudp   LISTEN 127.0.0.53:53         systemd-resolved\ntcp   LISTEN 0.0.0.0:80           nginx\n",
+      "explanation": "THE command for \"what is listening on my server\": all TCP+UDP listening sockets with owning processes. 0.0.0.0 means exposed on all interfaces."
+    },
+    {
+      "command": "ss -tn state established",
+      "output": "\nRecv-Q Send-Q Local Address:Port  Peer Address:Port\n0      0      192.168.1.20:22    203.0.113.7:51922\n",
+      "explanation": "Currently established TCP connections — who is connected to your services right now."
+    },
+    {
+      "command": "ss -tn 'sport = :443'",
+      "output": null,
+      "explanation": "Filters connections with local (server) port 443 — live HTTPS traffic."
+    }
+  ],
+  "related": [
+    "netstat",
+    "lsof",
+    "ip",
+    "nmap"
+  ],
+  "tags": [
+    "ports",
+    "sockets",
+    "listening",
+    "connections",
+    "audit"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/ss.8.html",
+  "about": [
+    "ss reads kernel socket state directly via netlink, making it faster and more detailed than netstat: it can filter by state, port, and even show socket memory queues (Recv-Q/Send-Q). A full Recv-Q means the application is not reading fast enough."
+  ],
+  "useCases": [
+    "Audit which services are exposed.",
+    "Map ports to processes.",
+    "Diagnose connection states during incidents."
+  ],
+  "mistakes": [
+    "Using netstat in new work — ss is maintained and faster.",
+    "Forgetting -n and waiting on slow reverse DNS lookups."
+  ],
+  "distroNotes": "iproute2, standard on all modern distributions. BSD variants have different syntax."
+}

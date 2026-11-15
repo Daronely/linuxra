@@ -1,0 +1,1232 @@
+[
+  {
+    "id": "file-directory",
+    "num": "01",
+    "name": "File & Directory Management",
+    "icon": "folder",
+    "color": "cyan",
+    "short": "Create, copy, move, find, and inspect files and directories.",
+    "intro": [
+      "Everything on Linux is a file, and file management is the foundation of all command-line work. These commands create, navigate, copy, move, search, and inspect files and directories.",
+      "Two ideas power this category: the filesystem tree (absolute paths start at /, relative paths start where you are) and inodes (the data structures that store file metadata and content locations). Understanding both turns the commands below from memorized incantations into tools you can reason about."
+    ],
+    "concepts": [
+      {
+        "title": "File paths: absolute vs relative",
+        "body": "An absolute path starts with / (e.g. /home/user/notes.txt) and works from anywhere. A relative path (e.g. ../docs, ./src) is resolved from your current directory, shown by pwd. The shorthand ~ means your home directory, .. means the parent, . means the current directory. In scripts, prefer absolute paths or anchor them yourself — relative paths break when the script is called from a different directory."
+      },
+      {
+        "title": "Hidden files",
+        "body": "Files whose names start with a dot (.bashrc, .gitignore) are hidden from normal ls output. They are not special to the kernel — it is a userland convention. Show them with ls -a. Configuration lives in hidden \"dotfiles\" in your home directory."
+      },
+      {
+        "title": "Symbolic vs hard links",
+        "body": "A hard link is a second directory entry pointing to the same inode: identical data, no extra space, cannot cross filesystems or link directories. A symbolic link (ln -s) is a tiny file containing a path: it can cross filesystems and point to directories, but breaks (dangles) if its target is deleted. Use symlinks for structure, hard links for deduplication."
+      },
+      {
+        "title": "Archives and compression",
+        "body": "Archiving (tar) bundles many files into one; compression (gzip, xz, zstd) shrinks data. The common .tar.gz/.tar.xz files are both steps at once. See the dedicated Archive & Compression category for the full toolbox."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Listing files",
+        "commands": [
+          "ls"
+        ]
+      },
+      {
+        "name": "File paths",
+        "commands": [
+          "cd",
+          "pwd"
+        ]
+      },
+      {
+        "name": "Creating directories",
+        "commands": [
+          "mkdir"
+        ]
+      },
+      {
+        "name": "Creating files",
+        "commands": [
+          "touch"
+        ]
+      },
+      {
+        "name": "Copying files",
+        "commands": [
+          "cp"
+        ]
+      },
+      {
+        "name": "Moving files",
+        "commands": [
+          "mv"
+        ]
+      },
+      {
+        "name": "Deleting files",
+        "commands": [
+          "rm",
+          "rmdir"
+        ]
+      },
+      {
+        "name": "Symbolic links",
+        "commands": [
+          "ln"
+        ]
+      },
+      {
+        "name": "Finding files",
+        "commands": [
+          "find",
+          "locate"
+        ]
+      },
+      {
+        "name": "File metadata",
+        "commands": [
+          "stat",
+          "file"
+        ]
+      },
+      {
+        "name": "Disk usage",
+        "commands": [
+          "du",
+          "df"
+        ]
+      },
+      {
+        "name": "File comparison",
+        "commands": [
+          "diff"
+        ]
+      }
+    ],
+    "commandCount": 17
+  },
+  {
+    "id": "text-processing",
+    "num": "02",
+    "name": "File Reading & Text Processing",
+    "icon": "terminal",
+    "color": "purple",
+    "short": "Read, search, filter, transform, and analyze text like a professional.",
+    "intro": [
+      "Unix was built on the philosophy: write programs that do one thing well, and connect them with pipes. Text is the universal interface, and this category contains the tools that make that philosophy work.",
+      "The core pattern is a pipeline: cat file | grep pattern | sort | uniq -c. Each command transforms a stream of text and hands it to the next. Master grep, sed, awk, and sort, and you can answer questions about any text file — logs, CSVs, configuration — without opening an editor."
+    ],
+    "concepts": [
+      {
+        "title": "Pipes and redirection",
+        "body": "The pipe | sends one command's stdout to the next command's stdin. Redirection sends it to a file instead: > creates/overwrites, >> appends, 2> captures errors, 2>&1 merges errors into normal output, < reads a file into stdin. These operators work with every command in this category."
+      },
+      {
+        "title": "Regular expressions",
+        "body": "Regex is the search language of grep, sed, and awk. Basics: . any character, * zero or more of the previous, ^ and $ anchor to line start/end, [abc] a character class, \\ escapes special characters. grep -E enables extended syntax (+, ?, |, groups). Test expressions interactively with echo \"text\" | grep \"pattern\" before aiming them at files."
+      },
+      {
+        "title": "Choosing the right tool",
+        "body": "grep filters lines, sed transforms them, awk understands fields and computes, sort/uniq rank and deduplicate, cut slices columns, wc counts. When a task involves columns or arithmetic, reach for awk; simple substitution is sed; plain filtering is grep."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Reading files",
+        "commands": [
+          "cat",
+          "less",
+          "head",
+          "tail"
+        ]
+      },
+      {
+        "name": "Searching inside files",
+        "commands": [
+          "grep"
+        ]
+      },
+      {
+        "name": "Replacing text",
+        "commands": [
+          "sed",
+          "tr"
+        ]
+      },
+      {
+        "name": "Text streams",
+        "commands": [
+          "awk",
+          "tee",
+          "xargs"
+        ]
+      },
+      {
+        "name": "Extracting text",
+        "commands": [
+          "cut"
+        ]
+      },
+      {
+        "name": "Sorting",
+        "commands": [
+          "sort"
+        ]
+      },
+      {
+        "name": "Counting",
+        "commands": [
+          "uniq",
+          "wc"
+        ]
+      }
+    ],
+    "commandCount": 14
+  },
+  {
+    "id": "permissions",
+    "num": "03",
+    "name": "File Permissions & Ownership",
+    "icon": "lock",
+    "color": "red",
+    "short": "Understand and control who can read, write, and execute what.",
+    "intro": [
+      "Linux is a multi-user system: every file carries an owner, a group, and a permission set for each of the three, evaluated for every access. Getting permissions right is both a security requirement and the solution to half of all \"Permission denied\" mysteries.",
+      "The model: each file has three triads — owner (u), group (g), others (o) — each combining read (r=4), write (w=2), execute (x=1). 755 means owner-full, group-and-others read+execute. For directories, x means \"may enter\". Special bits (SUID, SGID, sticky) and ACLs extend the model for advanced needs."
+    ],
+    "concepts": [
+      {
+        "title": "SUID, SGID, and the sticky bit",
+        "body": "SUID (u+s, 4000) makes a program run with the owner's privileges — /usr/bin/passwd uses it so users can edit /etc/shadow. SGID (g+s, 2000) on a directory makes new files inherit the directory's group — the key to shared folders. The sticky bit (o+t, 1000) on a directory (like /tmp) lets users delete only their own files. These bits appear as s/S and t/T in ls -l output."
+      },
+      {
+        "title": "Permission troubleshooting",
+        "body": "When something fails with EACCES/Permission denied, check in order: 1) ls -l the file AND its parent directories (x on every ancestor is required), 2) who are you (id)? 3) is the owner/group right (chown)? 4) are ACLs involved (getfacl)? 5) is SELinux/AppArmor denying it (dmesg)? chmod 777 \"fixes\" symptoms and creates security holes — find the actual triad that needs the bit."
+      },
+      {
+        "title": "umask: default permissions",
+        "body": "New files start at 666 and directories at 777, minus the umask mask. The standard 022 yields 644/755. A stricter 077 yields 600/700. Set it per-shell in ~/.bashrc or per-service with systemd UMask=."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Understanding Linux permissions",
+        "commands": [
+          "chmod",
+          "chown",
+          "chgrp",
+          "umask"
+        ]
+      },
+      {
+        "name": "ACL permissions",
+        "commands": [
+          "getfacl"
+        ]
+      }
+    ],
+    "commandCount": 5
+  },
+  {
+    "id": "file-transfer",
+    "num": "04",
+    "name": "File Transfer & Synchronization",
+    "icon": "transfer",
+    "color": "cyan",
+    "short": "Move data between machines, securely and efficiently.",
+    "intro": [
+      "Moving data between machines is a daily task: deploying a website, pulling logs, backing up to another server. The tools here split into two families: SSH-based secure transfer (scp, sftp, rsync over ssh) and protocol clients (curl, wget) for the web.",
+      "The efficiency hierarchy: scp for quick one-off copies, rsync for anything repeated (it transfers only differences and resumes interrupted transfers), curl/wget for HTTP resources. Plain FTP is obsolete — its SFTP cousin runs over SSH and encrypts everything."
+    ],
+    "concepts": [
+      {
+        "title": "rsync vs scp",
+        "body": "scp copies whole files; rsync compares source and destination and transfers only changed blocks. For a 10 GB file that changed by 50 MB, rsync moves 50 MB over SSH; scp moves all 10 GB again. rsync also resumes (-P) and can mirror with --delete. Rule of thumb: one-off = scp, repeated = rsync."
+      },
+      {
+        "title": "Transfer safety",
+        "body": "Both scp and rsync --delete overwrite and remove destination data without recycling. Dry-run first: rsync -n shows exactly what would change. Quote remote paths with spaces, and verify the target host with ssh before the first transfer to it."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Secure copy",
+        "commands": [
+          "scp"
+        ]
+      },
+      {
+        "name": "Synchronization",
+        "commands": [
+          "rsync"
+        ]
+      },
+      {
+        "name": "Network file transfer",
+        "commands": [
+          "curl",
+          "wget"
+        ]
+      },
+      {
+        "name": "FTP and SFTP",
+        "commands": [
+          "sftp"
+        ]
+      }
+    ],
+    "commandCount": 5
+  },
+  {
+    "id": "users-groups",
+    "num": "05",
+    "name": "User & Group Management",
+    "icon": "users",
+    "color": "purple",
+    "short": "Create accounts, manage groups, and control who can do what.",
+    "intro": [
+      "Linux separates identity (who you are: UID), privileges (what you may do: groups, sudo), and authentication (your password, in /etc/shadow). Every process runs as some user; every file belongs to one. User management is therefore system management.",
+      "Accounts live in /etc/passwd (public info), /etc/shadow (password hashes), and /etc/group (memberships). The sudo group (Debian family) or wheel group (RHEL family) grants administrative rights. Service accounts (www-data, postgres) run daemons with minimal privileges — the principle of least privilege in action."
+    ],
+    "concepts": [
+      {
+        "title": "su vs sudo",
+        "body": "su switches you to another user (you need THEIR password); sudo runs one command as root (you need YOUR password, and the sudoers policy must allow it). sudo is preferred on servers: per-command logging, no shared root password, and revocable per-user/per-command grants in /etc/sudoers."
+      },
+      {
+        "title": "Groups as roles",
+        "body": "Rather than editing permissions per user, put users in groups and grant the group access: groupadd developers, usermod -aG developers alice, chgrp -R developers /srv/project, chmod -R g+rX /srv/project. The SGID bit on shared directories keeps new files group-owned."
+      },
+      {
+        "title": "Login sessions",
+        "body": "who shows current sessions (from /var/run/utmp), last shows history (from /var/log/wtmp), and w adds what each session is doing. Before rebooting or killing processes on a shared server, look who is on it."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Creating users",
+        "commands": [
+          "useradd"
+        ]
+      },
+      {
+        "name": "Modifying users",
+        "commands": [
+          "usermod"
+        ]
+      },
+      {
+        "name": "Deleting users",
+        "commands": [
+          "userdel"
+        ]
+      },
+      {
+        "name": "Password management",
+        "commands": [
+          "passwd"
+        ]
+      },
+      {
+        "name": "User identity",
+        "commands": [
+          "id",
+          "whoami"
+        ]
+      },
+      {
+        "name": "Login sessions",
+        "commands": [
+          "who"
+        ]
+      },
+      {
+        "name": "Switching users",
+        "commands": [
+          "su",
+          "sudo"
+        ]
+      },
+      {
+        "name": "Managing groups",
+        "commands": [
+          "groupadd"
+        ]
+      }
+    ],
+    "commandCount": 10
+  },
+  {
+    "id": "processes",
+    "num": "06",
+    "name": "Process Management",
+    "icon": "cpu",
+    "color": "cyan",
+    "short": "See, control, and terminate running programs.",
+    "intro": [
+      "Every running program is a process with a PID, an owner, resource usage, and a state. The kernel schedules them; you inspect and steer them. This category covers the full lifecycle: listing (ps), monitoring (top, htop), finding (pgrep), signaling (kill, pkill), prioritizing (nice), and backgrounding (jobs, nohup).",
+      "The mental model: processes form a tree rooted at PID 1 (systemd). Killing a parent does not necessarily kill children; zombies are dead processes awaiting reaping; the D state means uninterruptible I/O. Signals are the control channel — SIGTERM asks politely, SIGKILL does not ask."
+    ],
+    "concepts": [
+      {
+        "title": "Signals that matter",
+        "body": "SIGTERM (15): graceful shutdown request — the default of kill. SIGKILL (9): immediate, uncatchable, no cleanup — last resort. SIGHUP (1): conventionally \"reload configuration\". SIGINT (2): what Ctrl+C sends. SIGSTOP/SIGCONT: pause and resume. Escalate gradually: TERM, wait, then KILL."
+      },
+      {
+        "title": "Reading memory numbers",
+        "body": "In top/free, \"free\" RAM is nearly always low on healthy Linux systems — unused RAM is cache. The number that matters is \"available\". Constant heavy swap-in/out (si/so in vmstat) is the real memory pressure signal."
+      },
+      {
+        "title": "Background jobs",
+        "body": "command & runs it in the background; Ctrl+Z suspends the foreground job; bg resumes it in the background; fg brings it back. Jobs die with the terminal unless protected by nohup or disown. For real services, use systemd units instead."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Listing processes",
+        "commands": [
+          "ps"
+        ]
+      },
+      {
+        "name": "Process monitoring",
+        "commands": [
+          "top",
+          "htop"
+        ]
+      },
+      {
+        "name": "Finding processes",
+        "commands": [
+          "pgrep"
+        ]
+      },
+      {
+        "name": "Killing processes",
+        "commands": [
+          "pkill",
+          "killall"
+        ]
+      },
+      {
+        "name": "Signals",
+        "commands": [
+          "kill"
+        ]
+      },
+      {
+        "name": "Process priorities",
+        "commands": [
+          "nice"
+        ]
+      },
+      {
+        "name": "Background processes",
+        "commands": [
+          "jobs",
+          "nohup"
+        ]
+      }
+    ],
+    "commandCount": 10
+  },
+  {
+    "id": "package-management",
+    "num": "07",
+    "name": "Package Management",
+    "icon": "package",
+    "color": "purple",
+    "short": "Install, update, and remove software on every major distribution family.",
+    "intro": [
+      "Linux distributions deliver software as packages with metadata, dependencies, and cryptographic signatures. Each family has its own stack, and knowing which one your system uses is the first step of any install.",
+      "The three big families: Debian/Ubuntu use apt on top of dpkg (.deb files); Fedora/RHEL-family use dnf (formerly yum) on top of rpm; Arch uses pacman with the AUR community repository; openSUSE uses zypper. Cross-distribution formats — Flatpak, Snap, AppImage — bundle applications with their own runtimes and work everywhere."
+    ],
+    "concepts": [
+      {
+        "title": "Which package manager where?",
+        "body": "Debian, Ubuntu, Mint, Kali, Raspberry Pi OS → apt. Fedora, RHEL 8+, CentOS Stream, Rocky, AlmaLinux → dnf (yum is an alias). RHEL/CentOS 7 → yum. Arch, Manjaro → pacman (+ yay for AUR). openSUSE, SLES → zypper. Universal desktop apps → flatpak, snap."
+      },
+      {
+        "title": "Low-level vs high-level",
+        "body": "dpkg and rpm install individual package files but do not resolve dependencies or download anything. apt, dnf, and zypper sit on top: they resolve, download, verify, and order everything. Use the high-level tool for repositories, the low-level one for local files and inspection."
+      },
+      {
+        "title": "Repositories",
+        "body": "Package sources are configured per-family: /etc/apt/sources.list and sources.list.d/ (Debian), .repo files in /etc/yum.repos.d/ (RHEL), /etc/pacman.conf + mirrors (Arch). Third-party repositories extend software choice but shift trust to their maintainers — add them deliberately."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Debian and Ubuntu",
+        "commands": [
+          "apt",
+          "apt-get",
+          "dpkg"
+        ]
+      },
+      {
+        "name": "Fedora",
+        "commands": [
+          "dnf",
+          "flatpak"
+        ]
+      },
+      {
+        "name": "RHEL",
+        "commands": [
+          "yum",
+          "rpm"
+        ]
+      },
+      {
+        "name": "Arch Linux",
+        "commands": [
+          "pacman"
+        ]
+      },
+      {
+        "name": "openSUSE",
+        "commands": [
+          "zypper"
+        ]
+      }
+    ],
+    "commandCount": 9
+  },
+  {
+    "id": "networking",
+    "num": "08",
+    "name": "Networking",
+    "icon": "globe",
+    "color": "cyan",
+    "short": "Interfaces, addresses, DNS, routing, ports, and diagnostics.",
+    "intro": [
+      "Network troubleshooting on Linux follows a layered path: link (is the interface up?), address (do I have an IP?), route (is there a gateway?), DNS (do names resolve?), service (is the port open?). Each command here targets one layer, and together they pinpoint any failure.",
+      "The modern toolkit is iproute2: ip for interfaces/addresses/routes, ss for sockets. The older net-tools (ifconfig, netstat) still exists for compatibility. DNS tools (dig, nslookup) test resolution independently of connectivity, and ping/traceroute/mtr test the path between."
+    ],
+    "concepts": [
+      {
+        "title": "The diagnostic ladder",
+        "body": "1) ip a — do I have an address? 2) ip r — is there a default gateway? 3) ping gateway — is the local network alive? 4) ping 8.8.8.8 — does routing to the internet work? 5) dig example.com — does DNS work? 6) nc -zv host 443 — is the actual service reachable? The first failing step is your problem layer."
+      },
+      {
+        "title": "Ports and sockets",
+        "body": "A listening socket (ss -tulpn) is a service waiting for connections: 0.0.0.0:22 means SSH accepts from all interfaces, 127.0.0.1:5432 means PostgreSQL accepts only local connections. Established connections show who is currently talking to you. \"Connection refused\" means reachable host, closed port; \"timeout\" usually means a firewall dropped the packet."
+      },
+      {
+        "title": "DNS resolution",
+        "body": "The resolver chain: applications ask systemd-resolved (127.0.0.53) or glibc, which consults /etc/resolv.conf and /etc/hosts. dig @8.8.8.8 bypasses your resolver to test upstream directly — if the direct query works but the system one fails, the problem is your resolver configuration."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Network interfaces",
+        "commands": [
+          "ip",
+          "ifconfig"
+        ]
+      },
+      {
+        "name": "Connectivity testing",
+        "commands": [
+          "ping",
+          "traceroute",
+          "mtr"
+        ]
+      },
+      {
+        "name": "Port inspection",
+        "commands": [
+          "ss",
+          "nc",
+          "nmap"
+        ]
+      },
+      {
+        "name": "Network connections",
+        "commands": [
+          "netstat"
+        ]
+      },
+      {
+        "name": "DNS",
+        "commands": [
+          "dig",
+          "nslookup",
+          "hostname"
+        ]
+      }
+    ],
+    "commandCount": 12
+  },
+  {
+    "id": "system-info",
+    "num": "09",
+    "name": "System Information",
+    "icon": "info",
+    "color": "purple",
+    "short": "Know exactly what machine you are on: kernel, CPU, RAM, hardware.",
+    "intro": [
+      "Before tuning, updating, or debugging, you need facts: which kernel is running, how many real cores exist, how much memory is actually available, what hardware is detected. This category is your inventory toolkit.",
+      "The commands are all read-only and safe: uname (kernel), hostnamectl (OS + virtualization), lscpu (CPU topology), free (memory), lsblk (disks), lspci (PCI devices), dmidecode (firmware-level details). They answer \"what am I working with?\" in seconds."
+    ],
+    "concepts": [
+      {
+        "title": "Kernel vs distribution version",
+        "body": "uname -r shows the kernel (6.8.0-45-generic); cat /etc/os-release shows the distribution (Ubuntu 24.04.1 LTS). They update independently: a kernel update requires a reboot to take effect, a distro upgrade does not. Support requests usually want both."
+      },
+      {
+        "title": "Cores vs threads",
+        "body": "lscpu reports both CPU(s) (logical, e.g. 8) and Core(s) per socket x Socket(s) (physical, e.g. 4). With hyperthreading/SMT, logical = 2x physical. Performance planning should use physical core counts for CPU-bound workloads."
+      },
+      {
+        "title": "Reading memory correctly",
+        "body": "free -h shows total, used, free, buff/cache, and available. Linux caches aggressively: low \"free\" is normal. \"Available\" is the realistic headroom for applications. Swap used with high available memory is also fine — old pages were moved out once and never needed again."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Kernel information",
+        "commands": [
+          "uname"
+        ]
+      },
+      {
+        "name": "Distribution information",
+        "commands": [
+          "hostnamectl"
+        ]
+      },
+      {
+        "name": "CPU information",
+        "commands": [
+          "lscpu"
+        ]
+      },
+      {
+        "name": "Hardware information",
+        "commands": [
+          "lsblk",
+          "lspci",
+          "dmidecode"
+        ]
+      },
+      {
+        "name": "RAM information",
+        "commands": [
+          "free"
+        ]
+      },
+      {
+        "name": "Uptime",
+        "commands": [
+          "uptime"
+        ]
+      }
+    ],
+    "commandCount": 8
+  },
+  {
+    "id": "disk-storage",
+    "num": "10",
+    "name": "Disk & Storage Management",
+    "icon": "disk",
+    "color": "red",
+    "short": "Partition, format, mount, and monitor storage devices.",
+    "intro": [
+      "Storage work has a strict order: identify the disk (lsblk), partition it (fdisk/parted), create a filesystem (mkfs), mount it (mount), and make it permanent (/etc/fstab). Each step is safe on the right device and destructive on the wrong one.",
+      "The golden rule of storage: verify the device name with lsblk before every write operation. Disks can be sda, sdb, nvme0n1, and their names can change between boots — which is why /etc/fstab references UUIDs (from blkid), not device names."
+    ],
+    "concepts": [
+      {
+        "title": "The mounting model",
+        "body": "Linux has no drive letters: a filesystem is attached (mounted) at a directory and its contents appear there. /mnt and /media are conventional mount points. Everything currently mounted is visible in mount or findmnt. Unmount (umount) before removing devices — buffered writes need flushing."
+      },
+      {
+        "title": "Filesystem choices",
+        "body": "ext4: the reliable universal default. XFS: excellent for large files and parallel I/O, RHEL default, cannot shrink. Btrfs: snapshots, checksums, compression (openSUSE default). FAT32/exFAT: for cross-device USB media. Journals make ext4/xfs crash-safe, which is why manual fsck is rare."
+      },
+      {
+        "title": "Swap",
+        "body": "Swap is disk used as overflow RAM. Create it as a partition or a file (fallocate, mkswap, swapon) and enable permanently in /etc/fstab. The vm.swappiness sysctl tunes how eagerly the kernel uses it. Watch swap IN/OUT activity (vmstat), not just usage — usage alone is harmless."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Storage inspection",
+        "commands": [
+          "blkid"
+        ]
+      },
+      {
+        "name": "Disk partitions",
+        "commands": [
+          "fdisk",
+          "parted"
+        ]
+      },
+      {
+        "name": "Mounting",
+        "commands": [
+          "mount"
+        ]
+      },
+      {
+        "name": "Unmounting",
+        "commands": [
+          "umount"
+        ]
+      },
+      {
+        "name": "Filesystems",
+        "commands": [
+          "mkfs",
+          "fsck"
+        ]
+      },
+      {
+        "name": "Swap",
+        "commands": [
+          "swapon"
+        ]
+      },
+      {
+        "name": "Disk health",
+        "commands": [
+          "smartctl"
+        ]
+      }
+    ],
+    "commandCount": 9
+  },
+  {
+    "id": "services-systemd",
+    "num": "11",
+    "name": "Services & Systemd",
+    "icon": "server",
+    "color": "purple",
+    "short": "Control services, targets, timers, and boot behavior with systemd.",
+    "intro": [
+      "systemd is PID 1 on all major distributions: it boots the system and then supervises services as units. systemctl is its control interface, journalctl its log interface. Together they replaced the init.d script era with a uniform, dependency-aware service model.",
+      "The core distinction: start/stop control the present, enable/disable control the future (boot). A service can be running but disabled, or enabled but stopped. enable --now does both — the modern idiom for setting up a new service."
+    ],
+    "concepts": [
+      {
+        "title": "Unit files",
+        "body": "Services are defined in .service files under /usr/lib/systemd/system/ (packaged) and /etc/systemd/system/ (yours). After editing one, run systemctl daemon-reload, then restart the service. Unit files declare dependencies (After=, Requires=), restart policy (Restart=on-failure), security sandboxing (ProtectSystem=, PrivateTmp=), and resource limits (LimitNOFILE=)."
+      },
+      {
+        "title": "Targets",
+        "body": "Targets are groups of units that boot brings up: multi-user.target is the text-mode \"runlevel 3\", graphical.target adds the display manager. systemctl isolate rescue.target drops to single-user mode for maintenance; systemctl get-default shows the boot target."
+      },
+      {
+        "title": "Timers",
+        "body": "systemd timers (.timer units) are the modern replacement for cron: they log to the journal, respect dependencies, and can catch up on missed runs (Persistent=true). systemctl list-timers shows what is scheduled and when it last/next ran."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Managing services",
+        "commands": [
+          "systemctl",
+          "service"
+        ]
+      },
+      {
+        "name": "Service logs",
+        "commands": [
+          "journalctl"
+        ]
+      },
+      {
+        "name": "System targets",
+        "commands": [
+          "timedatectl"
+        ]
+      }
+    ],
+    "commandCount": 4
+  },
+  {
+    "id": "logs-troubleshooting",
+    "num": "12",
+    "name": "Logs & Troubleshooting",
+    "icon": "search",
+    "color": "cyan",
+    "short": "Find out what actually happened: system, kernel, and application logs.",
+    "intro": [
+      "When something breaks, the logs know. Modern Linux centralizes logs in the systemd journal (journalctl), while the kernel keeps its own ring buffer (dmesg). Traditional plain-text logs in /var/log (syslog, auth.log) still exist in parallel on most distributions.",
+      "A disciplined approach beats log-diving: define the symptom, find the time window, then filter by unit, priority, and boot. journalctl --since \"1 hour ago\" -p err is the single most useful starting query on any systemd system."
+    ],
+    "concepts": [
+      {
+        "title": "Where logs live",
+        "body": "The journal: /var/log/journal/ (persistent) or /run/log/journal/ (volatile — check which yours is!). Traditional files: /var/log/syslog or /var/log/messages (general), /var/log/auth.log or /var/log/secure (authentication), /var/log/kern.log (kernel), /var/log/nginx/ and friends (applications)."
+      },
+      {
+        "title": "Reading a crash",
+        "body": "After an unexpected reboot: journalctl -b -1 -p err shows the previous boot's errors; journalctl -b -1 -e shows its final moments; dmesg -T catches kernel-level causes (OOM kills, disk errors, hardware faults). The combination identifies most root causes in minutes."
+      },
+      {
+        "title": "Log hygiene",
+        "body": "Logs grow forever unless rotated. journald caps itself (SystemMaxUse= in journald.conf, or --vacuum-size); text logs rotate via logrotate. Never delete logs you may need for audits — archive and compress instead."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Kernel logs",
+        "commands": [
+          "dmesg"
+        ]
+      },
+      {
+        "name": "Application logs",
+        "commands": [
+          "logger"
+        ]
+      }
+    ],
+    "commandCount": 2
+  },
+  {
+    "id": "shell-terminal",
+    "num": "13",
+    "name": "Shell & Terminal",
+    "icon": "terminal",
+    "color": "purple",
+    "short": "Master bash itself: variables, quoting, pipes, history, scripting.",
+    "intro": [
+      "The shell is the program that reads your commands — and a full programming language. Understanding it separately from the commands it runs is what separates users from power users.",
+      "Key mechanics: variables exist in the shell (export shares them with child processes), quoting controls expansion (double quotes expand $VARS, single quotes do not), pipes and redirection wire commands together, and the process exit code ($?, 0 = success) lets scripts react to results."
+    ],
+    "concepts": [
+      {
+        "title": "Quoting rules",
+        "body": "Double quotes: variables and command substitution expand, spaces are preserved. Single quotes: everything is literal. No quotes: word splitting and glob expansion apply — the source of most quoting bugs. Rule of thumb: quote everything, drop quotes only deliberately."
+      },
+      {
+        "title": "Exit codes and chaining",
+        "body": "Every command returns 0 (success) or nonzero (failure). && runs the next command only on success (apt update && apt upgrade); || runs it only on failure; ; always runs. Scripts should check: command || { echo \"failed\"; exit 1; }. set -e makes scripts exit on the first error."
+      },
+      {
+        "title": "Scripting essentials",
+        "body": "A script starts with #!/bin/bash (the shebang). Make it executable (chmod +x) and run it with ./script.sh. Core constructs: if [ -f file ]; then ... fi, for f in *.txt; do ... done, while read -r line; do ... done < file. Always quote variables (\"$f\") and prefer shellcheck to catch bugs before runtime."
+      },
+      {
+        "title": "History mastery",
+        "body": "Ctrl+R searches history interactively; !! repeats the last command (sudo !!); !string repeats the last command starting with string; Alt+. inserts the last argument. Tune HISTSIZE and HISTCONTROL in ~/.bashrc. History is a file (~/.bash_history) — treat it as non-private."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Bash basics",
+        "commands": [
+          "echo",
+          "printf"
+        ]
+      },
+      {
+        "name": "Environment variables",
+        "commands": [
+          "export",
+          "env",
+          "printenv"
+        ]
+      },
+      {
+        "name": "Aliases",
+        "commands": [
+          "alias"
+        ]
+      },
+      {
+        "name": "History",
+        "commands": [
+          "history"
+        ]
+      },
+      {
+        "name": "Shell scripting",
+        "commands": [
+          "source"
+        ]
+      },
+      {
+        "name": "Command lookup",
+        "commands": [
+          "type",
+          "which"
+        ]
+      }
+    ],
+    "commandCount": 10
+  },
+  {
+    "id": "archive-compression",
+    "num": "14",
+    "name": "Archive & Compression",
+    "icon": "archive",
+    "color": "cyan",
+    "short": "Bundle and shrink data: tar, zip, gzip, xz, 7z.",
+    "intro": [
+      "Archiving bundles many files into one stream; compression shrinks it. The two are separate steps that tradition fuses into compound formats: .tar.gz, .tar.bz2, .tar.xz, .tar.zst.",
+      "Choosing a format: tar.gz for universal compatibility and speed; tar.xz for minimum size; zip for Windows/macOS recipients; 7z for strong AES-256 encryption; zstd (increasingly common) for near-instant compression at good ratios."
+    ],
+    "concepts": [
+      {
+        "title": "The tar mnemonic",
+        "body": "c = create, x = extract, t = list. f = filename (always last or standalone), v = verbose, z/j/J = gzip/bzip2/xz filters. So: tar -czf out.tar.gz dir/ creates, tar -xzf out.tar.gz extracts, tar -tzf out.tar.gz lists. Modern tar auto-detects compression on extract — tar -xf anything.tar.* works."
+      },
+      {
+        "title": "Archive safety",
+        "body": "Unknown archives can contain path traversal (../../) or absolute paths. List before extracting (tar -t, unzip -l), avoid extracting as root, and prefer extracting into a fresh directory with tar -xzf archive.tar.gz -C newdir."
+      },
+      {
+        "title": "Encryption in archives",
+        "body": "zip's classic password protection (ZipCrypto) is weak. For confidentiality use 7z with AES-256 (-p -mhe=on to also hide filenames) or encrypt the archive afterwards with gpg -c. Passwords typed on the command line leak into shell history — prefer the interactive prompt."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "TAR",
+        "commands": [
+          "tar"
+        ]
+      },
+      {
+        "name": "ZIP",
+        "commands": [
+          "zip",
+          "unzip"
+        ]
+      },
+      {
+        "name": "GZIP",
+        "commands": [
+          "gzip"
+        ]
+      },
+      {
+        "name": "BZIP2",
+        "commands": [
+          "bzip2"
+        ]
+      },
+      {
+        "name": "XZ",
+        "commands": [
+          "xz"
+        ]
+      },
+      {
+        "name": "7-Zip",
+        "commands": [
+          "7z"
+        ]
+      }
+    ],
+    "commandCount": 7
+  },
+  {
+    "id": "security-firewall",
+    "num": "15",
+    "name": "Security & Firewall",
+    "icon": "shield",
+    "color": "red",
+    "short": "Firewalls, SSH hardening, encryption, and integrity.",
+    "intro": [
+      "Server security has a few high-leverage practices: deny-by-default firewall, key-only SSH, minimal exposed ports, and verified software. The commands here implement each one.",
+      "The firewall stack has three generations: iptables (classic), nftables (modern kernel interface), and friendly front ends — ufw (Debian family) and firewalld/firewall-cmd (RHEL family). They all configure the same kernel filtering; pick one front end per system and stick to it."
+    ],
+    "concepts": [
+      {
+        "title": "SSH hardening in /etc/ssh/sshd_config",
+        "body": "The high-impact settings: PasswordAuthentication no (keys only), PermitRootLogin no, AllowUsers explicit list, Port 2222 (reduces bot noise, not real security), MaxAuthTries 3. Restart with systemctl restart sshd and ALWAYS keep your current session open while testing the new one."
+      },
+      {
+        "title": "Firewall ordering and lockout",
+        "body": "Enable rules in the safe order: allow SSH first, then enable the firewall. On cloud servers, remember the provider's security group filters traffic before your host firewall — both layers must agree. Keep the provider console ready whenever editing remote firewall rules."
+      },
+      {
+        "title": "File integrity",
+        "body": "Package databases record checksums: rpm -Va verifies an RPM system, debsums (optional package) verifies Debian systems. For custom integrity monitoring, sha256sum baselines plus periodic comparison catch changes. AIDE is the classic dedicated tool."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Firewall management",
+        "commands": [
+          "ufw",
+          "firewall-cmd",
+          "iptables"
+        ]
+      },
+      {
+        "name": "Encryption",
+        "commands": [
+          "gpg"
+        ]
+      },
+      {
+        "name": "Certificates",
+        "commands": [
+          "openssl"
+        ]
+      }
+    ],
+    "commandCount": 5
+  },
+  {
+    "id": "ssh-remote",
+    "num": "16",
+    "name": "SSH & Remote Administration",
+    "icon": "server",
+    "color": "purple",
+    "short": "Connect, authenticate, tunnel, and administer remote machines.",
+    "intro": [
+      "SSH is how Linux servers are administered: an encrypted channel providing terminals, file transfer, port forwarding, and agent forwarding. The commands (ssh, ssh-keygen, ssh-copy-id, scp) form a complete remote-access toolkit.",
+      "Key-based authentication is the standard: generate a key pair once (ssh-keygen -t ed25519), install the public half on servers (ssh-copy-id), and configure per-host details in ~/.ssh/config. Passphrases plus ssh-agent give you security without retyping."
+    ],
+    "concepts": [
+      {
+        "title": "The ~/.ssh/config file",
+        "body": "Per-host settings remove repetition: Host prod / HostName 203.0.113.10 / User deploy / Port 2222 / IdentityFile ~/.ssh/work_key / ProxyJump bastion. After that, ssh prod does everything. Config also applies to scp, rsync (via -e ssh), and git remotes."
+      },
+      {
+        "title": "Port forwarding",
+        "body": "Local (-L 5433:localhost:5432): reach a remote-only service through your machine — connect your DB client to localhost:5433. Remote (-R 8080:localhost:3000): expose your local dev server to the internet via your server. Dynamic (-D 1080): a SOCKS proxy for browsing through the server. All encrypted through the SSH channel."
+      },
+      {
+        "title": "Jumps and agents",
+        "body": "For multi-hop access, -J bastion chains connections in one command (or ProxyJump in config). ssh-agent holds unlocked keys per session; agent forwarding (-A) lets you hop further WITHOUT placing your private key on intermediate machines — the safe pattern for bastion architectures."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Remote connections",
+        "commands": [
+          "ssh"
+        ]
+      },
+      {
+        "name": "SSH keys",
+        "commands": [
+          "ssh-keygen",
+          "ssh-copy-id"
+        ]
+      }
+    ],
+    "commandCount": 3
+  },
+  {
+    "id": "scheduling-automation",
+    "num": "17",
+    "name": "Scheduling & Automation",
+    "icon": "clock",
+    "color": "cyan",
+    "short": "Run work without being present: cron, at, and systemd timers.",
+    "intro": [
+      "Recurring work belongs to the scheduler, not to a human remembering to run it. Cron handles recurring jobs (every user has a crontab), at schedules one-time jobs, and systemd timers are the modern, logged, dependency-aware alternative.",
+      "The two classic cron pitfalls are both environmental: cron runs with a minimal PATH (use absolute paths everywhere) and its output goes to mail nobody reads (always redirect: >> /var/log/myjob.log 2>&1)."
+    ],
+    "concepts": [
+      {
+        "title": "Cron syntax",
+        "body": "Five fields then the command: minute (0-59) hour (0-23) day-of-month (1-31) month (1-12) day-of-week (0-7, 0 and 7 = Sunday). Shorthands: * every, */5 every 5th, 1-5 range, 1,3,5 list. Special strings: @daily (midnight), @hourly, @weekly, @reboot. Example: 0 3 * * 1-5 = weekdays at 03:00."
+      },
+      {
+        "title": "Cron vs systemd timers",
+        "body": "Cron: universal, simple, per-user. systemd timers: logged in the journal (journalctl -u myjob), can depend on network/time (Wants=network-online.target), catch up on missed runs (Persistent=true), and are managed with the same systemctl workflow as services. New infrastructure increasingly prefers timers."
+      },
+      {
+        "title": "Idempotency",
+        "body": "Scheduled jobs must tolerate being run twice and running at unexpected times: lock with flock (flock -n /tmp/backup.lock ./backup.sh), make steps re-runnable, and log outcomes. A job that assumes \"it only runs at 3am, so now is 3am\" will eventually corrupt data."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Cron",
+        "commands": [
+          "crontab"
+        ]
+      },
+      {
+        "name": "At jobs",
+        "commands": [
+          "at"
+        ]
+      }
+    ],
+    "commandCount": 2
+  },
+  {
+    "id": "dev-tools",
+    "num": "18",
+    "name": "Environment & Development Tools",
+    "icon": "code",
+    "color": "purple",
+    "short": "Compilers, build systems, Git, and debugging on Linux.",
+    "intro": [
+      "Linux is the native home of open-source development: the entire toolchain — compilers, build systems, debuggers, version control — is one package install away, and the whole stack is scriptable.",
+      "The classic C/C++ pipeline: gcc compiles, make orchestrates rebuilds from a Makefile, gdb debugs. Around it: git for version control, strace/lsof for runtime diagnosis, and pkg-config/cmake for managing library dependencies in larger projects."
+    ],
+    "concepts": [
+      {
+        "title": "The source build ritual",
+        "body": "Most software from source follows: ./configure (detects your system, generates the Makefile) → make -j$(nproc) (compiles) → sudo make install (installs to /usr/local). Missing development headers are the usual failure — install the -dev/-devel packages (libssl-dev, libxml2-devel)."
+      },
+      {
+        "title": "Debug vs release builds",
+        "body": "Debug: gcc -g -O0 — full symbols, no optimization, gdb shows real line numbers and variables. Release: -O2 (or -O3) — optimized, harder to debug. Always debug with the same compiler and flags that produced the binary you are debugging."
+      },
+      {
+        "title": "Runtime diagnosis",
+        "body": "When a program misbehaves: strace shows its system calls (which files it opens, what it connects to), lsof shows what it holds open, gdb -p attaches to a live process. This trio solves most \"what is this program actually doing?\" questions without source access."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Git",
+        "commands": [
+          "git"
+        ]
+      },
+      {
+        "name": "GCC",
+        "commands": [
+          "gcc"
+        ]
+      },
+      {
+        "name": "Make",
+        "commands": [
+          "make"
+        ]
+      },
+      {
+        "name": "Development utilities",
+        "commands": [
+          "gdb",
+          "strace"
+        ]
+      }
+    ],
+    "commandCount": 5
+  },
+  {
+    "id": "linux-administration",
+    "num": "19",
+    "name": "Linux Administration",
+    "icon": "settings",
+    "color": "cyan",
+    "short": "Kernel modules, system limits, boot process, and system configuration.",
+    "intro": [
+      "System administration beyond services and files: the kernel itself. Modules add drivers at runtime, sysctl tunes kernel behavior, limits bound resources per process, and the boot chain (firmware → bootloader → kernel → init) is what you repair when a system will not start.",
+      "These tools act on the deepest layer — which means small changes have large effects. The universal safety rules: change one thing at a time, verify (dmesg, journalctl) after each change, and always keep a recovery path (Live USB, cloud console) available."
+    ],
+    "concepts": [
+      {
+        "title": "The boot process",
+        "body": "Firmware (BIOS/UEFI) → bootloader (GRUB) → kernel + initramfs → systemd (PID 1) → targets → services. Problems at each stage have distinct fixes: firmware settings, GRUB repair (Live USB + chroot), kernel parameters (edit at the GRUB menu), and failed services (systemctl status). update-grub regenerates the bootloader menu after kernel or parameter changes."
+      },
+      {
+        "title": "Kernel parameters (sysctl)",
+        "body": "Every file in /proc/sys/ is a live kernel setting: vm.swappiness (swap eagerness), net.ipv4.ip_forward (routing), fs.file-max (global file handles). Runtime changes revert at reboot; persist them in /etc/sysctl.d/*.conf. Change one, verify, document."
+      },
+      {
+        "title": "Resource limits in layers",
+        "body": "ulimit (per shell/process), /etc/security/limits.conf (per user via PAM), systemd Limit*= directives (per service), cgroups (per group of processes, managed via systemd slice properties). Services get limits from systemd — not from your shell — which is the source of many \"works in my terminal, fails in the service\" mysteries."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "Kernel modules",
+        "commands": [
+          "modprobe",
+          "lsmod"
+        ]
+      },
+      {
+        "name": "Kernel parameters",
+        "commands": [
+          "sysctl"
+        ]
+      },
+      {
+        "name": "System limits",
+        "commands": [
+          "ulimit"
+        ]
+      },
+      {
+        "name": "System configuration",
+        "commands": [
+          "chroot"
+        ]
+      },
+      {
+        "name": "Boot process",
+        "commands": [
+          "update-grub"
+        ]
+      }
+    ],
+    "commandCount": 6
+  },
+  {
+    "id": "advanced-linux",
+    "num": "20",
+    "name": "Advanced Linux",
+    "icon": "cpu",
+    "color": "purple",
+    "short": "Namespaces, cgroups, file descriptors, and kernel interfaces.",
+    "intro": [
+      "Below the everyday commands lies the machinery that makes Linux Linux: namespaces that partition kernel resources (the foundation of containers), cgroups that account and limit resources, and the everything-is-a-file design that exposes processes, sockets, and kernel state through the filesystem.",
+      "The virtual filesystems are your window into the kernel: /proc (per-process state, kernel parameters), /sys (devices and drivers), /dev (device nodes). Reading them is always safe; writing them changes live kernel behavior."
+    ],
+    "concepts": [
+      {
+        "title": "The /proc filesystem",
+        "body": "/proc/PID/ holds one directory per process: cmdline (how it was started), status (state, memory), fd/ (open file descriptors), limits. System-wide: /proc/cpuinfo, /proc/meminfo, /proc/mounts, /proc/sys/ (sysctl tunables). Everything is text — cat is your debugger."
+      },
+      {
+        "title": "Namespaces: what a container is",
+        "body": "Seven namespace types partition kernel resources: mount, PID, network, UTS (hostname), IPC, user, cgroup. A container is ordinary processes with their own namespace set plus cgroup limits — unshare and nsenter let you build and enter them manually, which is the best way to truly understand Docker."
+      },
+      {
+        "title": "Cgroups: resource control",
+        "body": "Control groups account and limit CPU, memory, and I/O per group of processes. systemd exposes them directly: systemctl set-property myapp.service CPUQuota=50% MemoryMax=1G. Every process on a systemd system is in a cgroup — that is what systemctl status shows as the CGroup tree."
+      },
+      {
+        "title": "File descriptors",
+        "body": "Every process has numbered file descriptors: 0 stdin, 1 stdout, 2 stderr, then its open files and sockets. Redirection manipulates them (2>&1 duplicates stderr onto stdout); /proc/PID/fd shows them live; lsof lists them system-wide. \"Too many open files\" errors are fd limits (ulimit -n), not disk problems."
+      }
+    ],
+    "subcategories": [
+      {
+        "name": "File descriptors",
+        "commands": [
+          "lsof"
+        ]
+      },
+      {
+        "name": "Namespaces",
+        "commands": [
+          "unshare",
+          "nsenter"
+        ]
+      },
+      {
+        "name": "Cgroups",
+        "commands": [
+          "taskset"
+        ]
+      }
+    ],
+    "commandCount": 4
+  }
+]

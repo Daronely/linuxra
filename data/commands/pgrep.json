@@ -1,0 +1,81 @@
+{
+  "slug": "pgrep",
+  "name": "pgrep",
+  "category": "processes",
+  "subcategory": "Finding processes",
+  "difficulty": "beginner",
+  "description": "Finds processes by name or attributes and prints their PIDs — grep for the process table, without the grep-itself problem.",
+  "syntax": "pgrep [OPTIONS] PATTERN",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "Prints matching PIDs, one per line."
+    },
+    {
+      "flag": "-l",
+      "description": "Also print the process name."
+    },
+    {
+      "flag": "-a",
+      "description": "Print the full command line."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Only processes of USER."
+    },
+    {
+      "flag": "-f",
+      "description": "Match against the full command line, not just the program name."
+    },
+    {
+      "flag": "-n / -o",
+      "description": "Newest / oldest matching process."
+    }
+  ],
+  "examples": [
+    {
+      "command": "pgrep nginx",
+      "output": "\n1024\n1025\n1026\n",
+      "explanation": "PIDs of the nginx master and workers."
+    },
+    {
+      "command": "pgrep -a python",
+      "output": "\n2140 python3 app.py --port 8080\n",
+      "explanation": "Shows the full command line, confirming exactly which script is running."
+    },
+    {
+      "command": "pgrep -f \"app.py --port 8080\"",
+      "output": null,
+      "explanation": "-f matches the whole command line, distinguishing this instance from other python processes."
+    },
+    {
+      "command": "kill $(pgrep -f old-worker)",
+      "output": null,
+      "explanation": "The classic pairing: kill every PID that pgrep finds."
+    }
+  ],
+  "related": [
+    "pkill",
+    "ps",
+    "kill"
+  ],
+  "tags": [
+    "find",
+    "pid",
+    "processes",
+    "search"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/pgrep.1.html",
+  "about": [
+    "pgrep matches by extended regex against the process name (15 chars by default) unless -f is given. It never matches itself — the main advantage over ps aux | grep x | grep -v grep. Its sibling pkill sends signals to matches directly."
+  ],
+  "useCases": [
+    "Get PIDs for scripting.",
+    "Check whether a service process is running.",
+    "Find processes by full command line."
+  ],
+  "mistakes": [
+    "Expecting pgrep to match long command lines without -f.",
+    "Forgetting that names are truncated to 15 characters without -f."
+  ]
+}

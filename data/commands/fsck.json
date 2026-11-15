@@ -1,0 +1,76 @@
+{
+  "slug": "fsck",
+  "name": "fsck",
+  "category": "disk-storage",
+  "subcategory": "Filesystems",
+  "difficulty": "advanced",
+  "description": "Checks and repairs Linux filesystems for errors. Run it on UNMOUNTED filesystems only.",
+  "syntax": "fsck [OPTIONS] DEVICE",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Check without repairing (report only) on most filesystems."
+    },
+    {
+      "flag": "-y",
+      "description": "Answer yes to every repair question (use with care)."
+    },
+    {
+      "flag": "-p",
+      "description": "Automatically repair safe problems (preen)."
+    },
+    {
+      "flag": "-A",
+      "description": "Check all filesystems in /etc/fstab (what boot does)."
+    },
+    {
+      "flag": "-N",
+      "description": "Show what would be done without doing it."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo fsck /dev/sdb1",
+      "output": null,
+      "explanation": "Read-only check: reports errors without fixing them."
+    },
+    {
+      "command": "sudo umount /dev/sdb1 && sudo fsck -y /dev/sdb1",
+      "output": null,
+      "explanation": "The correct sequence: unmount, then repair with automatic yes."
+    },
+    {
+      "command": "sudo fsck.ext4 -f /dev/sdb1",
+      "output": null,
+      "explanation": "Forces a full check even if the filesystem was marked clean."
+    }
+  ],
+  "related": [
+    "mount",
+    "mkfs",
+    "smartctl"
+  ],
+  "tags": [
+    "repair",
+    "check",
+    "filesystem",
+    "corruption",
+    "recovery"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/fsck.8.html",
+  "about": [
+    "fsck is a front end that dispatches to filesystem-specific checkers (fsck.ext4, fsck.xfs). ext4 repairs are interactive-capable; XFS uses xfs_repair instead, since fsck.xfs is a stub that does nothing. Modern ext4/xfs journals make manual fsck rare — it mostly matters after power loss on non-journaled filesystems or real corruption."
+  ],
+  "useCases": [
+    "Repair filesystems after unclean shutdowns.",
+    "Verify a disk before trusting it again.",
+    "Fix filesystems flagged dirty at boot."
+  ],
+  "mistakes": [
+    "Running fsck on a MOUNTED filesystem — it corrupts data. Unmount first (except for / at early boot).",
+    "Expecting fsck.xfs to repair — use xfs_repair for XFS."
+  ],
+  "warnings": [
+    "Repairing with -y on a failing disk can make things worse; image the disk first (ddrescue) when data matters."
+  ]
+}

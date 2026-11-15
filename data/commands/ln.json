@@ -1,0 +1,78 @@
+{
+  "slug": "ln",
+  "name": "ln",
+  "category": "file-directory",
+  "subcategory": "Symbolic links",
+  "difficulty": "intermediate",
+  "description": "Creates links between files: hard links that point to the same inode, or symbolic links that point to a path.",
+  "syntax": "ln [OPTIONS] TARGET LINK_NAME",
+  "flags": [
+    {
+      "flag": "-s",
+      "description": "Create a symbolic (soft) link instead of a hard link."
+    },
+    {
+      "flag": "-f",
+      "description": "Remove existing destination files before creating the link."
+    },
+    {
+      "flag": "-v",
+      "description": "Print the name of each link created."
+    },
+    {
+      "flag": "-i",
+      "description": "Ask before removing existing destination files."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ln -s /opt/app/current/bin/app /usr/local/bin/app",
+      "output": null,
+      "explanation": "Creates a symbolic link so the app command resolves to the current release — a common deployment pattern."
+    },
+    {
+      "command": "ln file.txt file-hard.txt",
+      "output": "\n131073 -rw-r--r-- 2 user user 220 Jan 10 09:15 file-hard.txt\n131073 -rw-r--r-- 2 user user 220 Jan 10 09:15 file.txt\n",
+      "explanation": "Creates a hard link (shown via ls -li). Both names share the same inode (131073) and the link count is 2. Editing either file affects the same data."
+    },
+    {
+      "command": "ln -sfv /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/",
+      "output": "\n'/etc/nginx/sites-enabled/app.conf' -> '/etc/nginx/sites-available/app.conf'\n",
+      "explanation": "The standard nginx pattern: enable a site by symlinking its config, replacing any existing link."
+    },
+    {
+      "command": "ln -s ../shared/lib lib/lib",
+      "output": null,
+      "explanation": "Creates a relative symlink. Relative links keep working if the whole tree is moved; absolute links do not."
+    }
+  ],
+  "related": [
+    "stat",
+    "cp",
+    "mv",
+    "find"
+  ],
+  "tags": [
+    "links",
+    "symlink",
+    "inode",
+    "filesystem"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/ln-invocation.html",
+  "about": [
+    "A hard link is another directory entry referencing the same inode — the same physical data. It cannot cross filesystems or point to directories. A symbolic link is a small file containing a path; it can cross filesystems, point to directories, and dangle if the target is removed.",
+    "Deleting the original file leaves hard links fully functional (the data lives until the last link is removed), but breaks symbolic links."
+  ],
+  "useCases": [
+    "Expose versioned application directories under stable paths.",
+    "Enable/disable service configs by managing symlinks (nginx, systemd wants).",
+    "Save disk space by hard-linking identical files."
+  ],
+  "mistakes": [
+    "Creating a symlink with a wrong target path and not noticing — ls -l shows broken links in red.",
+    "Forgetting -s and accidentally hard-linking when a symlink was intended."
+  ],
+  "warnings": [
+    "Recursive tools (cp -r, rsync, find) treat symlinks differently; learn their follow/deref options before copying trees containing links."
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "slug": "unshare",
+  "name": "unshare",
+  "category": "advanced-linux",
+  "subcategory": "Namespaces",
+  "difficulty": "advanced",
+  "description": "Runs a program with selected kernel namespaces unshared from the parent — the primitive behind containers.",
+  "syntax": "unshare [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "--mount",
+      "description": "New mount namespace — mounts inside do not affect the host."
+    },
+    {
+      "flag": "--pid",
+      "description": "New PID namespace (own PID 1; needs --fork)."
+    },
+    {
+      "flag": "--net",
+      "description": "New network namespace (own interfaces, own loopback)."
+    },
+    {
+      "flag": "--uts",
+      "description": "New hostname domain."
+    },
+    {
+      "flag": "--fork",
+      "description": "Fork before exec (required for --pid)."
+    },
+    {
+      "flag": "--map-root-user",
+      "description": "Map your user to root inside the namespace (user namespaces)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "unshare --mount --fork bash",
+      "output": null,
+      "explanation": "A shell in its own mount namespace: mounts made inside vanish when it exits — try mounting a tmpfs to see the isolation."
+    },
+    {
+      "command": "unshare --net --fork bash",
+      "output": null,
+      "explanation": "A shell with a private, empty network stack: only a down loopback. The basis of container networking."
+    },
+    {
+      "command": "unshare --pid --fork --mount-proc bash",
+      "output": null,
+      "explanation": "Private PID space with its own /proc — inside, your shell is PID 1."
+    }
+  ],
+  "related": [
+    "nsenter",
+    "chroot",
+    "ps"
+  ],
+  "tags": [
+    "namespaces",
+    "containers",
+    "isolation",
+    "kernel",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/unshare.1.html",
+  "about": [
+    "Linux namespaces partition kernel resources: mount, PID, network, UTS (hostname), IPC, user, cgroup. Containers (Docker, podman) are namespaces + cgroups + union filesystems. unshare lets you experiment with these primitives directly — the best way to understand what a container actually is."
+  ],
+  "useCases": [
+    "Learning how containers work.",
+    "Testing mount/network changes safely.",
+    "Building minimal sandboxes."
+  ],
+  "mistakes": [
+    "Expecting full isolation from one namespace flag — each namespace isolates only its own resource type."
+  ],
+  "warnings": [
+    "User namespaces expand the kernel attack surface; hardened systems restrict them (kernel.unprivileged_userns_clone)."
+  ]
+}

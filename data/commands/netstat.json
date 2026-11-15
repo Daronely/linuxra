@@ -1,0 +1,65 @@
+{
+  "slug": "netstat",
+  "name": "netstat",
+  "category": "networking",
+  "subcategory": "Network connections",
+  "difficulty": "intermediate",
+  "description": "The legacy tool for network connections, routing tables, and interface statistics — superseded by ss and ip.",
+  "syntax": "netstat [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-tulpn",
+      "description": "The classic combo: TCP+UDP, listening, numeric, with programs."
+    },
+    {
+      "flag": "-r",
+      "description": "Routing table (use ip r instead)."
+    },
+    {
+      "flag": "-i",
+      "description": "Interface statistics (use ip -s l instead)."
+    },
+    {
+      "flag": "-s",
+      "description": "Protocol statistics (TCP errors, retransmits)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "netstat -tulpn",
+      "output": "\ntcp  0  0.0.0.0:22   0.0.0.0:*  LISTEN  1024/sshd\n",
+      "explanation": "Same information as ss -tulpn in the older format."
+    },
+    {
+      "command": "netstat -s | grep -i retrans",
+      "output": "\n    421 segments retransmitted\n",
+      "explanation": "Retransmission statistics — rising values indicate network quality problems."
+    }
+  ],
+  "related": [
+    "ss",
+    "ip",
+    "lsof"
+  ],
+  "tags": [
+    "connections",
+    "ports",
+    "legacy",
+    "statistics"
+  ],
+  "docs": "https://net-tools.sourceforge.io/",
+  "about": [
+    "netstat is part of the unmaintained net-tools package. It remains on many systems for muscle memory, but ss covers everything with better performance and more filters. Linux distributions increasingly omit net-tools by default."
+  ],
+  "useCases": [
+    "Working on older servers where habits and scripts use it.",
+    "Protocol-level statistics via -s."
+  ],
+  "mistakes": [
+    "Installing net-tools just for netstat when ss is already present."
+  ],
+  "warnings": [
+    "Deprecated on Linux; do not use in new scripts."
+  ],
+  "distroNotes": "net-tools package; absent by default on many modern minimal installs."
+}

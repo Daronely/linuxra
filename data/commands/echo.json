@@ -1,0 +1,77 @@
+{
+  "slug": "echo",
+  "name": "echo",
+  "category": "shell-terminal",
+  "subcategory": "Bash basics",
+  "difficulty": "beginner",
+  "description": "Prints text or variable values to standard output.",
+  "syntax": "echo [OPTIONS] [STRING...]",
+  "flags": [
+    {
+      "flag": "-e",
+      "description": "Interpret escape sequences: \\n newline, \\t tab, \\\\ backslash."
+    },
+    {
+      "flag": "-n",
+      "description": "Do not print the trailing newline."
+    },
+    {
+      "flag": "$VAR",
+      "description": "Variable expansion inside double quotes."
+    },
+    {
+      "flag": "'$VAR'",
+      "description": "Single quotes prevent expansion — the literal text is printed."
+    }
+  ],
+  "examples": [
+    {
+      "command": "echo \"Hello, $USER\"",
+      "output": "\nHello, user\n",
+      "explanation": "Double quotes expand variables. If your login is user, it prints Hello, user."
+    },
+    {
+      "command": "echo 'Hello, $USER'",
+      "output": "\nHello, $USER\n",
+      "explanation": "Single quotes print everything literally — no expansion happens."
+    },
+    {
+      "command": "echo -e \"line1\\nline2\"",
+      "output": "\nline1\nline2\n",
+      "explanation": "-e turns \\n into a real newline."
+    },
+    {
+      "command": "echo \"export PATH=$HOME/bin\" >> ~/.bashrc",
+      "output": null,
+      "explanation": "Appends a line to your shell config — the standard way to persist settings."
+    }
+  ],
+  "related": [
+    "printf",
+    "export",
+    "cat"
+  ],
+  "tags": [
+    "print",
+    "output",
+    "variables",
+    "basic",
+    "scripting"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Echo.html",
+  "about": [
+    "echo is a shell builtin. Quoting rules matter more than the command itself: double quotes expand variables and keep spaces together; single quotes are fully literal; no quotes lets the shell split on whitespace and expand globs. For portable scripts, printf is more predictable."
+  ],
+  "useCases": [
+    "Print messages in scripts.",
+    "Inspect variables: echo \"$PATH\".",
+    "Append config lines to files."
+  ],
+  "mistakes": [
+    "echo $VAR without quotes — word splitting and glob expansion can corrupt the value; use echo \"$VAR\".",
+    "Relying on \\n without -e — many shells print it literally."
+  ],
+  "warnings": [
+    "Different shells' echo handle -e and -n inconsistently; printf is the portable choice for scripts."
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "logger",
+  "name": "logger",
+  "category": "logs-troubleshooting",
+  "subcategory": "Application logs",
+  "difficulty": "beginner",
+  "description": "Writes messages into the system log from scripts and the command line.",
+  "syntax": "logger [OPTIONS] MESSAGE",
+  "flags": [
+    {
+      "flag": "-t TAG",
+      "description": "Tag the message with an identifier, e.g. the script name."
+    },
+    {
+      "flag": "-p FACILITY.LEVEL",
+      "description": "Set priority, e.g. -p local0.warning."
+    },
+    {
+      "flag": "-f FILE",
+      "description": "Log the contents of a file."
+    },
+    {
+      "flag": "-s",
+      "description": "Also echo the message to stderr."
+    }
+  ],
+  "examples": [
+    {
+      "command": "logger \"backup finished\"",
+      "output": null,
+      "explanation": "Writes to the system log, visible in journalctl or /var/log/syslog."
+    },
+    {
+      "command": "logger -t backup-script -p user.warning \"disk almost full\"",
+      "output": null,
+      "explanation": "Tagged, prioritized message — filterable later with journalctl -t backup-script."
+    },
+    {
+      "command": "./run-job.sh 2>&1 | logger -t nightly-job",
+      "output": null,
+      "explanation": "Captures an entire script's output into the system log — a lightweight job-logging pattern."
+    }
+  ],
+  "related": [
+    "journalctl",
+    "tee"
+  ],
+  "tags": [
+    "logging",
+    "scripts",
+    "syslog",
+    "debug"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/logger.1.html",
+  "about": [
+    "logger sends messages to syslog/journald via the system socket. It is the correct way for scripts to produce logs that land in the same place as system logs, with proper timestamps, hostnames, and priorities."
+  ],
+  "useCases": [
+    "Log from shell scripts.",
+    "Annotate maintenance windows.",
+    "Centralize script output with real timestamps."
+  ],
+  "mistakes": [
+    "Logging secrets (tokens, passwords) into the system log — logs are widely readable."
+  ]
+}

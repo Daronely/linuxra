@@ -1,0 +1,65 @@
+{
+  "slug": "free",
+  "name": "free",
+  "category": "system-info",
+  "subcategory": "RAM information",
+  "difficulty": "beginner",
+  "description": "Shows total, used, and free physical memory and swap.",
+  "syntax": "free [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-h",
+      "description": "Human-readable units."
+    },
+    {
+      "flag": "-m / -g",
+      "description": "Megabytes / gigabytes."
+    },
+    {
+      "flag": "-s N",
+      "description": "Refresh every N seconds (watch mode)."
+    },
+    {
+      "flag": "-w",
+      "description": "Separate the buffers/cache column."
+    }
+  ],
+  "examples": [
+    {
+      "command": "free -h",
+      "output": "\n       total   used   free   shared  buff/cache  available\nMem:    15Gi  3.0Gi  8.2Gi    210Mi       4.1Gi      11Gi\nSwap:  2.0Gi     0B  2.0Gi\n",
+      "explanation": "The important column is \"available\" (11Gi) — memory that applications can actually claim. \"free\" being small is normal and healthy: Linux uses spare RAM for caching."
+    },
+    {
+      "command": "free -s 2",
+      "output": null,
+      "explanation": "Refreshes every 2 seconds to watch memory trends. Ctrl+C to stop."
+    }
+  ],
+  "related": [
+    "top",
+    "htop",
+    "uptime",
+    "swapon"
+  ],
+  "tags": [
+    "memory",
+    "ram",
+    "swap",
+    "monitor",
+    "info"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/free.1.html",
+  "about": [
+    "Linux borrows unused RAM for disk cache (buff/cache) and returns it instantly when applications need it. Therefore: low \"free\" is normal; low \"available\" is the real warning. Swap in use with plenty of available memory is also normal (old pages moved out); continuous heavy swap-in/out (thrashing) means you need more RAM."
+  ],
+  "useCases": [
+    "Check real memory availability.",
+    "Diagnose \"the server is slow\" reports.",
+    "Watch memory during load tests."
+  ],
+  "mistakes": [
+    "Panic over low \"free\" memory — read \"available\" instead.",
+    "Adding up used+free and expecting the total; buff/cache is the difference."
+  ]
+}

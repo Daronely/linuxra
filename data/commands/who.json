@@ -1,0 +1,71 @@
+{
+  "slug": "who",
+  "name": "who",
+  "category": "users-groups",
+  "subcategory": "Login sessions",
+  "difficulty": "beginner",
+  "description": "Shows who is logged into the system, from which terminal, and since when.",
+  "syntax": "who [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "List logged-in users."
+    },
+    {
+      "flag": "-b",
+      "description": "Time of the last system boot."
+    },
+    {
+      "flag": "-u",
+      "description": "Include idle time and process ID."
+    },
+    {
+      "flag": "-a",
+      "description": "All information (boot time, runlevel, dead sessions)."
+    },
+    {
+      "flag": "am i",
+      "description": "Show only your own session (who am i)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "who",
+      "output": "\nuser    tty7         2025-01-12 08:02 (:0)\nalice   pts/0        2025-01-12 09:15 (10.0.0.24)\n",
+      "explanation": "Two sessions: a local graphical login (tty7) and alice over SSH from 10.0.0.24."
+    },
+    {
+      "command": "who -b",
+      "output": "\n         system boot  2025-01-12 07:58\n",
+      "explanation": "When the machine was last booted."
+    },
+    {
+      "command": "who am i",
+      "output": "\nuser    pts/1        2025-01-12 10:02 (203.0.113.7)\n",
+      "explanation": "Your own current session — useful after multiple su/sudo hops."
+    }
+  ],
+  "related": [
+    "whoami",
+    "uptime",
+    "su"
+  ],
+  "tags": [
+    "sessions",
+    "login",
+    "users",
+    "monitor"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/who.1.html",
+  "about": [
+    "who reads /var/run/utmp, which records login sessions. It is different from w, which also shows what each user is doing (current command, CPU time), and from last, which reads the historical log /var/log/wtmp."
+  ],
+  "useCases": [
+    "See who else is on a shared server before rebooting or updating.",
+    "Check the last boot time.",
+    "Find which terminal your session is on."
+  ],
+  "mistakes": [
+    "Expecting who to show historical logins — that is last."
+  ]
+}

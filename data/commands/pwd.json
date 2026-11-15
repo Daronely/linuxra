@@ -1,0 +1,52 @@
+{
+  "slug": "pwd",
+  "name": "pwd",
+  "category": "file-directory",
+  "subcategory": "File paths",
+  "difficulty": "beginner",
+  "description": "Prints the absolute path of the current working directory.",
+  "syntax": "pwd [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-L",
+      "description": "Print the logical path, honoring $PWD and symbolic links (the default)."
+    },
+    {
+      "flag": "-P",
+      "description": "Print the physical path with all symbolic links resolved."
+    }
+  ],
+  "examples": [
+    {
+      "command": "pwd",
+      "output": "\n/home/user/projects/linuxora\n",
+      "explanation": "Shows exactly where you are in the filesystem."
+    },
+    {
+      "command": "cd /var/run && pwd -P",
+      "output": "\n/run\n",
+      "explanation": "On many distributions /var/run is a symlink to /run. pwd -P resolves the symlink and prints the real physical path."
+    }
+  ],
+  "related": [
+    "cd",
+    "ls"
+  ],
+  "tags": [
+    "directory",
+    "path",
+    "navigation",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/pwd-invocation.html",
+  "about": [
+    "pwd is a shell builtin on bash. The standalone /bin/pwd binary also exists and always prints the physical path. The difference matters only when your path contains symbolic links."
+  ],
+  "useCases": [
+    "Confirm your location before running destructive commands.",
+    "Capture the current directory in scripts: dir=\"$(pwd)\"."
+  ],
+  "mistakes": [
+    "Confusing the logical and physical paths when symlinks are involved."
+  ]
+}

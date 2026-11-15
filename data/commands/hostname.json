@@ -1,0 +1,65 @@
+{
+  "slug": "hostname",
+  "name": "hostname",
+  "category": "networking",
+  "subcategory": "DNS",
+  "difficulty": "beginner",
+  "description": "Shows or sets the system's hostname.",
+  "syntax": "hostname [OPTIONS] [NEWNAME]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Print the current hostname."
+    },
+    {
+      "flag": "-f",
+      "description": "Fully qualified domain name (FQDN)."
+    },
+    {
+      "flag": "-i / -I",
+      "description": "IP addresses the hostname resolves to / all local IPs."
+    },
+    {
+      "flag": "NEWNAME",
+      "description": "Set hostname temporarily (use hostnamectl for persistence)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "hostname",
+      "output": "\nwebserver01\n",
+      "explanation": "The machine's current name."
+    },
+    {
+      "command": "hostname -f",
+      "output": "\nwebserver01.example.com\n",
+      "explanation": "The FQDN, resolved via /etc/hosts or DNS."
+    },
+    {
+      "command": "sudo hostname tempname",
+      "output": null,
+      "explanation": "Changes the name immediately but reverts at reboot — for permanent changes use hostnamectl set-hostname."
+    }
+  ],
+  "related": [
+    "hostnamectl",
+    "uname"
+  ],
+  "tags": [
+    "hostname",
+    "identity",
+    "system"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/hostname.1.html",
+  "about": [
+    "The kernel stores the hostname (visible in /proc/sys/kernel/hostname); userland tools read and set it. Persistent hostnames on systemd systems belong to /etc/hostname, managed cleanly by hostnamectl. Name resolution of the hostname happens through /etc/hosts or DNS."
+  ],
+  "useCases": [
+    "Quickly confirm which server you are on.",
+    "Check FQDN configuration on new servers."
+  ],
+  "mistakes": [
+    "Setting the hostname with bare hostname and losing it at reboot.",
+    "Expecting hostname -i to work without /etc/hosts entries — it often fails or returns 127.0.0.2."
+  ]
+}

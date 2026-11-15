@@ -1,0 +1,99 @@
+{
+  "slug": "journalctl",
+  "name": "journalctl",
+  "category": "services-systemd",
+  "subcategory": "Service logs",
+  "difficulty": "intermediate",
+  "description": "Queries the systemd journal: all system and service logs in one indexed, structured store.",
+  "syntax": "journalctl [OPTIONS] [MATCHES...]",
+  "flags": [
+    {
+      "flag": "-u UNIT",
+      "description": "Logs of one service, e.g. -u nginx."
+    },
+    {
+      "flag": "-f",
+      "description": "Follow live, like tail -f."
+    },
+    {
+      "flag": "-b / -b -1",
+      "description": "Logs of the current boot / previous boot."
+    },
+    {
+      "flag": "--since / --until",
+      "description": "Time filters: \"2025-01-12 09:00\", \"1 hour ago\", \"yesterday\"."
+    },
+    {
+      "flag": "-p err",
+      "description": "Priority filter: emerg..debug (err and worse)."
+    },
+    {
+      "flag": "-n N",
+      "description": "Last N lines."
+    },
+    {
+      "flag": "--disk-usage / --vacuum-size=",
+      "description": "Journal size / shrink it."
+    },
+    {
+      "flag": "-k",
+      "description": "Kernel messages only (like dmesg)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "journalctl -u nginx -n 50",
+      "output": null,
+      "explanation": "The last 50 log lines of nginx — the first command for any web server problem."
+    },
+    {
+      "command": "journalctl -u nginx -f",
+      "output": null,
+      "explanation": "Live-follows nginx logs while you reproduce an issue."
+    },
+    {
+      "command": "journalctl --since \"1 hour ago\" -p err",
+      "output": "\nJan 12 10:01:22 web01 sshd[2140]: Failed password for root from 203.0.113.7\n",
+      "explanation": "All errors from the last hour — here an SSH brute-force attempt is visible."
+    },
+    {
+      "command": "journalctl -b -1",
+      "output": null,
+      "explanation": "Logs from the PREVIOUS boot — essential after a crash or unexpected reboot."
+    },
+    {
+      "command": "journalctl --disk-usage",
+      "output": "\nArchived and active journals take up 512.0M\n",
+      "explanation": "Checks journal disk consumption; cap it with --vacuum-size=200M."
+    }
+  ],
+  "related": [
+    "systemctl",
+    "dmesg",
+    "tail"
+  ],
+  "tags": [
+    "logs",
+    "journal",
+    "systemd",
+    "debug",
+    "errors"
+  ],
+  "docs": "https://www.freedesktop.org/software/systemd/man/journalctl.html",
+  "about": [
+    "The journal stores binary, structured logs in /var/log/journal/ (persistent if the directory exists) or /run/log/journal (volatile). journald indexes by boot, unit, priority, and time, making queries instant. Traditional plain-text logs in /var/log/syslog or /var/log/messages usually still exist in parallel."
+  ],
+  "useCases": [
+    "Diagnose service failures.",
+    "Investigate previous boots after crashes.",
+    "Filter system-wide events by time and severity."
+  ],
+  "mistakes": [
+    "Expecting persistence without configuring it: on some distros the journal is volatile by default (check /var/log/journal exists).",
+    "Searching with grep instead of journalctl matches — the built-in filters are indexed and faster."
+  ],
+  "warnings": [
+    "journald rate-limits noisy services; a service's logs can be dropped silently — check journalctl -u UNIT for \"Suppressed\" messages."
+  ],
+  "distroNotes": "systemd distributions only. Logs persist across reboots only when /var/log/journal exists (Storage=persistent in journald.conf)."
+}

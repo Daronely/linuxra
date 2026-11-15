@@ -1,0 +1,82 @@
+{
+  "slug": "zip",
+  "name": "zip",
+  "category": "archive-compression",
+  "subcategory": "ZIP",
+  "difficulty": "beginner",
+  "description": "Creates .zip archives — the format Windows and macOS open natively.",
+  "syntax": "zip [OPTIONS] ARCHIVE FILES...",
+  "flags": [
+    {
+      "flag": "-r",
+      "description": "Recurse into directories (required for folders)."
+    },
+    {
+      "flag": "-e",
+      "description": "Encrypt with a password (prompts)."
+    },
+    {
+      "flag": "-9",
+      "description": "Maximum compression."
+    },
+    {
+      "flag": "-x PATTERN",
+      "description": "Exclude files."
+    },
+    {
+      "flag": "-@",
+      "description": "Read filenames to add from stdin."
+    }
+  ],
+  "examples": [
+    {
+      "command": "zip -r project.zip project/",
+      "output": null,
+      "explanation": "Zips the whole project directory recursively."
+    },
+    {
+      "command": "zip -e secrets.zip keys/*.pem",
+      "output": null,
+      "explanation": "Creates a password-protected archive (prompts twice for the password)."
+    },
+    {
+      "command": "zip -r site.zip site/ -x \"site/node_modules/*\"",
+      "output": null,
+      "explanation": "Zips a site while excluding node_modules."
+    },
+    {
+      "command": "unzip -l project.zip",
+      "output": null,
+      "explanation": "Lists zip contents without extracting (companion command)."
+    }
+  ],
+  "related": [
+    "unzip",
+    "tar",
+    "7z",
+    "gzip"
+  ],
+  "tags": [
+    "zip",
+    "archive",
+    "compress",
+    "windows",
+    "share"
+  ],
+  "docs": "https://linux.die.net/man/1/zip",
+  "about": [
+    "zip stores files individually (unlike tar's single stream), which allows random access but preserves fewer Unix metadata details (no reliable owner/permission preservation — fine for documents, imperfect for system backups). Encryption: standard zipcrypto is weak; prefer 7z or gpg for sensitive data."
+  ],
+  "useCases": [
+    "Share files with Windows/macOS users.",
+    "Quick protected archives with -e.",
+    "Upload bundles to services that expect .zip."
+  ],
+  "mistakes": [
+    "Forgetting -r for directories — you get an empty zip.",
+    "Assuming zip -e is strong encryption — it is legacy-grade; use gpg for real security."
+  ],
+  "warnings": [
+    "zip encryption is historically weak (ZipCrypto). For confidentiality, use 7z with AES-256 or encrypt with gpg."
+  ]
+}

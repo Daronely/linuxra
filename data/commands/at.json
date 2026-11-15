@@ -1,0 +1,76 @@
+{
+  "slug": "at",
+  "name": "at",
+  "category": "scheduling-automation",
+  "subcategory": "At jobs",
+  "difficulty": "intermediate",
+  "description": "Schedules a one-time command to run at a specific time — cron for \"once\", not \"always\".",
+  "syntax": "at [OPTIONS] TIME",
+  "flags": [
+    {
+      "flag": "TIME",
+      "description": "Formats: now + 10 minutes, 03:00, noon, 2025-01-20 09:00."
+    },
+    {
+      "flag": "-l",
+      "description": "= atq: list pending jobs."
+    },
+    {
+      "flag": "-r JOB",
+      "description": "= atrm: remove a pending job."
+    },
+    {
+      "flag": "-f FILE",
+      "description": "Read the commands from a file."
+    },
+    {
+      "flag": "-c JOB",
+      "description": "Print a job's commands."
+    }
+  ],
+  "examples": [
+    {
+      "command": "at now + 30 minutes",
+      "output": "\nat> reboot\nat> <EOT>\njob 4 at Sat Jan 12 10:45:00 2025\n",
+      "explanation": "Schedules a reboot in 30 minutes: type the command, end with Ctrl+D."
+    },
+    {
+      "command": "at 03:00 <<< 'apt update -y'",
+      "output": null,
+      "explanation": "One-shot job at 03:00 tonight (requires the atd service running)."
+    },
+    {
+      "command": "atq",
+      "output": "\n4   Sat Jan 12 10:45:00 2025 a user\n",
+      "explanation": "Lists pending jobs with their IDs."
+    },
+    {
+      "command": "atrm 4",
+      "output": null,
+      "explanation": "Cancels job 4 before it runs."
+    }
+  ],
+  "related": [
+    "crontab",
+    "systemctl"
+  ],
+  "tags": [
+    "schedule",
+    "one-time",
+    "at",
+    "automation"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/at.1.html",
+  "about": [
+    "at jobs run once via the atd daemon, with the environment captured at submission time (better than cron's minimal env). Jobs are queued in /var/spool/cron/atjobs/. If atd is not running, jobs silently wait — check systemctl status atd."
+  ],
+  "useCases": [
+    "One-time maintenance windows.",
+    "Delayed reboots and updates.",
+    "Reminders and scheduled one-off scripts."
+  ],
+  "mistakes": [
+    "Forgetting Ctrl+D to finish input — the prompt just keeps waiting.",
+    "Assuming atd runs — minimal servers often lack the at package."
+  ]
+}

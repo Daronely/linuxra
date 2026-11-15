@@ -1,0 +1,70 @@
+{
+  "slug": "uname",
+  "name": "uname",
+  "category": "system-info",
+  "subcategory": "Kernel information",
+  "difficulty": "beginner",
+  "description": "Prints kernel and system information: name, release, architecture, and more.",
+  "syntax": "uname [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Kernel name: Linux."
+    },
+    {
+      "flag": "-r",
+      "description": "Kernel release, e.g. 6.8.0-45-generic — the value you check after updates."
+    },
+    {
+      "flag": "-a",
+      "description": "Everything: name, hostname, release, version, architecture."
+    },
+    {
+      "flag": "-m",
+      "description": "Machine architecture (x86_64, aarch64)."
+    },
+    {
+      "flag": "-o",
+      "description": "Operating system (GNU/Linux)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "uname -r",
+      "output": "\n6.8.0-45-generic\n",
+      "explanation": "The running kernel version. After a kernel update, this only changes after a reboot."
+    },
+    {
+      "command": "uname -a",
+      "output": "\nLinux webserver01 6.8.0-45-generic #45-Ubuntu SMP x86_64 GNU/Linux\n",
+      "explanation": "Full identification: useful when pasting system info into bug reports."
+    },
+    {
+      "command": "uname -m",
+      "output": "\nx86_64\n",
+      "explanation": "Architecture — determines whether to download amd64 or arm64 packages."
+    }
+  ],
+  "related": [
+    "hostnamectl",
+    "lscpu"
+  ],
+  "tags": [
+    "kernel",
+    "version",
+    "system",
+    "info"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/uname.1.html",
+  "about": [
+    "uname reads from the running kernel via uname(2). The release (6.8.0-45-generic) encodes major.minor, distribution packaging, and kernel flavor (generic, lowlatency, rt). uname -m reports the kernel architecture, which differs from the userspace architecture on some 32-bit-on-64-bit setups."
+  ],
+  "useCases": [
+    "Check the running kernel version.",
+    "Determine architecture for downloads.",
+    "Provide system details in support requests."
+  ],
+  "mistakes": [
+    "Confusing kernel version with distribution version — use cat /etc/os-release for the latter."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "slug": "gzip",
+  "name": "gzip",
+  "category": "archive-compression",
+  "subcategory": "GZIP",
+  "difficulty": "beginner",
+  "description": "Compresses a single file, replacing it with file.gz. Decompress with gunzip or gzip -d.",
+  "syntax": "gzip [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-k",
+      "description": "Keep the original file (default replaces it!)."
+    },
+    {
+      "flag": "-d",
+      "description": "Decompress (same as gunzip)."
+    },
+    {
+      "flag": "-1..-9",
+      "description": "Compression level: 1 fastest, 9 best ratio (default 6)."
+    },
+    {
+      "flag": "-c",
+      "description": "Write to stdout, leaving the original intact (for pipes)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "gzip big.log",
+      "output": null,
+      "explanation": "Compresses to big.log.gz and REMOVES the original. Use -k to keep it."
+    },
+    {
+      "command": "gzip -k important.csv",
+      "output": "\nimportant.csv  important.csv.gz\n",
+      "explanation": "Both files exist afterwards (shown via ls)."
+    },
+    {
+      "command": "gzip -9 -k dataset.csv",
+      "output": null,
+      "explanation": "Maximum compression — slower but smallest result."
+    },
+    {
+      "command": "cat access.log | gzip > access.log.gz",
+      "output": null,
+      "explanation": "Compresses via pipe without touching the source file."
+    }
+  ],
+  "related": [
+    "tar",
+    "xz",
+    "bzip2"
+  ],
+  "tags": [
+    "compress",
+    "gzip",
+    "logs",
+    "archive"
+  ],
+  "docs": "https://www.gnu.org/software/gzip/manual/",
+  "about": [
+    "gzip compresses single files, not directories (use tar for that). It is fast and universally supported; zstd and xz offer better ratios or speed but with varying availability. Decompression: gunzip file.gz or zcat file.gz to read without extracting."
+  ],
+  "useCases": [
+    "Compress logs before archiving.",
+    "Shrink files for transfer.",
+    "Pipe compression: command | gzip > out.gz."
+  ],
+  "mistakes": [
+    "Losing originals by forgetting -k — plain gzip replaces files.",
+    "Trying to gzip a directory — tar first."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "slug": "sudo",
+  "name": "sudo",
+  "category": "users-groups",
+  "subcategory": "Switching users",
+  "difficulty": "beginner",
+  "description": "Executes a command with the privileges of another user (usually root), authenticated with your own password and controlled by the sudoers policy.",
+  "syntax": "sudo [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "COMMAND",
+      "description": "Run the command as root."
+    },
+    {
+      "flag": "-i",
+      "description": "Simulate an initial root login (full root environment)."
+    },
+    {
+      "flag": "-s",
+      "description": "Run a root shell with the current environment."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Run as another user instead of root."
+    },
+    {
+      "flag": "-l",
+      "description": "List the commands you are allowed to run."
+    },
+    {
+      "flag": "!!",
+      "description": "Shell history idiom: sudo !! re-runs the previous command with sudo."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo apt update",
+      "output": null,
+      "explanation": "Runs the package index update as root. Your password is requested once and cached for ~15 minutes."
+    },
+    {
+      "command": "sudo !!",
+      "output": null,
+      "explanation": "You typed apt install htop and got \"Permission denied\" — sudo !! re-runs it as root. A beloved shell trick."
+    },
+    {
+      "command": "sudo -l",
+      "output": "\nUser user may run the following commands:\n(ALL : ALL) ALL\n",
+      "explanation": "Shows your sudo rights. (ALL:ALL) ALL means unrestricted."
+    },
+    {
+      "command": "sudo -u alice ls /home/alice",
+      "output": null,
+      "explanation": "Runs a command as alice rather than root — least-privilege access to another account."
+    },
+    {
+      "command": "sudo visudo",
+      "output": null,
+      "explanation": "Edits /etc/sudoers safely (syntax-checked before saving). NEVER edit sudoers with a plain editor."
+    }
+  ],
+  "related": [
+    "su",
+    "usermod",
+    "passwd"
+  ],
+  "tags": [
+    "root",
+    "privileges",
+    "admin",
+    "security"
+  ],
+  "docs": "https://www.sudo.ws/docs/man/sudo.man/",
+  "about": [
+    "sudo policy lives in /etc/sudoers and /etc/sudoers.d/. On Debian/Ubuntu, membership in the sudo group grants full rights; on RHEL/Fedora it is the wheel group. sudo logs every command to the journal/auth log, which is why it is preferred over shared root logins."
+  ],
+  "useCases": [
+    "Perform administrative tasks from a regular account.",
+    "Delegate limited rights to specific users/commands.",
+    "Keep an audit trail of privileged commands."
+  ],
+  "mistakes": [
+    "Editing /etc/sudoers directly and breaking sudo for everyone — always visudo.",
+    "Granting NOPASSWD: ALL casually — it removes the last authentication barrier."
+  ],
+  "warnings": [
+    "sudo caches your credentials in memory (~15 min default). On shared machines, run sudo -k when stepping away."
+  ],
+  "distroNotes": "The admin group name differs: sudo (Debian/Ubuntu), wheel (RHEL/Fedora/Arch/SUSE)."
+}

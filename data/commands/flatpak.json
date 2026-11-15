@@ -1,0 +1,86 @@
+{
+  "slug": "flatpak",
+  "name": "flatpak",
+  "category": "package-management",
+  "subcategory": "Fedora",
+  "difficulty": "beginner",
+  "description": "A cross-distribution application framework: desktop apps ship with their own runtimes and sandboxed permissions, independent of the system package manager.",
+  "syntax": "flatpak [OPTIONS] COMMAND [APP...]",
+  "flags": [
+    {
+      "flag": "remote-add",
+      "description": "Add a repository (Flathub is the main one)."
+    },
+    {
+      "flag": "install APP",
+      "description": "Install an application (e.g. flathub org.gimp.GIMP)."
+    },
+    {
+      "flag": "search TERM",
+      "description": "Search configured remotes."
+    },
+    {
+      "flag": "list / run",
+      "description": "List installed apps / launch one."
+    },
+    {
+      "flag": "update",
+      "description": "Update all installed apps and runtimes."
+    },
+    {
+      "flag": "uninstall APP",
+      "description": "Remove an application."
+    },
+    {
+      "flag": "--user / --system",
+      "description": "Install per-user or system-wide."
+    }
+  ],
+  "examples": [
+    {
+      "command": "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo",
+      "output": null,
+      "explanation": "One-time setup: adds Flathub, the main application store."
+    },
+    {
+      "command": "flatpak install flathub org.gimp.GIMP",
+      "output": null,
+      "explanation": "Installs GIMP sandboxed, bundled with its own runtime libraries."
+    },
+    {
+      "command": "flatpak update",
+      "output": null,
+      "explanation": "Updates all Flatpak apps and runtimes independently of the system package manager."
+    },
+    {
+      "command": "flatpak list",
+      "output": "\nName      Application ID        Version\nGIMP      org.gimp.GIMP         2.10.38\n",
+      "explanation": "Shows installed applications with their IDs."
+    }
+  ],
+  "related": [
+    "apt",
+    "dnf",
+    "pacman"
+  ],
+  "tags": [
+    "packages",
+    "sandbox",
+    "desktop",
+    "apps",
+    "cross-distro"
+  ],
+  "docs": "https://docs.flatpak.org/",
+  "about": [
+    "Flatpak apps run in sandboxes with explicit permissions (filesystem, devices, IPC) managed via overrides: flatpak override --filesystem=home org.app. They are ideal for getting current desktop software on stable/enterprise distributions. Snap (Canonical) and AppImage are the comparable cross-distro formats."
+  ],
+  "useCases": [
+    "Install fresh desktop apps on Debian stable, RHEL, or any distro.",
+    "Sandboxed applications with controlled permissions."
+  ],
+  "mistakes": [
+    "Expecting Flatpak apps in CLI pipelines — it targets desktop apps; runtimes make installs large.",
+    "Forgetting to add the Flathub remote first."
+  ],
+  "distroNotes": "Works on nearly all distributions; preinstalled on Fedora. Debian/Ubuntu install it via apt first."
+}

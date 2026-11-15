@@ -1,0 +1,83 @@
+{
+  "slug": "history",
+  "name": "history",
+  "category": "shell-terminal",
+  "subcategory": "History",
+  "difficulty": "beginner",
+  "description": "Shows previously executed commands; combined with ! expansion it re-runs them.",
+  "syntax": "history [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Numbered list of recent commands."
+    },
+    {
+      "flag": "!N",
+      "description": "Re-run command number N."
+    },
+    {
+      "flag": "!!",
+      "description": "Re-run the previous command (often as sudo !!)."
+    },
+    {
+      "flag": "!string",
+      "description": "Re-run the most recent command starting with \"string\"."
+    },
+    {
+      "flag": "-c",
+      "description": "Clear the in-memory history."
+    },
+    {
+      "flag": "Ctrl+R",
+      "description": "Interactive reverse search: type a fragment, press Ctrl+R again to cycle."
+    }
+  ],
+  "examples": [
+    {
+      "command": "history | tail -5",
+      "output": "\n  998  systemctl status nginx\n  999  journalctl -u nginx\n 1000  sudo nginx -t\n",
+      "explanation": "Your last five commands with their numbers."
+    },
+    {
+      "command": "!999",
+      "output": null,
+      "explanation": "Re-runs command 999 exactly."
+    },
+    {
+      "command": "Ctrl+R then \"nginx\"",
+      "output": null,
+      "explanation": "Reverse-searches history interactively — the single most useful shell shortcut once learned."
+    },
+    {
+      "command": "HISTSIZE=10000",
+      "output": null,
+      "explanation": "Environment variable controlling how many commands bash remembers (set it in ~/.bashrc)."
+    }
+  ],
+  "related": [
+    "alias",
+    "sudo",
+    "type"
+  ],
+  "tags": [
+    "history",
+    "recall",
+    "shortcuts",
+    "productivity"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Bash-History-Builtins.html",
+  "about": [
+    "bash saves history in ~/.bash_history on exit. Useful settings: HISTSIZE/HISTFILESIZE (length), HISTCONTROL=ignoredups:erasedups, and HISTTIMEFORMAT=\"%F %T \" to timestamp entries. Ctrl+R search and Alt+. (paste last argument) dramatically speed up terminal work."
+  ],
+  "useCases": [
+    "Recover a long command you typed earlier.",
+    "Re-run complex commands with one keystroke.",
+    "Document what was done on a server."
+  ],
+  "mistakes": [
+    "Believing history is private — it is a plain file readable by anything running as your user."
+  ],
+  "warnings": [
+    "Secrets typed on command lines are stored in history forever. Prefix a command with a space to skip history (HISTCONTROL=ignorespace) or use read -s in scripts."
+  ]
+}

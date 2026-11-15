@@ -1,0 +1,76 @@
+{
+  "slug": "touch",
+  "name": "touch",
+  "category": "file-directory",
+  "subcategory": "Creating files",
+  "difficulty": "beginner",
+  "description": "Creates empty files, or updates the access and modification timestamps of existing files.",
+  "syntax": "touch [OPTIONS] FILE...",
+  "flags": [
+    {
+      "flag": "-a",
+      "description": "Change only the access time."
+    },
+    {
+      "flag": "-m",
+      "description": "Change only the modification time."
+    },
+    {
+      "flag": "-c",
+      "description": "Do not create the file if it does not exist."
+    },
+    {
+      "flag": "-t [[CC]YY]MMDDhhmm[.ss]",
+      "description": "Set the timestamp to a specific value, e.g. -t 202501120930."
+    },
+    {
+      "flag": "-r FILE",
+      "description": "Use the timestamp of another file as reference."
+    }
+  ],
+  "examples": [
+    {
+      "command": "touch notes.txt",
+      "output": null,
+      "explanation": "Creates an empty file named notes.txt if it does not exist; otherwise updates its timestamps."
+    },
+    {
+      "command": "touch index.html style.css app.js",
+      "output": null,
+      "explanation": "Creates several empty files at once — a common way to start a small project."
+    },
+    {
+      "command": "touch -c existing.log",
+      "output": null,
+      "explanation": "Updates the timestamp only if the file exists; never creates a new file."
+    },
+    {
+      "command": "touch -t 202501010900 report.txt",
+      "output": null,
+      "explanation": "Sets the modification time of report.txt to January 1, 2025, 09:00."
+    }
+  ],
+  "related": [
+    "mkdir",
+    "stat",
+    "cp"
+  ],
+  "tags": [
+    "create",
+    "files",
+    "timestamps",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/touch-invocation.html",
+  "about": [
+    "Despite its name, touch's primary job in POSIX is updating timestamps; creating empty files is a convenient side effect that made it the standard quick way to create placeholder files."
+  ],
+  "useCases": [
+    "Create empty files quickly.",
+    "Refresh a file's timestamp to trigger rebuild tools such as make.",
+    "Backdate files in test setups."
+  ],
+  "mistakes": [
+    "Believing touch edits file content — it never writes data into the file."
+  ]
+}

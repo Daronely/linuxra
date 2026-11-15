@@ -1,0 +1,63 @@
+{
+  "slug": "which",
+  "name": "which",
+  "category": "shell-terminal",
+  "subcategory": "Command lookup",
+  "difficulty": "beginner",
+  "description": "Shows the full path of an executable that the shell would run.",
+  "syntax": "which [OPTIONS] NAME...",
+  "flags": [
+    {
+      "flag": "NAME",
+      "description": "Path of the first matching executable in $PATH."
+    },
+    {
+      "flag": "-a",
+      "description": "Show ALL matches in PATH order."
+    },
+    {
+      "flag": "-p",
+      "description": "Behave as if PATH were the default."
+    }
+  ],
+  "examples": [
+    {
+      "command": "which python3",
+      "output": "\n/usr/bin/python3\n",
+      "explanation": "The python3 that will actually run."
+    },
+    {
+      "command": "which -a node",
+      "output": "\n/usr/local/bin/node\n/usr/bin/node\n",
+      "explanation": "Two node installations exist; the first in PATH wins. Classic cause of \"wrong version running\"."
+    },
+    {
+      "command": "which systemctl",
+      "output": null,
+      "explanation": "Empty output means the command is not in PATH — not installed, or PATH is incomplete (common in cron)."
+    }
+  ],
+  "related": [
+    "type",
+    "env",
+    "export"
+  ],
+  "tags": [
+    "path",
+    "locate",
+    "executable",
+    "which"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/which.1.html",
+  "about": [
+    "which searches $PATH only. It cannot see aliases, functions, or builtins — use type for the complete picture. In scripts, command -v NAME is the POSIX-portable existence check."
+  ],
+  "useCases": [
+    "Find where a program is installed.",
+    "Detect multiple conflicting installations.",
+    "Verify a command exists before calling it."
+  ],
+  "mistakes": [
+    "Using which in scripts for existence checks — command -v is portable and builtin."
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "slug": "chgrp",
+  "name": "chgrp",
+  "category": "permissions",
+  "subcategory": "Understanding Linux permissions",
+  "difficulty": "beginner",
+  "description": "Changes the group ownership of files and directories.",
+  "syntax": "chgrp [OPTIONS] GROUP FILE...",
+  "flags": [
+    {
+      "flag": "-R",
+      "description": "Recursive."
+    },
+    {
+      "flag": "-v",
+      "description": "Verbose: report each change."
+    },
+    {
+      "flag": "--reference=FILE",
+      "description": "Copy the group from another file."
+    }
+  ],
+  "examples": [
+    {
+      "command": "chgrp developers report.txt",
+      "output": null,
+      "explanation": "Changes the group of report.txt to developers (you must be a member of that group, or use sudo)."
+    },
+    {
+      "command": "sudo chgrp -R www-data /var/www/uploads",
+      "output": null,
+      "explanation": "Recursively assigns uploaded files to the web server group so it can read them."
+    },
+    {
+      "command": "chgrp -v team *.md",
+      "output": "\nchanged group of 'README.md' from user to team\n",
+      "explanation": "Verbose mode reports each file whose group changed."
+    }
+  ],
+  "related": [
+    "chown",
+    "chmod"
+  ],
+  "tags": [
+    "group",
+    "ownership",
+    "permissions"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/chgrp-invocation.html",
+  "about": [
+    "chgrp changes only the group, keeping the owner untouched — it is exactly chown :GROUP. A regular user may change the group of their own files to any group they belong to; changing to arbitrary groups requires root."
+  ],
+  "useCases": [
+    "Hand files to a team or service group.",
+    "Fix group ownership of web content."
+  ],
+  "mistakes": [
+    "Trying to chgrp to a group you are not a member of without sudo."
+  ]
+}

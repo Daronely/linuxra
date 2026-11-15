@@ -1,0 +1,53 @@
+{
+  "slug": "service",
+  "name": "service",
+  "category": "services-systemd",
+  "subcategory": "Managing services",
+  "difficulty": "beginner",
+  "description": "The legacy service management wrapper: forwards to systemctl on systemd systems and to init.d scripts on older ones.",
+  "syntax": "service NAME COMMAND",
+  "flags": [
+    {
+      "flag": "NAME start/stop/restart/status",
+      "description": "The classic four commands."
+    },
+    {
+      "flag": "--status-all",
+      "description": "List all services with state markers [+] running, [-] stopped."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo service nginx restart",
+      "output": null,
+      "explanation": "Works identically on SysV and systemd systems — that is its remaining value: old scripts and muscle memory."
+    },
+    {
+      "command": "service --status-all",
+      "output": "\n [+]  nginx\n [-]  docker\n [ ? ]  single\n",
+      "explanation": "Quick inventory of service states on any system."
+    }
+  ],
+  "related": [
+    "systemctl",
+    "journalctl"
+  ],
+  "tags": [
+    "services",
+    "legacy",
+    "init",
+    "compatibility"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/service.8.html",
+  "about": [
+    "service is a compatibility layer. On systemd distributions it translates to systemctl calls; genuinely SysV-only systems (rare now) run /etc/init.d/ scripts directly. New scripts should call systemctl explicitly."
+  ],
+  "useCases": [
+    "Portability across old and new init systems.",
+    "Quick interactive checks."
+  ],
+  "mistakes": [
+    "Using service for systemd-specific operations (enable, list-units) — it does not support them."
+  ],
+  "distroNotes": "Present on Debian/Ubuntu and RHEL-family; behavior differs by init system."
+}

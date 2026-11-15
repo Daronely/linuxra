@@ -1,0 +1,72 @@
+{
+  "slug": "type",
+  "name": "type",
+  "category": "shell-terminal",
+  "subcategory": "Command lookup",
+  "difficulty": "beginner",
+  "description": "Tells you HOW a command name will be interpreted: alias, builtin, function, or executable file and its path.",
+  "syntax": "type [OPTIONS] NAME...",
+  "flags": [
+    {
+      "flag": "NAME",
+      "description": "Description of how the shell resolves the name."
+    },
+    {
+      "flag": "-a",
+      "description": "All matches, in lookup order."
+    },
+    {
+      "flag": "-p",
+      "description": "Path only (if it is an executable file)."
+    },
+    {
+      "flag": "-t",
+      "description": "One-word result: alias, builtin, function, file."
+    }
+  ],
+  "examples": [
+    {
+      "command": "type ls",
+      "output": "\nls is aliased to `ls --color=auto'\n",
+      "explanation": "Your ls is an alias — this explains behavior differences between your shell and scripts."
+    },
+    {
+      "command": "type -a echo",
+      "output": "\necho is a shell builtin\necho is /usr/bin/echo\n",
+      "explanation": "Two echos exist: the builtin wins. Knowing this explains subtle behavior differences."
+    },
+    {
+      "command": "type -t git",
+      "output": "\nfile\n",
+      "explanation": "git is a real executable file, not a builtin or function."
+    },
+    {
+      "command": "type python3",
+      "output": "\npython3 is /usr/bin/python3\n",
+      "explanation": "Locates a program — a more informative which."
+    }
+  ],
+  "related": [
+    "which",
+    "echo",
+    "history"
+  ],
+  "tags": [
+    "builtin",
+    "alias",
+    "lookup",
+    "diagnose"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html",
+  "about": [
+    "The shell resolves a name in this order: alias, function, builtin, then PATH lookup. type shows exactly which step matches, which is the first diagnostic when a command behaves differently in scripts than interactively (scripts skip aliases)."
+  ],
+  "useCases": [
+    "Diagnose \"different behavior in scripts\".",
+    "Locate executables.",
+    "Detect hidden aliases/functions overriding commands."
+  ],
+  "mistakes": [
+    "Using which for builtins — which only searches PATH and misses aliases, functions, and builtins."
+  ]
+}

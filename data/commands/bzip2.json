@@ -1,0 +1,65 @@
+{
+  "slug": "bzip2",
+  "name": "bzip2",
+  "category": "archive-compression",
+  "subcategory": "BZIP2",
+  "difficulty": "beginner",
+  "description": "Compresses single files with a stronger (but slower) algorithm than gzip; pairs with tar via -j.",
+  "syntax": "bzip2 [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-k",
+      "description": "Keep the original file."
+    },
+    {
+      "flag": "-d",
+      "description": "Decompress (same as bunzip2)."
+    },
+    {
+      "flag": "-1..-9",
+      "description": "Compression level (default 9)."
+    },
+    {
+      "flag": "-c",
+      "description": "Output to stdout."
+    }
+  ],
+  "examples": [
+    {
+      "command": "bzip2 -k large.txt",
+      "output": null,
+      "explanation": "Creates large.txt.bz2, keeping the original."
+    },
+    {
+      "command": "tar -cjf backup.tar.bz2 project/",
+      "output": null,
+      "explanation": "tar with bzip2 filter (-j) — better ratio than -z at the cost of speed."
+    },
+    {
+      "command": "bunzip2 large.txt.bz2",
+      "output": null,
+      "explanation": "Decompresses, removing the .bz2 file."
+    }
+  ],
+  "related": [
+    "gzip",
+    "xz",
+    "tar"
+  ],
+  "tags": [
+    "compress",
+    "bzip2",
+    "archive"
+  ],
+  "docs": "https://sourceware.org/bzip2/manual/",
+  "about": [
+    "bzip2 typically achieves 10–15% better compression than gzip but is several times slower, which is why xz (better ratio, comparable speed to bzip2) and zstd (nearly gzip speed, near-xz ratio) have largely displaced it. Support is universal, so old .bz2 archives remain fully accessible."
+  ],
+  "useCases": [
+    "Decompressing legacy .bz2 archives.",
+    "Compression-critical, speed-insensitive tasks."
+  ],
+  "mistakes": [
+    "Choosing bzip2 for new workflows where xz or zstd would serve better."
+  ]
+}

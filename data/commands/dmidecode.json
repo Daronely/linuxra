@@ -1,0 +1,65 @@
+{
+  "slug": "dmidecode",
+  "name": "dmidecode",
+  "category": "system-info",
+  "subcategory": "Hardware information",
+  "difficulty": "advanced",
+  "description": "Decodes the DMI/SMBIOS tables: exact motherboard model, serial numbers, BIOS version, and memory module details. Requires root.",
+  "syntax": "dmidecode [OPTIONS] [TYPE...]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Dump all DMI information."
+    },
+    {
+      "flag": "-t memory",
+      "description": "-t bios, -t system, -t baseboard, -t processor: specific tables."
+    },
+    {
+      "flag": "-s KEYWORD",
+      "description": "Single string, e.g. -s system-product-name."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo dmidecode -s system-product-name",
+      "output": "\nPowerEdge R740\n",
+      "explanation": "Exact server model without opening the chassis."
+    },
+    {
+      "command": "sudo dmidecode -t memory | grep -E \"Size|Speed\"",
+      "output": "\nSize: 16384 MB\nSpeed: 2666 MT/s\n",
+      "explanation": "Per-module RAM size and speed — how you verify what RAM is installed in which slot."
+    },
+    {
+      "command": "sudo dmidecode -t bios | grep -i version",
+      "output": "\nVersion: 2.14.1\n",
+      "explanation": "BIOS/firmware version — needed before firmware updates."
+    }
+  ],
+  "related": [
+    "lspci",
+    "lscpu",
+    "lsblk"
+  ],
+  "tags": [
+    "hardware",
+    "bios",
+    "memory",
+    "inventory",
+    "smbios"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/dmidecode.8.html",
+  "about": [
+    "dmidecode reads the firmware-provided SMBIOS tables from /dev/mem or /sys/firmware/dmi. Values are reported by the vendor and can be wrong or empty on cheap hardware and some VMs. It is read-only and safe — it never changes hardware settings."
+  ],
+  "useCases": [
+    "Inventory servers (model, serial, RAM slots).",
+    "Check BIOS versions before updates.",
+    "Verify RAM configuration."
+  ],
+  "mistakes": [
+    "Running without sudo — it requires root.",
+    "Trusting serial numbers on VMs — hypervisors often inject generic values."
+  ]
+}

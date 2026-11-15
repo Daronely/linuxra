@@ -1,0 +1,85 @@
+{
+  "slug": "usermod",
+  "name": "usermod",
+  "category": "users-groups",
+  "subcategory": "Modifying users",
+  "difficulty": "intermediate",
+  "description": "Modifies an existing user account: groups, shell, home directory, lock state, and more.",
+  "syntax": "usermod [OPTIONS] USERNAME",
+  "flags": [
+    {
+      "flag": "-aG GROUPS",
+      "description": "Append the user to additional groups (-a is critical — without it, -G replaces all group memberships)."
+    },
+    {
+      "flag": "-s SHELL",
+      "description": "Change the login shell."
+    },
+    {
+      "flag": "-d PATH -m",
+      "description": "Move the home directory to PATH along with its contents."
+    },
+    {
+      "flag": "-L / -U",
+      "description": "Lock / unlock the password."
+    },
+    {
+      "flag": "-l NEWNAME",
+      "description": "Rename the user (does not rename the home directory by itself)."
+    },
+    {
+      "flag": "-e DATE",
+      "description": "Set an account expiration date."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo usermod -aG sudo alice",
+      "output": null,
+      "explanation": "Grants alice sudo (administrator) rights by adding her to the sudo group. THE most common usermod command."
+    },
+    {
+      "command": "sudo usermod -aG docker alice",
+      "output": null,
+      "explanation": "Allows alice to use Docker without sudo. She must log out and back in for group changes to take effect."
+    },
+    {
+      "command": "sudo usermod -s /usr/sbin/nologin olduser",
+      "output": null,
+      "explanation": "Disables interactive login for an account while keeping it for services."
+    },
+    {
+      "command": "sudo usermod -L alice",
+      "output": null,
+      "explanation": "Locks the account by prefixing the password hash in /etc/shadow with !. Unlock with -U."
+    }
+  ],
+  "related": [
+    "useradd",
+    "id",
+    "passwd"
+  ],
+  "tags": [
+    "users",
+    "modify",
+    "groups",
+    "sudo",
+    "admin"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+  "about": [
+    "usermod applies the same underlying changes as useradd but to existing accounts. The -aG idiom is essential: usermod -G docker alice (without -a) would remove alice from every other group — a classic way to accidentally revoke sudo access from an admin account."
+  ],
+  "useCases": [
+    "Grant or revoke administrative rights.",
+    "Change shells and home directories.",
+    "Temporarily lock accounts instead of deleting them."
+  ],
+  "mistakes": [
+    "Forgetting -a in -aG and wiping out all other group memberships.",
+    "Changing your own shell to something that does not exist and being unable to log in."
+  ],
+  "warnings": [
+    "Group changes require a new login session. If you lock or change the shell of the only admin account over SSH, keep your current session open until you have verified a second one works."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "slug": "lsblk",
+  "name": "lsblk",
+  "category": "system-info",
+  "subcategory": "Hardware information",
+  "difficulty": "beginner",
+  "description": "Lists block devices (disks, partitions, LVM volumes) as a tree, showing sizes and mount points.",
+  "syntax": "lsblk [OPTIONS] [DEVICE...]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Tree of all block devices."
+    },
+    {
+      "flag": "-f",
+      "description": "Include filesystem type, UUID, and label — the info you need for /etc/fstab."
+    },
+    {
+      "flag": "-a",
+      "description": "-all: include empty devices and loop devices."
+    },
+    {
+      "flag": "-o FIELDS",
+      "description": "Choose columns, e.g. -o NAME,SIZE,TYPE,MOUNTPOINT,MODEL."
+    },
+    {
+      "flag": "-S",
+      "description": "List only SCSI/SATA/NVMe disks (physical drives)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "lsblk",
+      "output": "\nNAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS\nsda      8:0    0 238.5G  0 disk\n├─sda1   8:1    0   512M  0 part /boot/efi\n└─sda2   8:2    0   238G  0 part /\nnvme0n1 259:0  0 465.8G  0 disk\n└─nvme0n1p1 259:1 0 465.8G 0 part /data\n",
+      "explanation": "Two physical disks (sda = SATA/SCSI, nvme0n1 = NVMe) with their partition trees and mount points."
+    },
+    {
+      "command": "lsblk -f",
+      "output": "\nNAME  FSTYPE LABEL UUID                                 MOUNTPOINT\nsda1  vfat   EFI   4F0B-1A2C                            /boot/efi\nsda2  ext4   root  8c1e...-4d2a...                      /\n",
+      "explanation": "Filesystem details: type and UUID — copy these into /etc/fstab for reliable mounting."
+    }
+  ],
+  "related": [
+    "blkid",
+    "fdisk",
+    "df",
+    "mount"
+  ],
+  "tags": [
+    "disks",
+    "partitions",
+    "storage",
+    "hardware",
+    "info"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+  "about": [
+    "lsblk reads sysfs and presents the block device hierarchy: disks (TYPE disk), partitions (part), LVM volumes (lvm), RAID arrays (md), and loop devices. It never requires root and never touches the devices — it is purely informational, unlike fdisk."
+  ],
+  "useCases": [
+    "Identify disks before partitioning or formatting.",
+    "Find UUIDs for fstab entries.",
+    "Understand LVM/RAID layouts."
+  ],
+  "mistakes": [
+    "Confusing device names: nvme0n1p1 is partition 1 of NVMe disk 0; sda1 is partition 1 of disk a."
+  ]
+}

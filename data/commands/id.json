@@ -1,0 +1,74 @@
+{
+  "slug": "id",
+  "name": "id",
+  "category": "users-groups",
+  "subcategory": "User identity",
+  "difficulty": "beginner",
+  "description": "Prints the real and effective user and group IDs of the current user or a specified user.",
+  "syntax": "id [OPTIONS] [USERNAME]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Your own UID, GID, and group memberships."
+    },
+    {
+      "flag": "USERNAME",
+      "description": "Identity of another user."
+    },
+    {
+      "flag": "-u",
+      "description": "Print only the UID."
+    },
+    {
+      "flag": "-g",
+      "description": "Print only the (primary) GID."
+    },
+    {
+      "flag": "-G",
+      "description": "Print all group IDs."
+    },
+    {
+      "flag": "-n",
+      "description": "Print names instead of numbers (combine: id -nG)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "id",
+      "output": "\nuid=1000(user) gid=1000(user) groups=1000(user),27(sudo),998(docker)\n",
+      "explanation": "Shows your numeric IDs and every group you belong to — sudo and docker membership are visible here."
+    },
+    {
+      "command": "id alice",
+      "output": "\nuid=1001(alice) gid=1001(alice) groups=1001(alice),27(sudo)\n",
+      "explanation": "Checks another user's identity and groups without logging in as her."
+    },
+    {
+      "command": "id -nG alice",
+      "output": "\nalice sudo\n",
+      "explanation": "Lists only the group names — handy in scripts: id -nG | grep -qw sudo."
+    }
+  ],
+  "related": [
+    "whoami",
+    "usermod"
+  ],
+  "tags": [
+    "identity",
+    "uid",
+    "gid",
+    "groups"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/id.1.html",
+  "about": [
+    "id resolves names from /etc/passwd and /etc/group. The distinction between real and effective IDs matters for setuid programs; id shows both when they differ."
+  ],
+  "useCases": [
+    "Verify group membership after usermod -aG.",
+    "Check UID/GID values when fixing file ownership.",
+    "Script checks for group membership."
+  ],
+  "mistakes": [
+    "Testing group changes without re-logging-in — id in an existing session still shows old groups."
+  ]
+}

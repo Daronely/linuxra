@@ -1,0 +1,65 @@
+{
+  "slug": "getfacl",
+  "name": "getfacl",
+  "category": "permissions",
+  "subcategory": "ACL permissions",
+  "difficulty": "advanced",
+  "description": "Displays Access Control Lists — fine-grained permissions beyond the classic owner/group/other model.",
+  "syntax": "getfacl [OPTIONS] FILE...",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "Prints ACL entries, effective rights, and the ACL mask."
+    },
+    {
+      "flag": "-R",
+      "description": "Recursive (with -p, do not follow symlinks)."
+    },
+    {
+      "flag": "--absolute-names",
+      "description": "Keep leading slashes in output (default strips them)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "getfacl report.txt",
+      "output": "\n# file: report.txt\n# owner: alice\n# group: team\nuser::rw-\nuser:bob:rwx\t\t#effective:rwx\ngroup::r--\nmask::rwx\nother::r--\n",
+      "explanation": "Shows classic permissions plus an extra entry: user bob has rwx via ACL. The mask caps the effective rights of named entries."
+    },
+    {
+      "command": "setfacl -m u:bob:rw report.txt && getfacl report.txt",
+      "output": null,
+      "explanation": "First grants bob read/write via ACL, then verifies. A + appears next to the mode in ls -l when a file has an extended ACL."
+    },
+    {
+      "command": "getfacl -R /data > acl-backup.txt",
+      "output": null,
+      "explanation": "Saves the entire ACL tree to a file — restore later with setfacl --restore=acl-backup.txt."
+    }
+  ],
+  "related": [
+    "chmod",
+    "chown",
+    "stat"
+  ],
+  "tags": [
+    "acl",
+    "permissions",
+    "security",
+    "access"
+  ],
+  "docs": "https://linux.die.net/man/1/getfacl",
+  "about": [
+    "POSIX ACLs add named users and groups with their own permission sets, plus a mask that limits the effective rights of all named entries and groups. They live in the filesystem (ext4, xfs, btrfs) and require the acl mount option on some older systems. Tools like rsync (-A), tar (--acls), and cp --preserve=xattr can carry ACLs across copies."
+  ],
+  "useCases": [
+    "Grant a specific user access without changing group membership.",
+    "Back up and restore complex permission trees.",
+    "Audit who really has access to shared data."
+  ],
+  "mistakes": [
+    "Assuming ls -l shows the full picture — it only hints with a + sign; getfacl is required.",
+    "Editing the mask manually and accidentally reducing effective rights."
+  ],
+  "distroNotes": "ACLs require filesystem support: ext4/xfs/btrfs include it by default; NFS needs server-side support; FAT/exFAT cannot store ACLs at all."
+}

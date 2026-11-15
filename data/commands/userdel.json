@@ -1,0 +1,66 @@
+{
+  "slug": "userdel",
+  "name": "userdel",
+  "category": "users-groups",
+  "subcategory": "Deleting users",
+  "difficulty": "intermediate",
+  "description": "Deletes a user account and optionally its home directory and mail spool.",
+  "syntax": "userdel [OPTIONS] USERNAME",
+  "flags": [
+    {
+      "flag": "-r",
+      "description": "Remove the home directory and mail spool along with the account."
+    },
+    {
+      "flag": "-f",
+      "description": "Force removal even if the user is logged in."
+    },
+    {
+      "flag": "-Z",
+      "description": "Remove any SELinux user mapping (RHEL-family)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo userdel bob",
+      "output": null,
+      "explanation": "Removes the account bob but leaves /home/bob in place — the safe default."
+    },
+    {
+      "command": "sudo userdel -r bob",
+      "output": null,
+      "explanation": "Removes the account AND the home directory. Make sure the data is backed up first."
+    },
+    {
+      "command": "find / -xdev -uid 1002 2>/dev/null",
+      "output": null,
+      "explanation": "After deleting a user, locates files still owned by the old UID so you can reassign or remove them."
+    }
+  ],
+  "related": [
+    "useradd",
+    "usermod",
+    "id"
+  ],
+  "tags": [
+    "users",
+    "delete",
+    "accounts",
+    "admin"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/userdel.8.html",
+  "about": [
+    "userdel removes entries from /etc/passwd, /etc/shadow, and /etc/group. Files owned by the user elsewhere in the filesystem (e.g. in /tmp or /var/www) are NOT removed; searching by UID finds them."
+  ],
+  "useCases": [
+    "Clean up departed users on shared servers.",
+    "Remove test accounts."
+  ],
+  "mistakes": [
+    "Deleting a user whose processes are still running — the processes keep running under an orphaned UID.",
+    "Assuming -r cleans everything; stray files owned by the UID remain elsewhere."
+  ],
+  "warnings": [
+    "userdel -r irreversibly deletes the home directory. Back up or archive first."
+  ]
+}

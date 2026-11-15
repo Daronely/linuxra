@@ -1,0 +1,87 @@
+{
+  "slug": "crontab",
+  "name": "crontab",
+  "category": "scheduling-automation",
+  "subcategory": "Cron",
+  "difficulty": "intermediate",
+  "description": "Schedules recurring commands: each user has their own crontab of cron expressions and jobs.",
+  "syntax": "crontab [OPTIONS] [FILE]",
+  "flags": [
+    {
+      "flag": "-e",
+      "description": "Edit your crontab (opens $EDITOR)."
+    },
+    {
+      "flag": "-l",
+      "description": "List your scheduled jobs."
+    },
+    {
+      "flag": "-r",
+      "description": "Remove ALL your jobs (no undo — use -e and delete lines instead)."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Operate on another user's crontab (root only)."
+    },
+    {
+      "flag": "5 fields",
+      "description": "minute(0-59) hour(0-23) day(1-31) month(1-12) weekday(0-7, 0/7=Sunday)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "crontab -e",
+      "output": null,
+      "explanation": "Opens your crontab in the editor. Add lines like the examples below and save."
+    },
+    {
+      "command": "0 3 * * * /home/user/backup.sh",
+      "output": null,
+      "explanation": "Runs backup.sh every day at 03:00. The five fields: minute hour day month weekday."
+    },
+    {
+      "command": "*/15 * * * * /usr/local/bin/sync.sh >> /var/log/sync.log 2>&1",
+      "output": null,
+      "explanation": "Every 15 minutes, logging output. ALWAYS redirect cron output — otherwise results are emailed/lost."
+    },
+    {
+      "command": "0 9 * * 1-5 /usr/local/bin/report.sh",
+      "output": null,
+      "explanation": "Weekdays (Mon–Fri) at 09:00."
+    },
+    {
+      "command": "crontab -l",
+      "output": "\n0 3 * * * /home/user/backup.sh\n",
+      "explanation": "Lists what is actually scheduled."
+    }
+  ],
+  "related": [
+    "at",
+    "systemctl",
+    "logger"
+  ],
+  "tags": [
+    "cron",
+    "schedule",
+    "automation",
+    "jobs"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man5/crontab.5.html",
+  "about": [
+    "Cron reads /var/spool/cron/ (per user) and /etc/cron.d/. Environment in cron is minimal: PATH is usually /usr/bin:/bin, so ALWAYS use absolute paths for executables and files. Special strings exist: @daily, @hourly, @weekly, @reboot. Cron does not run jobs missed while the machine was off (anacron does)."
+  ],
+  "useCases": [
+    "Nightly backups.",
+    "Periodic cleanup and log rotation.",
+    "Regular report generation."
+  ],
+  "mistakes": [
+    "Forgetting absolute paths — cron's PATH is minimal and scripts fail silently.",
+    "Not redirecting output; errors vanish into mail nobody reads.",
+    "Using % in cron commands unescaped — % is special in crontab; escape as \\%."
+  ],
+  "warnings": [
+    "crontab -r deletes everything with no confirmation. Check crontab -l before and after any edit."
+  ],
+  "distroNotes": "Standard cron (vixie-cron) on Debian/Ubuntu; cronie on RHEL-family adds anacron features. systemd timers are the modern alternative with logging and dependencies."
+}

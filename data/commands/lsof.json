@@ -1,0 +1,83 @@
+{
+  "slug": "lsof",
+  "name": "lsof",
+  "category": "advanced-linux",
+  "subcategory": "File descriptors",
+  "difficulty": "advanced",
+  "description": "Lists open files — and on Linux, everything is a file: regular files, sockets, pipes, devices. The tool for \"what is using this?\"",
+  "syntax": "lsof [OPTIONS] [NAME...]",
+  "flags": [
+    {
+      "flag": "-i",
+      "description": "-i :PORT / -i TCP: internet sockets, optionally filtered."
+    },
+    {
+      "flag": "+D DIR",
+      "description": "Everything open under a directory (recursive)."
+    },
+    {
+      "flag": "-u USER / -c NAME",
+      "description": "By user / by command name."
+    },
+    {
+      "flag": "-p PID",
+      "description": "By process."
+    },
+    {
+      "flag": "+f -- PATH",
+      "description": "Which process holds this mount point busy."
+    },
+    {
+      "flag": "-t",
+      "description": "PIDs only (for scripting)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "lsof -i :80",
+      "output": "\nCOMMAND  PID   USER   FD  TYPE DEVICE SIZE NODE NAME\nnginx   1024   root   6u  IPv4  18231      0t0  TCP *:http (LISTEN)\n",
+      "explanation": "Which process is bound to port 80 — the definitive answer to \"address already in use\"."
+    },
+    {
+      "command": "lsof /var/log/syslog",
+      "output": "\nrsyslogd  812 syslog  7w   REG  8,2  1188432  524301 /var/log/syslog\n",
+      "explanation": "Who has this file open — explains why you cannot delete or rotate it cleanly."
+    },
+    {
+      "command": "lsof +f -- /mnt/data",
+      "output": null,
+      "explanation": "Finds processes keeping a mount busy — the missing piece before umount."
+    },
+    {
+      "command": "lsof -p $(pgrep -x nginx | head -1)",
+      "output": null,
+      "explanation": "Every file, socket, and library one process currently holds open."
+    }
+  ],
+  "related": [
+    "ss",
+    "df",
+    "strace",
+    "ps"
+  ],
+  "tags": [
+    "files",
+    "sockets",
+    "open",
+    "diagnose",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/lsof.8.html",
+  "about": [
+    "A deleted-but-open file keeps consuming space until its last user closes it — lsof | grep deleted finds these \"ghost\" files, the classic full-disk mystery. lsof needs root to see other users' files fully."
+  ],
+  "useCases": [
+    "Diagnose \"address already in use\".",
+    "Find what blocks an unmount.",
+    "Track deleted files still holding disk space."
+  ],
+  "mistakes": [
+    "Forgetting sudo for system-wide results.",
+    "Searching for a file by name without -p/+D and missing open-but-deleted entries."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "slug": "kill",
+  "name": "kill",
+  "category": "processes",
+  "subcategory": "Signals",
+  "difficulty": "beginner",
+  "description": "Sends a signal to a process by PID. Despite the name, it can send any signal, not only termination.",
+  "syntax": "kill [OPTIONS] PID...",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "Send SIGTERM (15): request a graceful shutdown."
+    },
+    {
+      "flag": "-9",
+      "description": "-KILL: force-terminate immediately; the process cannot intercept it."
+    },
+    {
+      "flag": "-1",
+      "description": "-HUP: conventionally reload configuration."
+    },
+    {
+      "flag": "-l",
+      "description": "List all signal names and numbers."
+    },
+    {
+      "flag": "-SIGSTOP / -SIGCONT",
+      "description": "Pause / resume a process."
+    }
+  ],
+  "examples": [
+    {
+      "command": "kill 2140",
+      "output": null,
+      "explanation": "Asks PID 2140 to terminate gracefully, letting it save state and close files."
+    },
+    {
+      "command": "kill -9 2140",
+      "output": null,
+      "explanation": "Force-kills PID 2140. Use only after a normal kill fails — data in memory is lost."
+    },
+    {
+      "command": "kill -HUP $(pgrep syslogd)",
+      "output": null,
+      "explanation": "Reloads the syslog daemon configuration."
+    },
+    {
+      "command": "kill -l",
+      "output": "\n 1) SIGHUP   2) SIGINT   3) SIGQUIT  9) SIGKILL 15) SIGTERM ...\n",
+      "explanation": "Lists available signals. Ctrl+C in a terminal actually sends SIGINT (2)."
+    }
+  ],
+  "related": [
+    "pkill",
+    "killall",
+    "pgrep",
+    "ps"
+  ],
+  "tags": [
+    "signal",
+    "terminate",
+    "pid",
+    "processes"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/kill.1.html",
+  "about": [
+    "kill is a shell builtin (and /bin/kill exists too). Signals are the kernel's inter-process notification mechanism — the same mechanism that Ctrl+C (SIGINT) and kill -9 (SIGKILL) use. Only the process owner or root may signal a process."
+  ],
+  "useCases": [
+    "Terminate unresponsive programs.",
+    "Reload daemon configurations.",
+    "Pause and resume processes."
+  ],
+  "mistakes": [
+    "Killing PID 1 — the kernel ignores/protects it, but attempting it signals a misunderstanding of the process tree.",
+    "Using -9 before trying a normal kill."
+  ],
+  "warnings": [
+    "kill -9 leaves lock files and temp data behind because the process cannot clean up; always escalate gradually (TERM, then KILL)."
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "slug": "locate",
+  "name": "locate",
+  "category": "file-directory",
+  "subcategory": "Finding files",
+  "difficulty": "beginner",
+  "description": "Quickly finds files by name using a prebuilt database maintained by updatedb, far faster than find for whole-disk searches.",
+  "syntax": "locate [OPTIONS] PATTERN...",
+  "flags": [
+    {
+      "flag": "-i",
+      "description": "Ignore case."
+    },
+    {
+      "flag": "-c",
+      "description": "Print only the count of matches."
+    },
+    {
+      "flag": "-n N",
+      "description": "Limit output to N results."
+    },
+    {
+      "flag": "-e",
+      "description": "Print only files that currently exist on disk."
+    },
+    {
+      "flag": "-r REGEX",
+      "description": "Interpret the pattern as a basic regular expression."
+    }
+  ],
+  "examples": [
+    {
+      "command": "locate nginx.conf",
+      "output": "\n/etc/nginx/nginx.conf\n/usr/share/doc/nginx/examples/nginx.conf\n",
+      "explanation": "Searches the database and prints every path containing nginx.conf."
+    },
+    {
+      "command": "locate -c \".jpg\"",
+      "output": "\n2417\n",
+      "explanation": "Counts matching entries without printing them."
+    },
+    {
+      "command": "locate -i readme | head -5",
+      "output": null,
+      "explanation": "Case-insensitive search for readme, showing the first five results."
+    }
+  ],
+  "related": [
+    "find"
+  ],
+  "tags": [
+    "search",
+    "find",
+    "database",
+    "fast"
+  ],
+  "docs": "https://plocate.sesse.net/",
+  "about": [
+    "locate reads from an index (for mlocate: /var/lib/mlocate/mlocate.db) refreshed by updatedb, usually daily via cron or a systemd timer. Results may include files deleted since the last update, and brand-new files will not appear until the next refresh. Run sudo updatedb to refresh immediately.",
+    "mlocate restricts results to files the invoking user can see, based on directory permissions recorded in the database."
+  ],
+  "useCases": [
+    "Fast whole-system filename lookups.",
+    "Checking where a package installed its files."
+  ],
+  "mistakes": [
+    "Expecting a just-created file to appear — the database is not real-time.",
+    "Using locate on systems where the mlocate/plocate package is not installed (minimal containers often lack it)."
+  ],
+  "distroNotes": "Modern distributions ship plocate or mlocate; both provide the locate command. plocate is faster and uses a different index but the same interface."
+}

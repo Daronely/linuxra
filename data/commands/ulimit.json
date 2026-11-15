@@ -1,0 +1,79 @@
+{
+  "slug": "ulimit",
+  "name": "ulimit",
+  "category": "linux-administration",
+  "subcategory": "System limits",
+  "difficulty": "advanced",
+  "description": "A shell builtin that reports or sets per-process resource limits: open files, CPU time, memory, and processes.",
+  "syntax": "ulimit [OPTIONS] [LIMIT]",
+  "flags": [
+    {
+      "flag": "-a",
+      "description": "Show all current limits."
+    },
+    {
+      "flag": "-n",
+      "description": "Open file descriptors (the famous \"too many open files\" limit)."
+    },
+    {
+      "flag": "-u",
+      "description": "Max user processes."
+    },
+    {
+      "flag": "-c",
+      "description": "Core dump size."
+    },
+    {
+      "flag": "-v",
+      "description": "Virtual memory."
+    },
+    {
+      "flag": "-S / -H",
+      "description": "Soft limit (changeable) / hard limit (root-set ceiling)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ulimit -a",
+      "output": "\ncore file size          0 blocks\nopen files              1024\nmax user processes      63345\n",
+      "explanation": "The full picture. open files 1024 is the classic default that breaks busy servers."
+    },
+    {
+      "command": "ulimit -n 4096 && ./server",
+      "output": null,
+      "explanation": "Raises the open-file limit for THIS shell and launches the server — the fix for \"Too many open files\" during testing."
+    },
+    {
+      "command": "user soft nofile 8192\nuser hard nofile 65536",
+      "output": null,
+      "explanation": "Persistent limits live in /etc/security/limits.conf (applied by PAM at login) or systemd LimitNOFILE= in unit files."
+    }
+  ],
+  "related": [
+    "sysctl",
+    "systemctl",
+    "lsof"
+  ],
+  "tags": [
+    "limits",
+    "resources",
+    "files",
+    "tuning",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man3/ulimit.3.html",
+  "about": [
+    "Limits are per-process, inherited from the parent, and enforced by the kernel. Soft limits can be raised up to the hard limit by the process itself; hard limits only root can raise. Three layers exist: shell ulimit, PAM limits.conf, and systemd unit directives — services get their limits from systemd, not your shell."
+  ],
+  "useCases": [
+    "Fix \"Too many open files\" for servers.",
+    "Raise process limits for load testing.",
+    "Cap runaway resources."
+  ],
+  "mistakes": [
+    "Setting ulimit in ~/.bashrc and expecting a systemd service to inherit it — services need LimitNOFILE= in the unit."
+  ],
+  "warnings": [
+    "Raising limits without raising kernel-level capacity (fs.file-max, somaxconn) just moves the bottleneck."
+  ]
+}

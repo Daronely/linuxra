@@ -1,0 +1,76 @@
+{
+  "slug": "alias",
+  "name": "alias",
+  "category": "shell-terminal",
+  "subcategory": "Aliases",
+  "difficulty": "beginner",
+  "description": "Creates command shortcuts: a short name that expands to a longer command.",
+  "syntax": "alias [NAME='COMMAND']",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "List all current aliases."
+    },
+    {
+      "flag": "NAME='COMMAND'",
+      "description": "Define an alias."
+    },
+    {
+      "flag": "unalias NAME",
+      "description": "Remove an alias."
+    },
+    {
+      "flag": "\\NAME",
+      "description": "Bypass an alias once (\\ls runs real ls)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "alias ll='ls -alF'",
+      "output": null,
+      "explanation": "Now ll shows a detailed listing with file-type indicators."
+    },
+    {
+      "command": "alias grep='grep --color=auto'",
+      "output": null,
+      "explanation": "Makes grep highlight matches by default — a popular quality-of-life alias."
+    },
+    {
+      "command": "alias ..='cd ..'",
+      "output": null,
+      "explanation": "Two dots jump up one directory."
+    },
+    {
+      "command": "alias",
+      "output": null,
+      "explanation": "Lists everything currently aliased, including distribution defaults like ll and la."
+    }
+  ],
+  "related": [
+    "export",
+    "source",
+    "history"
+  ],
+  "tags": [
+    "alias",
+    "shortcut",
+    "productivity",
+    "shell"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Aliases.html",
+  "about": [
+    "Aliases are shell-only (not available in scripts by default) and live per-session unless defined in ~/.bashrc or ~/.zshrc. For anything parameterized or scriptable, prefer a shell function instead of an alias."
+  ],
+  "useCases": [
+    "Shortcut for long frequent commands.",
+    "Add safety defaults (rm -i, mv -i).",
+    "Customize tool behavior (colors, flags)."
+  ],
+  "mistakes": [
+    "Defining aliases in a script and expecting them to exist — scripts need functions or full paths.",
+    "Alias shadowing a real command and then confusion in scripts that run on other machines."
+  ],
+  "warnings": [
+    "Aliasing rm to rm -i trains habits that fail on servers without the alias. Prefer awareness over safety aliases."
+  ]
+}

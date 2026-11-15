@@ -1,0 +1,90 @@
+{
+  "slug": "iptables",
+  "name": "iptables",
+  "category": "security-firewall",
+  "subcategory": "Firewall management",
+  "difficulty": "advanced",
+  "description": "The classic Linux firewall tool: chains of rules filtering packets by interface, address, port, and state. Superseded by nftables but still everywhere.",
+  "syntax": "iptables [OPTIONS] -COMMAND CHAIN RULE",
+  "flags": [
+    {
+      "flag": "-L -n -v",
+      "description": "List rules with counters, no DNS lookups."
+    },
+    {
+      "flag": "-A CHAIN",
+      "description": "Append a rule (INPUT, OUTPUT, FORWARD)."
+    },
+    {
+      "flag": "-I CHAIN 1",
+      "description": "Insert at position 1 (evaluated first)."
+    },
+    {
+      "flag": "-D CHAIN SPEC",
+      "description": "Delete a rule."
+    },
+    {
+      "flag": "-p tcp --dport 22",
+      "description": "Match TCP destination port 22."
+    },
+    {
+      "flag": "-s CIDR / -d CIDR",
+      "description": "Source / destination network."
+    },
+    {
+      "flag": "-j ACCEPT|DROP|REJECT",
+      "description": "Target: allow / silently drop / reject with notice."
+    },
+    {
+      "flag": "-m state --state ESTABLISHED,RELATED",
+      "description": "Match established connections (stateful rule)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo iptables -L INPUT -n -v --line-numbers",
+      "output": "\nChain INPUT (policy ACCEPT)\nnum  pkts bytes target  prot opt in  source        destination\n1    1204  92K  ACCEPT  all  --  *   0.0.0.0/0     0.0.0.0/0  state ESTABLISHED,RELATED\n2     310 18K   ACCEPT  tcp  --  *   0.0.0.0/0     0.0.0.0/0  tcp dpt:22\n",
+      "explanation": "Lists the INPUT chain. Policy ACCEPT with explicit rules; --line-numbers gives you the numbers needed for -D/-I."
+    },
+    {
+      "command": "sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT",
+      "output": null,
+      "explanation": "Allows HTTPS traffic. Rules apply immediately but vanish at reboot unless persisted (netfilter-persistent, iptables-save)."
+    },
+    {
+      "command": "sudo iptables -I INPUT 1 -s 203.0.113.7 -j DROP",
+      "output": null,
+      "explanation": "Inserts a block for one source IP at the top of the chain — the classic emergency ban."
+    }
+  ],
+  "related": [
+    "ufw",
+    "firewall-cmd",
+    "nmap"
+  ],
+  "tags": [
+    "firewall",
+    "iptables",
+    "packets",
+    "security",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/iptables.8.html",
+  "about": [
+    "iptables filters packets through chains (INPUT for the host, FORWARD for routed traffic, OUTPUT leaving). Rules match top-down; first match wins, so rule ORDER is the whole game. nftables (nft) replaces it with cleaner syntax and better performance; on modern kernels iptables commands are often translated to nftables behind the scenes."
+  ],
+  "useCases": [
+    "Precise firewall control on older systems.",
+    "Emergency IP blocks.",
+    "Understanding what ufw/firewalld do underneath."
+  ],
+  "mistakes": [
+    "Locking yourself out by setting INPUT policy DROP before allowing SSH.",
+    "Forgetting the ESTABLISHED rule and breaking all return traffic.",
+    "Expecting rules to persist across reboots without iptables-save."
+  ],
+  "warnings": [
+    "iptables rules are live immediately — a bad INSERT on a remote server can cut your session. Always keep an out-of-band console (cloud provider console) available when editing firewalls remotely."
+  ],
+  "distroNotes": "iptables-nft on modern distros translates to nftables. Pure nftables systems may lack iptables entirely."
+}

@@ -1,0 +1,90 @@
+{
+  "slug": "xargs",
+  "name": "xargs",
+  "category": "text-processing",
+  "subcategory": "Text streams",
+  "difficulty": "intermediate",
+  "description": "Builds and executes command lines from standard input — the bridge between lists of items and commands that take arguments.",
+  "syntax": "xargs [OPTIONS] [COMMAND]",
+  "flags": [
+    {
+      "flag": "-n N",
+      "description": "Use at most N arguments per command invocation."
+    },
+    {
+      "flag": "-I {}",
+      "description": "Replace {} in the command with each input item."
+    },
+    {
+      "flag": "-0",
+      "description": "Input items are NUL-terminated (safe with find -print0)."
+    },
+    {
+      "flag": "-P N",
+      "description": "Run up to N commands in parallel."
+    },
+    {
+      "flag": "-r",
+      "description": "Do not run the command if input is empty (GNU)."
+    },
+    {
+      "flag": "-t",
+      "description": "Print the command before executing it."
+    }
+  ],
+  "examples": [
+    {
+      "command": "find . -name \"*.tmp\" | xargs rm",
+      "output": null,
+      "explanation": "Deletes every .tmp file found. Simple but breaks on filenames with spaces — see the -0 pattern below."
+    },
+    {
+      "command": "find . -name \"*.log\" -print0 | xargs -0 rm",
+      "output": null,
+      "explanation": "The safe version: -print0 separates filenames with NUL bytes and -0 consumes them, handling any filename."
+    },
+    {
+      "command": "cat urls.txt | xargs -n1 -P4 wget -q",
+      "output": null,
+      "explanation": "Downloads all URLs from a file, four downloads in parallel."
+    },
+    {
+      "command": "ls *.png | xargs -I {} convert {} {}.webp",
+      "output": null,
+      "explanation": "For each PNG, runs a command with the filename substituted at {}."
+    },
+    {
+      "command": "xargs -a packages.txt apt-get install -y",
+      "output": null,
+      "explanation": "Installs every package listed in a file (Debian/Ubuntu)."
+    }
+  ],
+  "related": [
+    "find",
+    "tee",
+    "grep"
+  ],
+  "tags": [
+    "arguments",
+    "batch",
+    "parallel",
+    "pipe"
+  ],
+  "docs": "https://www.gnu.org/software/findutils/manual/html_mono/find.html",
+  "about": [
+    "xargs reads whitespace-separated items and appends them to a command, splitting into multiple invocations when the command line would exceed system limits. Without a command it defaults to echo. It pairs naturally with find (prefer -print0/-0), and -P turns it into a simple parallel runner."
+  ],
+  "useCases": [
+    "Apply a command to thousands of files.",
+    "Parallelize downloads, conversions, or compression.",
+    "Convert stdin lists into command arguments."
+  ],
+  "mistakes": [
+    "Piping filenames with spaces without -0 — each word becomes a separate argument.",
+    "Dropping -r and running the command once even when input is empty."
+  ],
+  "warnings": [
+    "xargs rm on a bad file list deletes the wrong things irreversibly; preview with xargs -t or run ls first."
+  ],
+  "distroNotes": "GNU xargs supports -r, -P, and -a. BSD xargs has -0 and -P but not -r/-a; behavior with empty input differs."
+}

@@ -1,0 +1,94 @@
+{
+  "slug": "rm",
+  "name": "rm",
+  "category": "file-directory",
+  "subcategory": "Deleting files",
+  "difficulty": "beginner",
+  "description": "Removes files and, with -r, directories and their contents.",
+  "syntax": "rm [OPTIONS] FILE...",
+  "flags": [
+    {
+      "flag": "-r",
+      "description": "-R: delete directories recursively, including all contents."
+    },
+    {
+      "flag": "-f",
+      "description": "Ignore nonexistent files and never prompt."
+    },
+    {
+      "flag": "-i",
+      "description": "Prompt before every removal."
+    },
+    {
+      "flag": "-I",
+      "description": "Prompt once before removing more than three files (safer for bulk deletes)."
+    },
+    {
+      "flag": "-v",
+      "description": "Print each file as it is removed."
+    },
+    {
+      "flag": "-d",
+      "description": "Remove empty directories (like rmdir)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "rm notes.txt",
+      "output": null,
+      "explanation": "Deletes the file notes.txt permanently."
+    },
+    {
+      "command": "rm -i important.conf",
+      "output": "\nrm: remove regular file 'important.conf'? y\n",
+      "explanation": "Asks for confirmation before deleting — a good habit outside of scripts."
+    },
+    {
+      "command": "rm -r old-project/",
+      "output": null,
+      "explanation": "Deletes the old-project directory and everything inside it."
+    },
+    {
+      "command": "rm -I *.tmp",
+      "output": "\nrm: remove 5 arguments recursively? y\n",
+      "explanation": "With many files, -I asks one question instead of one per file."
+    },
+    {
+      "command": "rm -v cache/*.cache",
+      "output": "\nremoved 'cache/render.cache'\nremoved 'cache/thumb.cache'\n",
+      "explanation": "Verbose removal shows exactly what was deleted."
+    }
+  ],
+  "related": [
+    "mv",
+    "cp",
+    "find"
+  ],
+  "tags": [
+    "delete",
+    "remove",
+    "cleanup",
+    "basic",
+    "dangerous"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/rm-invocation.html",
+  "about": [
+    "rm unlinks files from the filesystem. Once the link count reaches zero and no process holds the file open, the data blocks are freed. There is no trash can and no undo at the shell level.",
+    "rm -rf combines recursion and force; it is the standard way to delete directory trees — and the classic way to destroy systems when pointed at the wrong path."
+  ],
+  "useCases": [
+    "Delete unwanted files.",
+    "Remove directory trees during cleanup.",
+    "Scripted cleanup with rm -f in controlled directories."
+  ],
+  "mistakes": [
+    "Running rm -rf with an unquoted variable that is empty: rm -rf \"$dir\"/ expands to rm -rf /.",
+    "Typing rm -rf /tmp / instead of rm -rf \"/tmp dir\" (missing quotes around a space).",
+    "Believing rm sends files to a recycle bin — it does not."
+  ],
+  "warnings": [
+    "Deleted files are generally unrecoverable. Double-check the path before pressing Enter, especially with wildcards and root privileges.",
+    "Never run rm on a mount point while the disk is mounted; unmount first."
+  ],
+  "distroNotes": "rm is part of GNU coreutils. Some distributions alias rm to rm -i for the interactive root user only; scripts are unaffected because aliases do not apply there."
+}

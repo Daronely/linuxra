@@ -1,0 +1,74 @@
+{
+  "slug": "unzip",
+  "name": "unzip",
+  "category": "archive-compression",
+  "subcategory": "ZIP",
+  "difficulty": "beginner",
+  "description": "Extracts .zip archives.",
+  "syntax": "unzip [OPTIONS] ARCHIVE",
+  "flags": [
+    {
+      "flag": "(no args) ARCHIVE",
+      "description": "Extract all files into the current directory."
+    },
+    {
+      "flag": "-l",
+      "description": "List contents without extracting."
+    },
+    {
+      "flag": "-d DIR",
+      "description": "Extract into a specific directory."
+    },
+    {
+      "flag": "-o",
+      "description": "Overwrite existing files without asking."
+    },
+    {
+      "flag": "-n",
+      "description": "Never overwrite."
+    },
+    {
+      "flag": "-P PASS",
+      "description": "Password (insecure on the command line — visible in history)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "unzip project.zip -d ./project",
+      "output": null,
+      "explanation": "Extracts into the (existing or created) project directory, keeping the tree tidy."
+    },
+    {
+      "command": "unzip -l download.zip",
+      "output": null,
+      "explanation": "Previews contents first — the safe habit with unknown archives."
+    },
+    {
+      "command": "unzip -o bundle.zip",
+      "output": null,
+      "explanation": "Overwrites existing files without prompting — useful for re-deploys, dangerous on shared data."
+    }
+  ],
+  "related": [
+    "zip",
+    "tar",
+    "7z"
+  ],
+  "tags": [
+    "zip",
+    "extract",
+    "archive"
+  ],
+  "docs": "https://linux.die.net/man/1/unzip",
+  "about": [
+    "unzip restores the zip's internal paths. Zips created on Windows may contain non-UTF-8 filenames, which show as mojibake; unzip -O cp437 (or -O cp850) can fix encoding on GNU builds."
+  ],
+  "useCases": [
+    "Extract received zip files.",
+    "Preview archives before extraction."
+  ],
+  "mistakes": [
+    "Extracting into the current directory and mixing files with existing ones — use -d.",
+    "Passing passwords with -P: they land in shell history."
+  ]
+}

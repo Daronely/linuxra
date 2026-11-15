@@ -1,0 +1,65 @@
+{
+  "slug": "ifconfig",
+  "name": "ifconfig",
+  "category": "networking",
+  "subcategory": "Network interfaces",
+  "difficulty": "beginner",
+  "description": "The classic interface configuration tool from net-tools. Still present for compatibility, superseded by ip.",
+  "syntax": "ifconfig [INTERFACE] [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Show active interfaces with addresses and statistics."
+    },
+    {
+      "flag": "-a",
+      "description": "Include interfaces that are down."
+    },
+    {
+      "flag": "INTERFACE up/down",
+      "description": "Enable or disable an interface (deprecated syntax)."
+    },
+    {
+      "flag": "INTERFACE IP",
+      "description": "Assign an address (deprecated syntax)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ifconfig",
+      "output": "\neth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500\n      inet 192.168.1.20  netmask 255.255.255.0\n      RX packets 104231  bytes 128443012 (122.4 MiB)\n",
+      "explanation": "Shows interface state, IPv4 address, netmask, and RX/TX packet counters."
+    },
+    {
+      "command": "ifconfig -a",
+      "output": null,
+      "explanation": "Also lists interfaces that are currently down."
+    }
+  ],
+  "related": [
+    "ip",
+    "ss"
+  ],
+  "tags": [
+    "network",
+    "interface",
+    "legacy",
+    "ip"
+  ],
+  "docs": "https://net-tools.sourceforge.io/",
+  "about": [
+    "net-tools (ifconfig, route, netstat) has not tracked modern kernel features for years: it hides secondary addresses, cannot show policy routing, and its output format is fixed. Linux distributions keep it only for habit and old scripts — new work should use ip."
+  ],
+  "useCases": [
+    "Reading legacy scripts and documentation.",
+    "Quick familiar checks on older servers."
+  ],
+  "mistakes": [
+    "Using ifconfig in new scripts — prefer ip.",
+    "Expecting it to be installed by default: many minimal images omit net-tools entirely."
+  ],
+  "warnings": [
+    "Deprecated. Modern distributions may not include it at all."
+  ],
+  "distroNotes": "Available via the net-tools package (optional on Debian/Ubuntu and Fedora; not installed by default on many minimal images)."
+}

@@ -1,0 +1,59 @@
+{
+  "slug": "jobs",
+  "name": "jobs",
+  "category": "processes",
+  "subcategory": "Background processes",
+  "difficulty": "beginner",
+  "description": "Lists jobs started from the current shell session and their state (running/stopped).",
+  "syntax": "jobs [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-l",
+      "description": "Include process IDs."
+    },
+    {
+      "flag": "%N",
+      "description": "Job specifier used by fg/bg/kill, e.g. fg %1."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sleep 300 &",
+      "output": "\n[1] 2150\n",
+      "explanation": "The & launches the command in the background; the shell prints the job number and PID."
+    },
+    {
+      "command": "jobs -l",
+      "output": "\n[1]+  2150 Running    sleep 300 &\n",
+      "explanation": "Shows job 1 running with PID 2150."
+    },
+    {
+      "command": "Ctrl+Z, then bg %1",
+      "output": null,
+      "explanation": "Ctrl+Z suspends the foreground job; bg resumes it in the background. fg %1 brings it back to the foreground."
+    }
+  ],
+  "related": [
+    "nohup",
+    "jobs",
+    "ps"
+  ],
+  "tags": [
+    "background",
+    "jobs",
+    "shell",
+    "control"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Job-Control-Builtins.html",
+  "about": [
+    "Job control is a shell feature (bash/zsh). Background jobs keep running as long as the shell lives; when the terminal closes, they receive SIGHUP — unless started with nohup or disowned. Background jobs attached to the terminal still write to it; redirect their output for clean logs."
+  ],
+  "useCases": [
+    "Suspend an editor, run a quick command, resume with fg.",
+    "Run long tasks in the background.",
+    "Manage multiple concurrent tasks in one terminal."
+  ],
+  "mistakes": [
+    "Closing the terminal and losing background jobs — use nohup or disown for persistence."
+  ]
+}

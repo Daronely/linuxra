@@ -1,0 +1,76 @@
+{
+  "slug": "printf",
+  "name": "printf",
+  "category": "shell-terminal",
+  "subcategory": "Bash basics",
+  "difficulty": "beginner",
+  "description": "Formats and prints data like the C printf: precise control over numbers, padding, and escapes.",
+  "syntax": "printf FORMAT [ARGUMENTS...]",
+  "flags": [
+    {
+      "flag": "%s",
+      "description": "String placeholder."
+    },
+    {
+      "flag": "%d / %f",
+      "description": "Integer / floating-point number."
+    },
+    {
+      "flag": "%5s / %-10s",
+      "description": "Pad to width 5 (right-aligned) / 10 (left-aligned)."
+    },
+    {
+      "flag": "%.2f",
+      "description": "Two decimal places."
+    },
+    {
+      "flag": "\\n \\t",
+      "description": "Newline / tab — printf does NOT add a newline automatically."
+    }
+  ],
+  "examples": [
+    {
+      "command": "printf \"Name: %s, Age: %d\\n\" \"Alice\" 30",
+      "output": "\nName: Alice, Age: 30\n",
+      "explanation": "Formats values into a template. Note the explicit \\n."
+    },
+    {
+      "command": "printf \"%-10s|%s\\n\" ID Name abc 2",
+      "output": "\nID        |Name\nabc       |2\n",
+      "explanation": "Column formatting: %-10s left-pads to width 10 — quick aligned tables."
+    },
+    {
+      "command": "printf \"%.2f\\n\" 3.14159",
+      "output": "\n3.14\n",
+      "explanation": "Rounds to two decimals."
+    },
+    {
+      "command": "printf \"%s\\n\" *.txt",
+      "output": null,
+      "explanation": "Prints each .txt filename on its own line — safer than echo for lists."
+    }
+  ],
+  "related": [
+    "echo",
+    "awk"
+  ],
+  "tags": [
+    "format",
+    "print",
+    "scripting",
+    "portable"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html",
+  "about": [
+    "printf is a builtin in bash and POSIX-standard, so its behavior is identical everywhere — unlike echo. The format string is reused if there are more arguments than placeholders, which makes printf \"%s\\n\" list a clean way to print one item per line."
+  ],
+  "useCases": [
+    "Portable, predictable output in scripts.",
+    "Aligned columns and formatted numbers.",
+    "Printing lists safely."
+  ],
+  "mistakes": [
+    "Forgetting \\n and getting everything on one line.",
+    "Using %d with non-numeric input — it errors or prints 0."
+  ]
+}

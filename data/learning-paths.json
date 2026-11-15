@@ -1,0 +1,222 @@
+{
+  "beginner": {
+    "title": "Beginner Roadmap",
+    "duration": "2–4 weeks",
+    "description": "Zero to comfortable: navigate the filesystem, manage files, read documentation, and run your first scripts.",
+    "steps": [
+      {
+        "title": "Find your way around",
+        "body": "Learn where you are and how to move. These four commands are the foundation of everything else.",
+        "commands": [
+          "pwd",
+          "ls",
+          "cd",
+          "file"
+        ]
+      },
+      {
+        "title": "Create and organize",
+        "body": "Make files and directories, copy and move them around.",
+        "commands": [
+          "mkdir",
+          "touch",
+          "cp",
+          "mv"
+        ]
+      },
+      {
+        "title": "Read files and search text",
+        "body": "View file contents and find the lines you need.",
+        "commands": [
+          "cat",
+          "less",
+          "head",
+          "tail",
+          "grep"
+        ]
+      },
+      {
+        "title": "Delete carefully",
+        "body": "Remove files and directories — and learn why rm deserves respect.",
+        "commands": [
+          "rm",
+          "du",
+          "df"
+        ]
+      },
+      {
+        "title": "Get help and go faster",
+        "body": "Use the manual, history, and tab completion effectively.",
+        "commands": [
+          "which",
+          "history",
+          "alias",
+          "echo"
+        ]
+      },
+      {
+        "title": "Permissions first contact",
+        "body": "Understand rwx and make your scripts executable.",
+        "commands": [
+          "chmod",
+          "whoami"
+        ]
+      }
+    ]
+  },
+  "intermediate": {
+    "title": "Intermediate Roadmap",
+    "duration": "1–3 months",
+    "description": "From comfortable to capable: administer users and services, master text pipelines, and manage disks.",
+    "steps": [
+      {
+        "title": "Text processing power",
+        "body": "Build pipelines that answer real questions about logs and data.",
+        "commands": [
+          "sed",
+          "awk",
+          "sort",
+          "uniq",
+          "wc",
+          "xargs"
+        ]
+      },
+      {
+        "title": "Users and privileges",
+        "body": "Create accounts, manage groups, and use sudo correctly.",
+        "commands": [
+          "useradd",
+          "usermod",
+          "passwd",
+          "sudo",
+          "su",
+          "id"
+        ]
+      },
+      {
+        "title": "Processes and monitoring",
+        "body": "Find, inspect, and control running programs.",
+        "commands": [
+          "ps",
+          "top",
+          "htop",
+          "pgrep",
+          "kill",
+          "pkill",
+          "nohup"
+        ]
+      },
+      {
+        "title": "Services with systemd",
+        "body": "Start, stop, enable, and diagnose services — the core of server work.",
+        "commands": [
+          "systemctl",
+          "journalctl",
+          "service"
+        ]
+      },
+      {
+        "title": "Disks and storage",
+        "body": "Partition, format, mount, and monitor storage.",
+        "commands": [
+          "lsblk",
+          "fdisk",
+          "mkfs",
+          "mount",
+          "blkid"
+        ]
+      },
+      {
+        "title": "Networking basics",
+        "body": "Check addresses, routes, ports, and connectivity.",
+        "commands": [
+          "ip",
+          "ping",
+          "ss",
+          "dig",
+          "curl"
+        ]
+      },
+      {
+        "title": "Automation",
+        "body": "Schedule recurring work with cron.",
+        "commands": [
+          "crontab",
+          "find",
+          "tar"
+        ]
+      }
+    ]
+  },
+  "advanced": {
+    "title": "Advanced Roadmap",
+    "duration": "3–6 months",
+    "description": "From capable to expert: security hardening, kernel internals, containers from first principles, and deep troubleshooting.",
+    "steps": [
+      {
+        "title": "Security and firewalls",
+        "body": "Harden SSH, manage firewalls, and encrypt data.",
+        "commands": [
+          "ssh",
+          "ssh-keygen",
+          "ufw",
+          "iptables",
+          "gpg",
+          "openssl"
+        ]
+      },
+      {
+        "title": "Advanced permissions",
+        "body": "Go beyond rwx: special bits, ACLs, and umask strategy.",
+        "commands": [
+          "getfacl",
+          "umask",
+          "stat",
+          "chown"
+        ]
+      },
+      {
+        "title": "Deep troubleshooting",
+        "body": "Trace system calls, open files, and kernel events.",
+        "commands": [
+          "strace",
+          "lsof",
+          "dmesg",
+          "sysctl"
+        ]
+      },
+      {
+        "title": "Kernel and boot",
+        "body": "Manage modules, kernel parameters, and the boot process.",
+        "commands": [
+          "modprobe",
+          "lsmod",
+          "sysctl",
+          "ulimit",
+          "update-grub",
+          "chroot"
+        ]
+      },
+      {
+        "title": "Containers from first principles",
+        "body": "Understand what Docker does by using namespaces directly.",
+        "commands": [
+          "unshare",
+          "nsenter",
+          "taskset"
+        ]
+      },
+      {
+        "title": "Performance engineering",
+        "body": "Priorities, affinity, and resource limits in production.",
+        "commands": [
+          "nice",
+          "taskset",
+          "free",
+          "uptime",
+          "dmidecode"
+        ]
+      }
+    ]
+  }
+}

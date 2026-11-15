@@ -1,0 +1,80 @@
+{
+  "slug": "tail",
+  "name": "tail",
+  "category": "text-processing",
+  "subcategory": "Reading files",
+  "difficulty": "beginner",
+  "description": "Prints the last lines of each input file, or follows a file as it grows.",
+  "syntax": "tail [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-n N",
+      "description": "Print the last N lines (default 10); -n +N starts at line N."
+    },
+    {
+      "flag": "-f",
+      "description": "Follow: keep printing new lines as the file grows."
+    },
+    {
+      "flag": "-F",
+      "description": "Like -f but also handles log rotation (retries when the file is recreated)."
+    },
+    {
+      "flag": "-c N",
+      "description": "Print the last N bytes."
+    }
+  ],
+  "examples": [
+    {
+      "command": "tail /var/log/syslog",
+      "output": null,
+      "explanation": "Prints the last 10 lines."
+    },
+    {
+      "command": "tail -n 50 app.log",
+      "output": null,
+      "explanation": "Prints the last 50 lines of the application log."
+    },
+    {
+      "command": "tail -f /var/log/nginx/access.log",
+      "output": "\n203.0.113.7 - - [12/Jan/2025:10:14:01] \"GET / HTTP/1.1\" 200 5123\n",
+      "explanation": "Streams new requests as they arrive. Stop with Ctrl+C. Essential for watching live web server traffic."
+    },
+    {
+      "command": "tail -F /var/log/app.log",
+      "output": null,
+      "explanation": "Use -F when logrotate may rename and recreate the file; tail keeps following the new file."
+    },
+    {
+      "command": "tail -n +100 big.log | head -21",
+      "output": null,
+      "explanation": "Prints lines 100 through 120 of a large file without loading it into an editor."
+    }
+  ],
+  "related": [
+    "head",
+    "less",
+    "grep",
+    "journalctl"
+  ],
+  "tags": [
+    "view",
+    "log",
+    "follow",
+    "realtime",
+    "end"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/tail-invocation.html",
+  "about": [
+    "tail -f works by tracking the file descriptor; -F re-checks the filename, surviving rotation. Combining with grep gives a live filtered feed: tail -f app.log | grep --line-buffered ERROR."
+  ],
+  "useCases": [
+    "Watch logs in real time.",
+    "Inspect the end of large files without opening them.",
+    "Follow rotated log files reliably with -F."
+  ],
+  "mistakes": [
+    "Using -f on a file that logrotate will rename — the follow goes silent; -F fixes it.",
+    "Forgetting that Ctrl+C stops the tail, not the program writing the log."
+  ]
+}

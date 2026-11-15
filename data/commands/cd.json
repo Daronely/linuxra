@@ -1,0 +1,77 @@
+{
+  "slug": "cd",
+  "name": "cd",
+  "category": "file-directory",
+  "subcategory": "File paths",
+  "difficulty": "beginner",
+  "description": "Changes the current working directory of the shell.",
+  "syntax": "cd [DIRECTORY]",
+  "flags": [
+    {
+      "flag": "-",
+      "description": "Switch to the previous directory (equivalent to cd \"$OLDPWD\")."
+    },
+    {
+      "flag": "..",
+      "description": "Move up one level to the parent directory."
+    },
+    {
+      "flag": "~",
+      "description": "Move to your home directory; ~user moves to another user's home."
+    }
+  ],
+  "examples": [
+    {
+      "command": "cd /etc/nginx",
+      "output": null,
+      "explanation": "Moves to the /etc/nginx directory using an absolute path (starting from the root /)."
+    },
+    {
+      "command": "cd projects/linuxora",
+      "output": null,
+      "explanation": "Moves into a relative path, resolved from the current directory."
+    },
+    {
+      "command": "cd ..",
+      "output": null,
+      "explanation": "Moves up one level to the parent directory."
+    },
+    {
+      "command": "cd -",
+      "output": "\n/home/user/projects\n",
+      "explanation": "Prints the previous directory after switching to it, making it easy to toggle between two locations."
+    },
+    {
+      "command": "cd",
+      "output": null,
+      "explanation": "With no argument, cd goes to your home directory ($HOME)."
+    }
+  ],
+  "related": [
+    "pwd",
+    "ls",
+    "mkdir"
+  ],
+  "tags": [
+    "navigation",
+    "directory",
+    "paths",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html",
+  "about": [
+    "cd is a shell builtin, not an external program, because a child process cannot change the working directory of its parent shell. The shell tracks the current directory in the $PWD and $OLDPWD variables.",
+    "Absolute paths start with / and are resolved from the filesystem root; relative paths are resolved from your current location."
+  ],
+  "useCases": [
+    "Navigate the filesystem during daily work.",
+    "Jump between two directories quickly using cd -."
+  ],
+  "mistakes": [
+    "Using cd with a path containing spaces without quotes: cd My Documents fails; use cd \"My Documents\".",
+    "Expecting cd to persist after a script exits — scripts run in their own shell."
+  ],
+  "warnings": [
+    "None significant; cd cannot delete or modify anything."
+  ]
+}

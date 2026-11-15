@@ -1,0 +1,48 @@
+{
+  "slug": "lsmod",
+  "name": "lsmod",
+  "category": "linux-administration",
+  "subcategory": "Kernel modules",
+  "difficulty": "beginner",
+  "description": "Lists all currently loaded kernel modules and what depends on them.",
+  "syntax": "lsmod",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "Formatted list from /proc/modules."
+    }
+  ],
+  "examples": [
+    {
+      "command": "lsmod | head -5",
+      "output": "\nModule              Size  Used by\nnvidia          56545280  12 nvidia_uvm\nsnd_hda_intel    57344   4\n",
+      "explanation": "Each line: module name, memory size, use count, and dependent modules."
+    },
+    {
+      "command": "lsmod | grep -E \"nvidia|nouveau\"",
+      "output": null,
+      "explanation": "Checks which graphics driver is actually loaded — the definitive answer in the nvidia vs nouveau question."
+    }
+  ],
+  "related": [
+    "modprobe",
+    "lspci"
+  ],
+  "tags": [
+    "kernel",
+    "modules",
+    "drivers",
+    "list"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/lsmod.8.html",
+  "about": [
+    "lsmod is a formatted view of /proc/modules. The \"Used by\" count must be 0 before a module can be removed with modprobe -r."
+  ],
+  "useCases": [
+    "Verify a driver loaded.",
+    "Check module dependencies before unloading."
+  ],
+  "mistakes": [
+    "Trying to remove a module with a nonzero use count."
+  ]
+}

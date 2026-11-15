@@ -1,0 +1,78 @@
+{
+  "slug": "ssh-keygen",
+  "name": "ssh-keygen",
+  "category": "ssh-remote",
+  "subcategory": "SSH keys",
+  "difficulty": "beginner",
+  "description": "Creates SSH key pairs for passwordless, encrypted authentication.",
+  "syntax": "ssh-keygen [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-t TYPE",
+      "description": "Key type: ed25519 (modern, preferred) or rsa 4096 (legacy compatibility)."
+    },
+    {
+      "flag": "-b BITS",
+      "description": "Key size (for RSA: 4096)."
+    },
+    {
+      "flag": "-C COMMENT",
+      "description": "Label, conventionally an email or purpose."
+    },
+    {
+      "flag": "-f FILE",
+      "description": "Output path, e.g. -f ~/.ssh/deploy_key."
+    },
+    {
+      "flag": "-N PASSPHRASE",
+      "description": "Passphrase (empty -N '' for none — less safe)."
+    },
+    {
+      "flag": "-l -f KEY",
+      "description": "Fingerprint of a key (verify which key is which)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ssh-keygen -t ed25519 -C \"user@laptop\"",
+      "output": "\nGenerating public/private ed25519 key pair.\nEnter passphrase (empty for no passphrase):\nYour identification has been saved in /home/user/.ssh/id_ed25519\n",
+      "explanation": "Creates a modern key pair: id_ed25519 (PRIVATE — never leaves this machine) and id_ed25519.pub (shared with servers)."
+    },
+    {
+      "command": "ssh-keygen -t rsa -b 4096 -f ~/.ssh/legacy_key",
+      "output": null,
+      "explanation": "RSA-4096 for old systems that do not support ed25519."
+    },
+    {
+      "command": "ssh-keygen -lf ~/.ssh/id_ed25519.pub",
+      "output": "\n256 SHA256:AbCd... user@laptop (ED25519)\n",
+      "explanation": "Shows the fingerprint — how you confirm which key is which on GitHub or servers."
+    }
+  ],
+  "related": [
+    "ssh",
+    "ssh-copy-id"
+  ],
+  "tags": [
+    "ssh",
+    "keys",
+    "authentication",
+    "security"
+  ],
+  "docs": "https://www.openssh.com/manual.html",
+  "about": [
+    "Ed25519 is the current best choice: small, fast, secure. RSA-4096 remains for legacy targets. A passphrase on the private key protects it if your laptop is stolen; ssh-agent caches the unlocked key per session. Private keys must be chmod 600 — ssh refuses world-readable keys."
+  ],
+  "useCases": [
+    "Passwordless server login.",
+    "Git hosting authentication (GitHub, GitLab).",
+    "CI/CD deploy keys."
+  ],
+  "mistakes": [
+    "Committing or sharing the PRIVATE key (no .pub extension).",
+    "Generating 1024-bit RSA keys — obsolete and rejected by modern servers."
+  ],
+  "warnings": [
+    "A private key without passphrase on a compromised laptop is an instant breach of every server it reaches. Use a passphrase plus ssh-agent."
+  ]
+}

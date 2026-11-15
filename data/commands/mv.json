@@ -1,0 +1,84 @@
+{
+  "slug": "mv",
+  "name": "mv",
+  "category": "file-directory",
+  "subcategory": "Moving files",
+  "difficulty": "beginner",
+  "description": "Moves or renames files and directories.",
+  "syntax": "mv [OPTIONS] SOURCE... DESTINATION",
+  "flags": [
+    {
+      "flag": "-i",
+      "description": "Ask before overwriting an existing destination."
+    },
+    {
+      "flag": "-n",
+      "description": "Never overwrite an existing destination."
+    },
+    {
+      "flag": "-f",
+      "description": "Overwrite without prompting (the default when not interactive)."
+    },
+    {
+      "flag": "-v",
+      "description": "Print each move or rename."
+    },
+    {
+      "flag": "-b",
+      "description": "Create a backup of each overwritten file (with a ~ suffix by default)."
+    },
+    {
+      "flag": "-u",
+      "description": "Move only when the source is newer or the destination is missing."
+    }
+  ],
+  "examples": [
+    {
+      "command": "mv draft.txt final-report.txt",
+      "output": null,
+      "explanation": "Renames draft.txt to final-report.txt in the same directory — renaming is a move within the same filesystem."
+    },
+    {
+      "command": "mv photo.jpg ~/Pictures/",
+      "output": null,
+      "explanation": "Moves photo.jpg into the Pictures folder in your home directory."
+    },
+    {
+      "command": "mv -iv *.log /var/log/archive/",
+      "output": "\nrenamed 'app.log' -> '/var/log/archive/app.log'\n",
+      "explanation": "Moves all .log files into an archive directory, verbosely and with confirmation before overwrites."
+    },
+    {
+      "command": "mv -b config.conf config.conf.new",
+      "output": "\nconfig.conf  config.conf~  config.conf.new\n",
+      "explanation": "Replaces config.conf but keeps a backup of the previous version as config.conf~ (shown via ls)."
+    }
+  ],
+  "related": [
+    "cp",
+    "rm",
+    "rsync"
+  ],
+  "tags": [
+    "move",
+    "rename",
+    "organize",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/mv-invocation.html",
+  "about": [
+    "mv performs the same action for files and directories. Within one filesystem it is a fast rename() call; across filesystems it silently falls back to copy-then-delete, which takes longer and needs enough free space."
+  ],
+  "useCases": [
+    "Rename files and directories.",
+    "Organize files into different folders.",
+    "Atomically replace a config file after editing a .new copy."
+  ],
+  "mistakes": [
+    "Expecting a prompt before overwriting — plain mv overwrites silently; use -i.",
+    "Moving a directory into its own subdirectory, which fails."
+  ],
+  "warnings": [
+    "mv overwrites destination files without asking by default. Combined with a wildcard typo this can destroy files."
+  ]
+}

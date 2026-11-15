@@ -1,0 +1,91 @@
+{
+  "slug": "pacman",
+  "name": "pacman",
+  "category": "package-management",
+  "subcategory": "Arch Linux",
+  "difficulty": "intermediate",
+  "description": "The package manager of Arch Linux and its derivatives: fast, simple, and combined with the Arch User Repository via AUR helpers.",
+  "syntax": "pacman [OPTIONS] COMMAND [PACKAGE...]",
+  "flags": [
+    {
+      "flag": "-Syu",
+      "description": "Full system sync + upgrade — the Arch update ritual."
+    },
+    {
+      "flag": "-S PKG",
+      "description": "Install a package (combine: -Syu PKG installs and updates in one go)."
+    },
+    {
+      "flag": "-R PKG / -Rns PKG",
+      "description": "Remove / remove with unneeded deps and configs."
+    },
+    {
+      "flag": "-Ss TERM",
+      "description": "Search repositories."
+    },
+    {
+      "flag": "-Qi / -Ql PKG",
+      "description": "Info / file list of an installed package."
+    },
+    {
+      "flag": "-Qdt",
+      "description": "List orphaned packages (installed as deps, no longer required)."
+    },
+    {
+      "flag": "-F FILE",
+      "description": "Find which package provides a file (needs -Fy first)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo pacman -Syu",
+      "output": null,
+      "explanation": "Synchronizes the package database and upgrades everything. On Arch, do this regularly — partial upgrades are unsupported."
+    },
+    {
+      "command": "sudo pacman -S htop",
+      "output": null,
+      "explanation": "Installs htop from the official repositories."
+    },
+    {
+      "command": "pacman -Ss \"pdf editor\"",
+      "output": null,
+      "explanation": "Searches package names and descriptions."
+    },
+    {
+      "command": "pacman -Qdt",
+      "output": null,
+      "explanation": "Lists orphans; sudo pacman -Rns $(pacman -Qdtq) removes them all."
+    },
+    {
+      "command": "pacman -Fy && pacman -F lsblk",
+      "output": null,
+      "explanation": "Builds the file database, then finds which package provides lsblk."
+    }
+  ],
+  "related": [
+    "dnf",
+    "apt",
+    "zypper"
+  ],
+  "tags": [
+    "packages",
+    "arch",
+    "install",
+    "aur"
+  ],
+  "docs": "https://man.archlinux.org/man/pacman.8",
+  "about": [
+    "pacman uses a single flat repository model with rolling releases. The AUR (Arch User Repository) is a community collection of build recipes used through helpers like yay or paru — those packages are compiled from source and are not officially supported."
+  ],
+  "useCases": [
+    "Daily package management on Arch, Manjaro, EndeavourOS.",
+    "Finding package ownership of files.",
+    "Cleaning orphans."
+  ],
+  "mistakes": [
+    "Running pacman -Sy PKG without u (partial upgrade) — Arch explicitly does not support it and it breaks systems.",
+    "Installing random AUR helpers/packages without reading the PKGBUILD."
+  ],
+  "distroNotes": "Arch Linux, Manjaro, EndeavourOS, and derivatives only."
+}

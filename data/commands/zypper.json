@@ -1,0 +1,84 @@
+{
+  "slug": "zypper",
+  "name": "zypper",
+  "category": "package-management",
+  "subcategory": "openSUSE",
+  "difficulty": "intermediate",
+  "description": "The package manager of openSUSE and SUSE Linux Enterprise, built on libzypp with strong dependency solving and repository management.",
+  "syntax": "zypper [OPTIONS] COMMAND [PACKAGE...]",
+  "flags": [
+    {
+      "flag": "refresh / ref",
+      "description": "Refresh repository metadata."
+    },
+    {
+      "flag": "install / in PKG",
+      "description": "Install packages (-y for non-interactive)."
+    },
+    {
+      "flag": "remove / rm PKG",
+      "description": "Remove packages."
+    },
+    {
+      "flag": "update / up",
+      "description": "Install available updates."
+    },
+    {
+      "flag": "dup",
+      "description": "Distribution upgrade — the openSUSE rolling/upgrade path."
+    },
+    {
+      "flag": "search / se TERM",
+      "description": "Search packages."
+    },
+    {
+      "flag": "ar URL ALIAS",
+      "description": "Add a repository; lr lists repositories."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo zypper ref && sudo zypper up",
+      "output": null,
+      "explanation": "The openSUSE update routine: refresh metadata, then apply updates."
+    },
+    {
+      "command": "sudo zypper in htop",
+      "output": null,
+      "explanation": "Installs htop."
+    },
+    {
+      "command": "zypper se editor",
+      "output": null,
+      "explanation": "Searches package names and summaries."
+    },
+    {
+      "command": "sudo zypper dup",
+      "output": null,
+      "explanation": "Distribution upgrade: moves the whole system to the selected release — the supported way to follow openSUSE Tumbleweed."
+    }
+  ],
+  "related": [
+    "rpm",
+    "dnf",
+    "apt"
+  ],
+  "tags": [
+    "packages",
+    "suse",
+    "install",
+    "repositories"
+  ],
+  "docs": "https://en.opensuse.org/Portal:Zypper",
+  "about": [
+    "zypper shares libzypp with YaST, openSUSE's administration suite. Its snapshot/rollback integration with btrfs+snapper can restore the entire system to a pre-update state after a bad upgrade."
+  ],
+  "useCases": [
+    "Package management on openSUSE Leap and Tumbleweed.",
+    "SLES server administration."
+  ],
+  "mistakes": [
+    "Using up where dup is needed when following Tumbleweed."
+  ],
+  "distroNotes": "openSUSE and SUSE Linux Enterprise only."
+}

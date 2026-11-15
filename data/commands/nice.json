@@ -1,0 +1,59 @@
+{
+  "slug": "nice",
+  "name": "nice",
+  "category": "processes",
+  "subcategory": "Process priorities",
+  "difficulty": "intermediate",
+  "description": "Starts a program with a modified scheduling priority (niceness). Higher nice value = lower priority.",
+  "syntax": "nice [OPTIONS] [COMMAND]",
+  "flags": [
+    {
+      "flag": "-n N",
+      "description": "Nice value from -20 (highest priority) to +19 (lowest). Default is +10 when starting a command with nice."
+    },
+    {
+      "flag": "(no command)",
+      "description": "Print the current niceness (same as nice with no arguments)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "nice -n 19 make -j8",
+      "output": null,
+      "explanation": "Runs a heavy build at the lowest priority so your desktop stays responsive."
+    },
+    {
+      "command": "nice -n -10 ffmpeg -i in.mp4 out.mp4",
+      "output": null,
+      "explanation": "Runs a video encode at higher priority. Negative values require root (sudo nice -n -10 ...)."
+    },
+    {
+      "command": "renice +5 -p 2140",
+      "output": null,
+      "explanation": "Changes the priority of a RUNNING process (processes cannot lower their own niceness after start; renice can raise it)."
+    }
+  ],
+  "related": [
+    "top",
+    "taskset",
+    "ps"
+  ],
+  "tags": [
+    "priority",
+    "scheduling",
+    "cpu",
+    "performance"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/nice.1.html",
+  "about": [
+    "Niceness is a hint to the kernel scheduler, not a hard limit — a very busy nice-19 process still gets CPU on an idle machine. Only root can decrease niceness (increase priority). CPU share is also governed by cgroups and cpulimit-style tools; nice affects scheduling weight only."
+  ],
+  "useCases": [
+    "Run batch jobs without hurting interactive performance.",
+    "Give critical tasks a scheduling boost."
+  ],
+  "mistakes": [
+    "Expecting nice to limit CPU usage percentage — use cpulimit, cgroups, or systemd resource controls for that.",
+    "Trying negative values without root."
+  ]
+}

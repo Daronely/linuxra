@@ -1,0 +1,73 @@
+{
+  "slug": "mkfs",
+  "name": "mkfs",
+  "category": "disk-storage",
+  "subcategory": "Filesystems",
+  "difficulty": "intermediate",
+  "description": "Creates (formats) a filesystem on a partition or disk — mkfs.ext4, mkfs.xfs, mkfs.vfat are its concrete forms.",
+  "syntax": "mkfs [-t TYPE] [OPTIONS] DEVICE",
+  "flags": [
+    {
+      "flag": "-t TYPE",
+      "description": "Filesystem type: ext4, xfs, btrfs, vfat, f2fs."
+    },
+    {
+      "flag": "-L LABEL",
+      "description": "Set a volume label."
+    },
+    {
+      "flag": "mkfs.ext4 DEVICE",
+      "description": "The explicit form most people actually use."
+    },
+    {
+      "flag": "-n DRYRUN",
+      "description": "ext4: show what would be created, write nothing."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo mkfs.ext4 /dev/sdb1",
+      "output": "\nCreating filesystem with 244188672 4k blocks\nCreating journal (32768 blocks): done\n",
+      "explanation": "Formats the partition as ext4. ALL previous data on it is gone."
+    },
+    {
+      "command": "sudo mkfs.xfs -L data /dev/sdc1",
+      "output": null,
+      "explanation": "Creates an XFS filesystem with the label \"data\" — XFS is the RHEL default and excels at large files and parallel I/O."
+    },
+    {
+      "command": "sudo mkfs.vfat -F 32 /dev/sdd1",
+      "output": null,
+      "explanation": "FAT32 — the type USB sticks need to be readable by cameras, cars, and Windows."
+    }
+  ],
+  "related": [
+    "fdisk",
+    "mount",
+    "fsck",
+    "blkid"
+  ],
+  "tags": [
+    "format",
+    "filesystem",
+    "ext4",
+    "xfs",
+    "storage"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/mkfs.8.html",
+  "about": [
+    "Choosing a filesystem: ext4 is the safe universal default; XFS scales better for huge files and is RHEL's default; Btrfs adds snapshots and checksumming (openSUSE default); FAT32/exFAT are for cross-device compatibility. mkfs only creates the filesystem — partition first with fdisk/parted."
+  ],
+  "useCases": [
+    "Prepare new disks.",
+    "Reformat a partition for reuse.",
+    "Create cross-platform USB media."
+  ],
+  "mistakes": [
+    "Running mkfs on the whole disk (/dev/sdb) instead of a partition (/dev/sdb1) — legal but usually not what you want.",
+    "Formatting the wrong disk — there is no undo."
+  ],
+  "warnings": [
+    "mkfs DESTROYS all data on the target without asking. Verify the device with lsblk before every run."
+  ]
+}

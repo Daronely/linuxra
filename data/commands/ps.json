@@ -1,0 +1,82 @@
+{
+  "slug": "ps",
+  "name": "ps",
+  "category": "processes",
+  "subcategory": "Listing processes",
+  "difficulty": "beginner",
+  "description": "Reports a snapshot of current processes. The classic Unix style (ps aux) and BSD style are the most common.",
+  "syntax": "ps [OPTIONS]",
+  "flags": [
+    {
+      "flag": "aux",
+      "description": "BSD style: all processes (a), including those without a terminal (x), with owner, CPU%, MEM%, and command (u)."
+    },
+    {
+      "flag": "-ef",
+      "description": "System V style: all processes with full formatting, parent PIDs."
+    },
+    {
+      "flag": "-e --forest",
+      "description": "Show the process tree with ASCII-art parent-child relationships."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Only processes owned by USER."
+    },
+    {
+      "flag": "--sort=-%mem",
+      "description": "Sort by memory usage descending (also -%cpu, pid)."
+    },
+    {
+      "flag": "-p PID",
+      "description": "-C NAME: only the given PID / command name."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ps aux",
+      "output": "\nUSER  PID %CPU %MEM    VSZ   RSS TTY  STAT START TIME COMMAND\nroot    1  0.0  0.2 167312 11876 ?   Ss   08:00 0:02 /sbin/init\nuser  2140  0.5  1.1 482916 45220 pts/0 Ss 09:00 0:01 -bash\n",
+      "explanation": "Every running process. Key columns: PID (process ID), %CPU/%MEM (resource use), STAT (S=sleeping, R=running, Z=zombie), COMMAND."
+    },
+    {
+      "command": "ps -ef --forest | head -20",
+      "output": null,
+      "explanation": "Shows the process hierarchy — which process spawned which. Init/systemd (PID 1) is the root of the tree."
+    },
+    {
+      "command": "ps aux --sort=-%mem | head -5",
+      "output": "\nUSER  PID %CPU %MEM    VSZ   RSS TTY  STAT START TIME COMMAND\nmysql 1187  1.2 18.3 1984212 1500000 ? Sl 08:00 3:12 /usr/sbin/mysqld\n",
+      "explanation": "The five biggest memory consumers — the first step when a server is running out of RAM."
+    },
+    {
+      "command": "ps -u alice",
+      "output": null,
+      "explanation": "All processes owned by alice, useful before terminating a user's session."
+    }
+  ],
+  "related": [
+    "top",
+    "htop",
+    "pgrep",
+    "kill"
+  ],
+  "tags": [
+    "processes",
+    "monitor",
+    "pid",
+    "snapshot"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/ps.1.html",
+  "about": [
+    "ps shows a SNAPSHOT — for continuously updating views use top or htop. STAT codes worth knowing: R running, S sleeping, D uninterruptible sleep (usually I/O), Z zombie, T stopped, < high priority, N low priority, s session leader, + foreground."
+  ],
+  "useCases": [
+    "Find a process ID to kill or inspect.",
+    "Diagnose memory and CPU hogs.",
+    "See the process tree to understand service relationships."
+  ],
+  "mistakes": [
+    "Typing ps -aux — mixing styles; use ps aux or ps -ef.",
+    "Expecting live updates from ps — it is a snapshot; use top."
+  ]
+}

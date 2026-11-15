@@ -1,0 +1,100 @@
+{
+  "slug": "ssh",
+  "name": "ssh",
+  "category": "ssh-remote",
+  "subcategory": "Remote connections",
+  "difficulty": "beginner",
+  "description": "The Secure Shell client: encrypted remote terminal access, command execution, and tunneling — the backbone of Linux server administration.",
+  "syntax": "ssh [OPTIONS] [user@]hostname [COMMAND]",
+  "flags": [
+    {
+      "flag": "-p PORT",
+      "description": "Connect to a non-standard port."
+    },
+    {
+      "flag": "-i KEYFILE",
+      "description": "Use a specific private key."
+    },
+    {
+      "flag": "-L LOCAL:HOST:REMOTE",
+      "description": "Local port forwarding (tunnel)."
+    },
+    {
+      "flag": "-R REMOTE:HOST:LOCAL",
+      "description": "Remote port forwarding (expose a local service)."
+    },
+    {
+      "flag": "-D PORT",
+      "description": "Dynamic (SOCKS) proxy through the server."
+    },
+    {
+      "flag": "-v / -vvv",
+      "description": "Verbose output for connection debugging."
+    },
+    {
+      "flag": "-C",
+      "description": "Compress the session (slow links)."
+    },
+    {
+      "flag": "-J JUMP",
+      "description": "Connect through a bastion/jump host."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ssh user@203.0.113.10",
+      "output": null,
+      "explanation": "Opens an interactive shell on the remote server. First connection asks to verify the host key fingerprint."
+    },
+    {
+      "command": "ssh -p 2222 admin@server.example.com",
+      "output": null,
+      "explanation": "Connects to a server whose SSH listens on port 2222 (a modest brute-force reduction)."
+    },
+    {
+      "command": "ssh user@server 'df -h && uptime'",
+      "output": null,
+      "explanation": "Runs a command remotely and returns — the basis of all remote automation."
+    },
+    {
+      "command": "ssh -L 5433:localhost:5432 user@server",
+      "output": null,
+      "explanation": "Tunnels the server's PostgreSQL (5432) to your machine's port 5433. Connect your DB client to localhost:5433 — encrypted through SSH."
+    },
+    {
+      "command": "ssh -i ~/.ssh/id_ed25519 -v git@github.com",
+      "output": null,
+      "explanation": "Key-based connection with debug output — the standard fix for \"permission denied (publickey)\"."
+    }
+  ],
+  "related": [
+    "ssh-keygen",
+    "ssh-copy-id",
+    "scp",
+    "rsync"
+  ],
+  "tags": [
+    "ssh",
+    "remote",
+    "tunnel",
+    "terminal",
+    "security"
+  ],
+  "docs": "https://www.openssh.com/manual.html",
+  "about": [
+    "SSH authenticates either with passwords or, far better, with key pairs: the private key stays on your machine, the public key goes into ~/.ssh/authorized_keys on the server. Config lives in ~/.ssh/config, letting you define host aliases, users, ports, and keys: Host prod / HostName 203.0.113.10 / User deploy."
+  ],
+  "useCases": [
+    "Remote server administration.",
+    "Secure tunnels to internal services.",
+    "Automated remote commands in scripts and CI."
+  ],
+  "mistakes": [
+    "Chasing password prompts when the real problem is key permissions — private keys must be chmod 600.",
+    "Using -p for scp (it is -P there)."
+  ],
+  "warnings": [
+    "Never share or commit private keys. If a key leaks, remove its public half from all authorized_keys immediately."
+  ],
+  "distroNotes": "OpenSSH is universal on Linux/macOS; Windows 10+ includes an OpenSSH client."
+}

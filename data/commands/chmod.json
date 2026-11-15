@@ -1,0 +1,99 @@
+{
+  "slug": "chmod",
+  "name": "chmod",
+  "category": "permissions",
+  "subcategory": "Understanding Linux permissions",
+  "difficulty": "intermediate",
+  "description": "Changes the access permissions of files and directories, either symbolically (u+x) or numerically (755).",
+  "syntax": "chmod [OPTIONS] MODE FILE...",
+  "flags": [
+    {
+      "flag": "u/g/o/a",
+      "description": "Who: user (owner), group, others, or all."
+    },
+    {
+      "flag": "+/-/=",
+      "description": "Operation: add, remove, or set exactly."
+    },
+    {
+      "flag": "r/w/x",
+      "description": "What: read, write, execute."
+    },
+    {
+      "flag": "NNN",
+      "description": "Octal mode: each digit is rwx as a sum of 4 (r), 2 (w), 1 (x) for owner, group, others."
+    },
+    {
+      "flag": "-R",
+      "description": "Apply recursively to directories and their contents."
+    },
+    {
+      "flag": "--reference=FILE",
+      "description": "Copy permissions from another file."
+    },
+    {
+      "flag": "X (capital)",
+      "description": "Add execute only for directories and files that already have it — ideal with -R."
+    }
+  ],
+  "examples": [
+    {
+      "command": "chmod 755 script.sh",
+      "output": "\n-rwxr-xr-x 1 user user 220 Jan 12 09:00 script.sh\n",
+      "explanation": "Sets rwx for the owner, r-x for group and others (shown via ls -l). The standard mode for scripts and programs that everyone may run."
+    },
+    {
+      "command": "chmod +x deploy.sh",
+      "output": null,
+      "explanation": "Adds execute permission for everyone — the fix for \"Permission denied\" when running a downloaded script."
+    },
+    {
+      "command": "chmod 600 ~/.ssh/id_ed25519",
+      "output": null,
+      "explanation": "Private key readable only by the owner. SSH refuses keys with looser permissions."
+    },
+    {
+      "command": "chmod -R u=rwX,g=rX,o= /var/www/html",
+      "output": null,
+      "explanation": "On a web root: files stay non-executable, directories become traversable, others get no access. Capital X is the key."
+    },
+    {
+      "command": "chmod g+w data/",
+      "output": null,
+      "explanation": "Lets the group write to the directory — common for shared team folders."
+    }
+  ],
+  "related": [
+    "chown",
+    "umask",
+    "getfacl",
+    "stat"
+  ],
+  "tags": [
+    "permissions",
+    "security",
+    "mode",
+    "execute"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/chmod-invocation.html",
+  "about": [
+    "Each file carries three permission triads (owner, group, others) of read/write/execute. For directories the meaning differs: r allows listing names, w allows creating/deleting entries, x allows entering the directory and accessing its inodes — a directory without x is untraversable even if readable.",
+    "Numeric notation sums bits: r=4, w=2, x=1. 755 = rwxr-xr-x, 644 = rw-r--r--, 600 = rw-------, 777 = rwxrwxrwx (almost always wrong).",
+    "A leading fourth digit sets special bits: 4 = SUID, 2 = SGID, 1 = sticky (see the dedicated concepts pages)."
+  ],
+  "useCases": [
+    "Make scripts executable.",
+    "Lock down private keys and credentials.",
+    "Prepare web roots and shared directories.",
+    "Fix permissions after copying files as root."
+  ],
+  "mistakes": [
+    "chmod 777 as a \"fix\" for permission problems — it exposes files to every user and is a security smell.",
+    "Forgetting -R when changing a whole directory tree.",
+    "Using lowercase x with -R and making every file executable."
+  ],
+  "warnings": [
+    "chmod -R applied to the wrong path (e.g. / instead of ./) can break the entire system; system files have precise permissions. Always verify your current directory first."
+  ],
+  "distroNotes": "chmod is POSIX and portable. GNU adds --reference and consistent -X behavior; BSD behaves the same for common cases."
+}

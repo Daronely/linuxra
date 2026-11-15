@@ -1,0 +1,114 @@
+{
+  "slug": "apt",
+  "name": "apt",
+  "category": "package-management",
+  "subcategory": "Debian and Ubuntu",
+  "difficulty": "beginner",
+  "description": "The high-level Debian/Ubuntu package tool: installs, upgrades, and removes software with automatic dependency resolution.",
+  "syntax": "apt [OPTIONS] COMMAND [PACKAGE...]",
+  "flags": [
+    {
+      "flag": "update",
+      "description": "Refresh the package index from repositories (does not upgrade anything)."
+    },
+    {
+      "flag": "upgrade",
+      "description": "Install available upgrades of all installed packages."
+    },
+    {
+      "flag": "full-upgrade",
+      "description": "Like upgrade but may remove packages to resolve conflicts."
+    },
+    {
+      "flag": "install PKG",
+      "description": "Install a package (add -y to skip confirmation)."
+    },
+    {
+      "flag": "remove PKG",
+      "description": "Remove a package, keeping its configuration files."
+    },
+    {
+      "flag": "purge PKG",
+      "description": "Remove a package AND its configuration files."
+    },
+    {
+      "flag": "search TERM",
+      "description": "Search package names and descriptions."
+    },
+    {
+      "flag": "show PKG",
+      "description": "Show package details: version, size, dependencies."
+    },
+    {
+      "flag": "list --installed",
+      "description": "List installed packages; --upgradable lists pending updates."
+    },
+    {
+      "flag": "autoremove",
+      "description": "Remove packages that were auto-installed as dependencies and are no longer needed."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo apt update && sudo apt upgrade -y",
+      "output": null,
+      "explanation": "The daily routine: refresh the index, then apply all available updates non-interactively."
+    },
+    {
+      "command": "sudo apt install nginx git curl",
+      "output": null,
+      "explanation": "Installs several packages, resolving all dependencies automatically."
+    },
+    {
+      "command": "apt search \"image editor\"",
+      "output": null,
+      "explanation": "Searches package names and descriptions in the configured repositories."
+    },
+    {
+      "command": "apt show nginx | head -8",
+      "output": "\nPackage: nginx\nVersion: 1.24.0-2ubuntu7\nInstalled-Size: 47.1 kB\n",
+      "explanation": "Displays version, size, and dependencies before installing."
+    },
+    {
+      "command": "sudo apt remove nginx && sudo apt purge nginx",
+      "output": null,
+      "explanation": "remove keeps /etc/nginx; purge deletes it too."
+    },
+    {
+      "command": "sudo apt autoremove",
+      "output": null,
+      "explanation": "Cleans up orphaned dependencies after removals."
+    }
+  ],
+  "related": [
+    "apt-get",
+    "dpkg",
+    "dnf",
+    "pacman"
+  ],
+  "tags": [
+    "packages",
+    "install",
+    "update",
+    "debian",
+    "ubuntu"
+  ],
+  "docs": "https://manpages.ubuntu.com/manpages/noble/en/man8/apt.8.html",
+  "about": [
+    "apt (since Debian 8/Ubuntu 16.04) is the friendly front end combining the most-used apt-get and apt-cache commands, with a nicer progress output. apt-get remains the stable, scriptable interface with an unchanging output contract; prefer it in scripts. Both work on .deb-based systems: Debian, Ubuntu, Mint, Kali, Raspberry Pi OS.",
+    "Under the hood sits dpkg, which installs individual .deb files but does not resolve dependencies — that is apt's job."
+  ],
+  "useCases": [
+    "Install and update software on Debian-family systems.",
+    "Search available packages.",
+    "Clean up unused dependencies."
+  ],
+  "mistakes": [
+    "Running apt install without apt update first and getting stale versions or missing candidates.",
+    "Using apt upgrade expecting distribution upgrades — for release upgrades use do-release-upgrade (Ubuntu)."
+  ],
+  "warnings": [
+    "Never interrupt apt during a transaction; if it is interrupted, run sudo dpkg --configure -a to recover."
+  ],
+  "distroNotes": "Debian/Ubuntu/Mint/Kali family only. RHEL-family uses dnf/yum, Arch uses pacman, openSUSE uses zypper."
+}

@@ -1,0 +1,86 @@
+{
+  "slug": "nc",
+  "name": "nc",
+  "category": "networking",
+  "subcategory": "Port inspection",
+  "difficulty": "intermediate",
+  "description": "netcat: reads and writes raw data over TCP or UDP — the \"Swiss Army knife\" for testing ports, probing services, and moving data.",
+  "syntax": "nc [OPTIONS] HOST PORT",
+  "flags": [
+    {
+      "flag": "-z",
+      "description": "Zero-I/O mode: just scan whether the port is open."
+    },
+    {
+      "flag": "-v",
+      "description": "Verbose: report open/refused."
+    },
+    {
+      "flag": "-l",
+      "description": "Listen mode (server side); -lp PORT to specify the port."
+    },
+    {
+      "flag": "-u",
+      "description": "UDP instead of TCP."
+    },
+    {
+      "flag": "-w SECS",
+      "description": "Timeout for connects and reads."
+    },
+    {
+      "flag": "-e CMD",
+      "description": "Execute a program after connecting (traditional nc; not in OpenBSD nc)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "nc -zv example.com 443",
+      "output": "\nConnection to example.com 443 port [tcp/https] succeeded!\n",
+      "explanation": "Instant port check — is the HTTPS port reachable from here? The minimal connectivity test for a specific service."
+    },
+    {
+      "command": "echo > /dev/tcp/example.com/443",
+      "output": null,
+      "explanation": "Bash built-in alternative (no nc needed): succeeds silently if the port is open."
+    },
+    {
+      "command": "printf \"GET / HTTP/1.0\\r\\n\\r\\n\" | nc example.com 80",
+      "output": null,
+      "explanation": "Speaks raw HTTP to a server — the classic way to inspect protocol behavior without curl."
+    },
+    {
+      "command": "nc -l 9999 > received.txt",
+      "output": null,
+      "explanation": "On machine B: listens and saves. On machine A: nc B_IP 9999 < file.txt — a one-line file transfer."
+    }
+  ],
+  "related": [
+    "nmap",
+    "ss",
+    "curl"
+  ],
+  "tags": [
+    "tcp",
+    "udp",
+    "port",
+    "raw",
+    "test"
+  ],
+  "docs": "https://nmap.org/ncat/",
+  "about": [
+    "nc variants differ: OpenBSD nc (most common on modern Linux) has no -e; GNU netcat and ncat (from Nmap) do. ncat adds SSL (-ssl) support. Despite its power for testing, nc on untrusted networks is plaintext — never use it for sensitive data."
+  ],
+  "useCases": [
+    "Test whether a TCP/UDP port is open.",
+    "Send test payloads to services.",
+    "Quick data transfer between trusted machines.",
+    "Simulate servers during development."
+  ],
+  "mistakes": [
+    "Expecting -e on OpenBSD nc — use ncat or a FIFO instead.",
+    "Sending sensitive data over plaintext nc sessions."
+  ],
+  "warnings": [
+    "nc -l binds a listening port that anyone on the network can connect to; never expose it beyond trusted networks."
+  ]
+}

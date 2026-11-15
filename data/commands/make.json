@@ -1,0 +1,78 @@
+{
+  "slug": "make",
+  "name": "make",
+  "category": "dev-tools",
+  "subcategory": "Make",
+  "difficulty": "intermediate",
+  "description": "Executes build rules from a Makefile: rebuilds only what changed, in the right order, in parallel.",
+  "syntax": "make [OPTIONS] [TARGET...]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Build the first target (usually \"all\")."
+    },
+    {
+      "flag": "TARGET",
+      "description": "Build a specific target: make install, make clean."
+    },
+    {
+      "flag": "-j N",
+      "description": "-j: parallel build using N jobs (use core count)."
+    },
+    {
+      "flag": "-f FILE",
+      "description": "Use a different Makefile name."
+    },
+    {
+      "flag": "-n",
+      "description": "Dry run: print commands without executing."
+    },
+    {
+      "flag": "-C DIR",
+      "description": "Change to DIR first (build out-of-tree)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "make -j$(nproc)",
+      "output": null,
+      "explanation": "Builds using every CPU core — the standard invocation for source builds."
+    },
+    {
+      "command": "make clean && make",
+      "output": null,
+      "explanation": "Deletes build artifacts (via the clean rule) and rebuilds from scratch."
+    },
+    {
+      "command": "make -n install",
+      "output": null,
+      "explanation": "Shows what install WOULD do before running it — a safety check for unfamiliar Makefiles."
+    }
+  ],
+  "related": [
+    "gcc",
+    "gdb",
+    "strace"
+  ],
+  "tags": [
+    "build",
+    "automation",
+    "compile",
+    "makefile"
+  ],
+  "docs": "https://www.gnu.org/software/make/manual/",
+  "about": [
+    "A Makefile maps targets to prerequisites and recipes (which MUST be indented with tabs, not spaces — the classic make error). make compares file timestamps: changed sources trigger recompilation of only what depends on them. Most open-source builds follow the ./configure && make && sudo make install pattern."
+  ],
+  "useCases": [
+    "Building C/C++ and multi-step projects.",
+    "Automating repetitive task chains (test, build, deploy)."
+  ],
+  "mistakes": [
+    "Indenting recipes with spaces — make requires TABs; \"*** missing separator\" is the telltale error.",
+    "Running make install from untrusted source without checking -n first."
+  ],
+  "warnings": [
+    "sudo make install places files system-wide (/usr/local); prefer package managers or check with -n what it will do."
+  ]
+}

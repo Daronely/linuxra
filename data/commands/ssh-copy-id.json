@@ -1,0 +1,57 @@
+{
+  "slug": "ssh-copy-id",
+  "name": "ssh-copy-id",
+  "category": "ssh-remote",
+  "subcategory": "SSH keys",
+  "difficulty": "beginner",
+  "description": "Installs your public key on a server's ~/.ssh/authorized_keys — the one-command setup for key-based login.",
+  "syntax": "ssh-copy-id [OPTIONS] [user@]host",
+  "flags": [
+    {
+      "flag": "-i KEY.pub",
+      "description": "Install a specific public key."
+    },
+    {
+      "flag": "-p PORT",
+      "description": "Non-standard SSH port."
+    },
+    {
+      "flag": "-o OPTION",
+      "description": "Pass ssh options, e.g. -o \"ProxyJump bastion\"."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ssh-copy-id user@server",
+      "output": null,
+      "explanation": "Prompts for the password ONE LAST TIME, then installs your default public key. From now on, ssh user@server needs no password."
+    },
+    {
+      "command": "ssh-copy-id -i ~/.ssh/work_key.pub -p 2222 user@server",
+      "output": null,
+      "explanation": "Installs a specific key on a server using a custom port."
+    }
+  ],
+  "related": [
+    "ssh",
+    "ssh-keygen"
+  ],
+  "tags": [
+    "ssh",
+    "keys",
+    "setup",
+    "passwordless"
+  ],
+  "docs": "https://www.openssh.com/manual.html",
+  "about": [
+    "ssh-copy-id appends the public key to ~/.ssh/authorized_keys on the server with correct permissions (700 dir, 600 file) — permissions that manual copying frequently gets wrong, which is why \"key auth not working\" is such a common problem."
+  ],
+  "useCases": [
+    "Set up key authentication on new servers.",
+    "Roll out a new key to a fleet of machines."
+  ],
+  "mistakes": [
+    "Manually creating authorized_keys with wrong permissions instead of using ssh-copy-id.",
+    "Copying the private key to the server by mistake."
+  ]
+}

@@ -1,0 +1,3452 @@
+[
+  {
+    "slug": "ls",
+    "name": "ls",
+    "desc": "Lists directory contents, showing file and folder names with optional details such as permissions, size, and modification time.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Listing files",
+    "difficulty": "beginner",
+    "tags": [
+      "listing",
+      "directory",
+      "files",
+      "basic"
+    ],
+    "flags": [
+      "-l",
+      "-a",
+      "-h",
+      "-t",
+      "-r",
+      "-S",
+      "-R",
+      "--color"
+    ],
+    "keywords": "ls listing files listing directory files basic inspect what is in a directory before deleting or modifying files. check file sizes and timestamps with ls -lh. find recently modified files with ls -lt. list files list folder directory contents lists directory contents showing file and folder names with optional details such permissions size and modification time"
+  },
+  {
+    "slug": "cd",
+    "name": "cd",
+    "desc": "Changes the current working directory of the shell.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "File paths",
+    "difficulty": "beginner",
+    "tags": [
+      "navigation",
+      "directory",
+      "paths",
+      "basic"
+    ],
+    "flags": [
+      "-",
+      "..",
+      "~"
+    ],
+    "keywords": "cd file paths navigation directory paths basic navigate the filesystem during daily work. jump between two directories quickly using cd -. changes the current working directory the shell"
+  },
+  {
+    "slug": "pwd",
+    "name": "pwd",
+    "desc": "Prints the absolute path of the current working directory.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "File paths",
+    "difficulty": "beginner",
+    "tags": [
+      "directory",
+      "path",
+      "navigation",
+      "basic"
+    ],
+    "flags": [
+      "-L",
+      "-P"
+    ],
+    "keywords": "pwd file paths directory path navigation basic confirm your location before running destructive commands. capture the current directory in scripts: dir=\"$(pwd)\". prints the absolute path the current working directory"
+  },
+  {
+    "slug": "mkdir",
+    "name": "mkdir",
+    "desc": "Creates new directories.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Creating directories",
+    "difficulty": "beginner",
+    "tags": [
+      "create",
+      "directory",
+      "folders",
+      "basic"
+    ],
+    "flags": [
+      "-p",
+      "-v",
+      "-m MODE"
+    ],
+    "keywords": "mkdir creating directories create directory folders basic create project folder structures in one command. safely ensure a directory exists in scripts with mkdir -p. create folder make directory new folder creates new directories"
+  },
+  {
+    "slug": "touch",
+    "name": "touch",
+    "desc": "Creates empty files, or updates the access and modification timestamps of existing files.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Creating files",
+    "difficulty": "beginner",
+    "tags": [
+      "create",
+      "files",
+      "timestamps",
+      "basic"
+    ],
+    "flags": [
+      "-a",
+      "-m",
+      "-c",
+      "-t [[CC]YY]MMDDhhmm[.ss]",
+      "-r FILE"
+    ],
+    "keywords": "touch creating files create files timestamps basic create empty files quickly. refresh a file's timestamp to trigger rebuild tools such as make. backdate files in test setups. create file empty file creates empty files updates the access and modification timestamps existing files"
+  },
+  {
+    "slug": "cp",
+    "name": "cp",
+    "desc": "Copies files and directories from one location to another.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Copying files",
+    "difficulty": "beginner",
+    "tags": [
+      "copy",
+      "backup",
+      "duplicate",
+      "files",
+      "basic"
+    ],
+    "flags": [
+      "-r",
+      "-i",
+      "-n",
+      "-f",
+      "-v",
+      "-p",
+      "-a",
+      "-u"
+    ],
+    "keywords": "cp copying files copy backup duplicate files basic duplicate files or entire directory trees. back up configuration before editing: cp -a /etc/nginx /etc/nginx.bak. refresh copies only when sources changed with cp -u. copy files copies duplicate backup copies files and directories from one location another"
+  },
+  {
+    "slug": "mv",
+    "name": "mv",
+    "desc": "Moves or renames files and directories.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Moving files",
+    "difficulty": "beginner",
+    "tags": [
+      "move",
+      "rename",
+      "organize",
+      "basic"
+    ],
+    "flags": [
+      "-i",
+      "-n",
+      "-f",
+      "-v",
+      "-b",
+      "-u"
+    ],
+    "keywords": "mv moving files move rename organize basic rename files and directories. organize files into different folders. atomically replace a config file after editing a .new copy. move file rename file move rename moves renames files and directories"
+  },
+  {
+    "slug": "rm",
+    "name": "rm",
+    "desc": "Removes files and, with -r, directories and their contents.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Deleting files",
+    "difficulty": "beginner",
+    "tags": [
+      "delete",
+      "remove",
+      "cleanup",
+      "basic",
+      "dangerous"
+    ],
+    "flags": [
+      "-r",
+      "-f",
+      "-i",
+      "-I",
+      "-v",
+      "-d"
+    ],
+    "keywords": "rm deleting files delete remove cleanup basic dangerous delete unwanted files. remove directory trees during cleanup. scripted cleanup with rm -f in controlled directories. delete folder delete file remove folder folder remove removes files and with directories and their contents"
+  },
+  {
+    "slug": "rmdir",
+    "name": "rmdir",
+    "desc": "Removes empty directories only — the safe, deliberate alternative to rm -r.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Deleting files",
+    "difficulty": "beginner",
+    "tags": [
+      "delete",
+      "remove",
+      "directory",
+      "empty",
+      "basic"
+    ],
+    "flags": [
+      "-p",
+      "-v",
+      "--ignore-fail-on-non-empty"
+    ],
+    "keywords": "rmdir deleting files delete remove directory empty basic prune empty directory chains after moving files out. delete directories safely when you are not sure they are empty — rmdir will refuse rather than destroy data. clean up empty work directories in scripts. delete folder empty folder remove folder folder removes empty directories only the safe deliberate alternative"
+  },
+  {
+    "slug": "ip",
+    "name": "ip",
+    "desc": "The modern iproute2 tool for interfaces, addresses, routes, and more — the official replacement for ifconfig, route, and arp.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Network interfaces",
+    "difficulty": "intermediate",
+    "tags": [
+      "network",
+      "ip",
+      "interface",
+      "route",
+      "address"
+    ],
+    "flags": [
+      "a",
+      "l",
+      "r",
+      "n",
+      "-c",
+      "-br"
+    ],
+    "keywords": "ip network interfaces network ip interface route address check your ip addresses and routes. diagnose interface state (up/down, carrier). temporarily test addresses and routes. network ip ip address interface network the modern iproute2 tool for interfaces addresses routes and more the official replacement for ifconfig route and arp"
+  },
+  {
+    "slug": "ifconfig",
+    "name": "ifconfig",
+    "desc": "The classic interface configuration tool from net-tools. Still present for compatibility, superseded by ip.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Network interfaces",
+    "difficulty": "beginner",
+    "tags": [
+      "network",
+      "interface",
+      "legacy",
+      "ip"
+    ],
+    "flags": [
+      "(no args)",
+      "-a",
+      "INTERFACE up/down",
+      "INTERFACE IP"
+    ],
+    "keywords": "ifconfig network interfaces network interface legacy ip reading legacy scripts and documentation. quick familiar checks on older servers. network ip interface network the classic interface configuration tool from net tools still present for compatibility superseded"
+  },
+  {
+    "slug": "ping",
+    "name": "ping",
+    "desc": "Sends ICMP echo requests to a host and measures round-trip time and packet loss — the first tool for \"is it reachable?\".",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Connectivity testing",
+    "difficulty": "beginner",
+    "tags": [
+      "ping",
+      "connectivity",
+      "icmp",
+      "latency",
+      "diagnose"
+    ],
+    "flags": [
+      "-c N",
+      "-i SECS",
+      "-4 / -6",
+      "-I IFACE",
+      "-s SIZE"
+    ],
+    "keywords": "ping connectivity testing ping connectivity icmp latency diagnose basic reachability checks. measuring latency and jitter. isolating local vs dns vs routing problems. connectivity test connection network sends icmp echo requests host and measures round trip time and packet loss the first tool for reachable"
+  },
+  {
+    "slug": "traceroute",
+    "name": "traceroute",
+    "desc": "Shows the route packets take to a host, hop by hop, revealing where connections slow down or die.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Connectivity testing",
+    "difficulty": "intermediate",
+    "tags": [
+      "route",
+      "hops",
+      "diagnose",
+      "network",
+      "path"
+    ],
+    "flags": [
+      "-n",
+      "-I",
+      "-T",
+      "-m N",
+      "-p PORT"
+    ],
+    "keywords": "traceroute connectivity testing route hops diagnose network path find where traffic stops or slows. identify the isp or backbone segment causing problems. verify routing changes. network path hops route shows the route packets take host hop hop revealing where connections slow down die"
+  },
+  {
+    "slug": "mtr",
+    "name": "mtr",
+    "desc": "Combines ping and traceroute in a live view: continuous statistics per hop — loss percentage and latency trends on the path to a host.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Connectivity testing",
+    "difficulty": "intermediate",
+    "tags": [
+      "route",
+      "loss",
+      "latency",
+      "diagnose",
+      "combined"
+    ],
+    "flags": [
+      "(interactive)",
+      "-r",
+      "-c N",
+      "-n",
+      "-w",
+      "-z"
+    ],
+    "keywords": "mtr connectivity testing route loss latency diagnose combined proving network problems to an isp with hard data. diagnosing intermittent latency and loss. monitoring route quality over time. combines ping and traceroute live view continuous statistics per hop loss percentage and latency trends the path host"
+  },
+  {
+    "slug": "ss",
+    "name": "ss",
+    "desc": "Socket statistics: shows listening ports, established connections, and their processes — the modern replacement for netstat.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Port inspection",
+    "difficulty": "intermediate",
+    "tags": [
+      "ports",
+      "sockets",
+      "listening",
+      "connections",
+      "audit"
+    ],
+    "flags": [
+      "-t",
+      "-l",
+      "-n",
+      "-p",
+      "-a",
+      "-s",
+      "state established"
+    ],
+    "keywords": "ss port inspection ports sockets listening connections audit audit which services are exposed. map ports to processes. diagnose connection states during incidents. ports open ports connections socket statistics shows listening ports established connections and their processes the modern replacement for netstat"
+  },
+  {
+    "slug": "netstat",
+    "name": "netstat",
+    "desc": "The legacy tool for network connections, routing tables, and interface statistics — superseded by ss and ip.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Network connections",
+    "difficulty": "intermediate",
+    "tags": [
+      "connections",
+      "ports",
+      "legacy",
+      "statistics"
+    ],
+    "flags": [
+      "-tulpn",
+      "-r",
+      "-i",
+      "-s"
+    ],
+    "keywords": "netstat network connections connections ports legacy statistics working on older servers where habits and scripts use it. protocol-level statistics via -s. ports connections the legacy tool for network connections routing tables and interface statistics superseded and"
+  },
+  {
+    "slug": "dig",
+    "name": "dig",
+    "desc": "A flexible DNS lookup utility: queries specific record types, specific servers, and shows full response details.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "DNS",
+    "difficulty": "intermediate",
+    "tags": [
+      "dns",
+      "lookup",
+      "mx",
+      "resolve",
+      "debug"
+    ],
+    "flags": [
+      "@SERVER",
+      "TYPE",
+      "+short",
+      "+trace",
+      "-x IP"
+    ],
+    "keywords": "dig dns dns lookup mx resolve debug debug dns records and propagation. verify spf/dkim/verification records. compare answers between resolvers. dns lookup dns flexible dns lookup utility queries specific record types specific servers and shows full response details"
+  },
+  {
+    "slug": "nslookup",
+    "name": "nslookup",
+    "desc": "An interactive and non-interactive DNS query tool, familiar from Windows; simpler than dig for quick lookups.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "DNS",
+    "difficulty": "beginner",
+    "tags": [
+      "dns",
+      "lookup",
+      "resolve"
+    ],
+    "flags": [
+      "NAME",
+      "NAME SERVER",
+      "set type=MX",
+      "-type=TXT"
+    ],
+    "keywords": "nslookup dns dns lookup resolve quick dns checks. cross-platform instructions shared with windows users. dns lookup dns interactive and non interactive dns query tool familiar from windows simpler than dig for quick lookups"
+  },
+  {
+    "slug": "nc",
+    "name": "nc",
+    "desc": "netcat: reads and writes raw data over TCP or UDP — the \"Swiss Army knife\" for testing ports, probing services, and moving data.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Port inspection",
+    "difficulty": "intermediate",
+    "tags": [
+      "tcp",
+      "udp",
+      "port",
+      "raw",
+      "test"
+    ],
+    "flags": [
+      "-z",
+      "-v",
+      "-l",
+      "-u",
+      "-w SECS",
+      "-e CMD"
+    ],
+    "keywords": "nc port inspection tcp udp port raw test test whether a tcp/udp port is open. send test payloads to services. quick data transfer between trusted machines. simulate servers during development. port check tcp test port netcat reads and writes raw data over tcp udp the swiss army knife for testing ports probing services and moving data"
+  },
+  {
+    "slug": "nmap",
+    "name": "nmap",
+    "desc": "A network discovery and security scanning tool: finds live hosts, open ports, running services, and operating system fingerprints.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "Port inspection",
+    "difficulty": "advanced",
+    "tags": [
+      "scan",
+      "security",
+      "ports",
+      "discovery",
+      "audit"
+    ],
+    "flags": [
+      "(no options)",
+      "-p-",
+      "-sV",
+      "-sS",
+      "-sn",
+      "-O",
+      "-A",
+      "--script=NAME"
+    ],
+    "keywords": "nmap port inspection scan security ports discovery audit inventory your own network. verify firewall rules do what you think. security assessment of systems you are authorized to test. port scan network scan network discovery and security scanning tool finds live hosts open ports running services and operating system fingerprints"
+  },
+  {
+    "slug": "hostname",
+    "name": "hostname",
+    "desc": "Shows or sets the system's hostname.",
+    "category": "networking",
+    "categoryName": "Networking",
+    "subcategory": "DNS",
+    "difficulty": "beginner",
+    "tags": [
+      "hostname",
+      "identity",
+      "system"
+    ],
+    "flags": [
+      "(no args)",
+      "-f",
+      "-i / -I",
+      "NEWNAME"
+    ],
+    "keywords": "hostname dns hostname identity system quickly confirm which server you are on. check fqdn configuration on new servers. machine name hostname shows sets the system hostname"
+  },
+  {
+    "slug": "uname",
+    "name": "uname",
+    "desc": "Prints kernel and system information: name, release, architecture, and more.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "Kernel information",
+    "difficulty": "beginner",
+    "tags": [
+      "kernel",
+      "version",
+      "system",
+      "info"
+    ],
+    "flags": [
+      "(no args)",
+      "-r",
+      "-a",
+      "-m",
+      "-o"
+    ],
+    "keywords": "uname kernel information kernel version system info check the running kernel version. determine architecture for downloads. provide system details in support requests. kernel version system info prints kernel and system information name release architecture and more"
+  },
+  {
+    "slug": "hostnamectl",
+    "name": "hostnamectl",
+    "desc": "systemd's control tool for the hostname plus a summary of the OS, kernel, and virtualization.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "Distribution information",
+    "difficulty": "beginner",
+    "tags": [
+      "hostname",
+      "system",
+      "os",
+      "virtualization"
+    ],
+    "flags": [
+      "(no args)",
+      "set-hostname NAME",
+      "set-hostname --pretty NAME"
+    ],
+    "keywords": "hostnamectl distribution information hostname system os virtualization rename servers safely. identify os and virtualization at a glance. script-friendly system identification. machine name hostname system info systemd control tool for the hostname plus summary the kernel and virtualization"
+  },
+  {
+    "slug": "lscpu",
+    "name": "lscpu",
+    "desc": "Displays detailed CPU architecture information: cores, threads, caches, frequencies, and features.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "CPU information",
+    "difficulty": "beginner",
+    "tags": [
+      "cpu",
+      "cores",
+      "hardware",
+      "info"
+    ],
+    "flags": [
+      "(no args)",
+      "-e",
+      "-p"
+    ],
+    "keywords": "lscpu cpu information cpu cores hardware info check core/thread counts for capacity planning. verify cpu features before installing software. compare machines. cpu info processor displays detailed cpu architecture information cores threads caches frequencies and features"
+  },
+  {
+    "slug": "lsblk",
+    "name": "lsblk",
+    "desc": "Lists block devices (disks, partitions, LVM volumes) as a tree, showing sizes and mount points.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "Hardware information",
+    "difficulty": "beginner",
+    "tags": [
+      "disks",
+      "partitions",
+      "storage",
+      "hardware",
+      "info"
+    ],
+    "flags": [
+      "(no args)",
+      "-f",
+      "-a",
+      "-o FIELDS",
+      "-S"
+    ],
+    "keywords": "lsblk hardware information disks partitions storage hardware info identify disks before partitioning or formatting. find uuids for fstab entries. understand lvm/raid layouts. list disks block devices lists block devices disks partitions lvm volumes tree showing sizes and mount points"
+  },
+  {
+    "slug": "free",
+    "name": "free",
+    "desc": "Shows total, used, and free physical memory and swap.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "RAM information",
+    "difficulty": "beginner",
+    "tags": [
+      "memory",
+      "ram",
+      "swap",
+      "monitor",
+      "info"
+    ],
+    "flags": [
+      "-h",
+      "-m / -g",
+      "-s N",
+      "-w"
+    ],
+    "keywords": "free ram information memory ram swap monitor info check real memory availability. diagnose \"the server is slow\" reports. watch memory during load tests. check memory memory usage ram memory shows total used and free physical memory and swap"
+  },
+  {
+    "slug": "uptime",
+    "name": "uptime",
+    "desc": "Shows how long the system has been running, the current time, logged-in users, and load averages.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "Uptime",
+    "difficulty": "beginner",
+    "tags": [
+      "uptime",
+      "load",
+      "health",
+      "monitor"
+    ],
+    "flags": [
+      "(no args)",
+      "-p",
+      "-s"
+    ],
+    "keywords": "uptime uptime uptime load health monitor quick health check after connecting to a server. confirm a machine actually rebooted. sanity check load before investigating slowness. system load how long running shows how long the system has been running the current time logged users and load averages"
+  },
+  {
+    "slug": "lspci",
+    "name": "lspci",
+    "desc": "Lists all PCI devices: graphics cards, network controllers, storage controllers, USB controllers.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "Hardware information",
+    "difficulty": "intermediate",
+    "tags": [
+      "hardware",
+      "pci",
+      "drivers",
+      "gpu",
+      "diagnose"
+    ],
+    "flags": [
+      "(no args)",
+      "-v / -vv",
+      "-k",
+      "-nn"
+    ],
+    "keywords": "lspci hardware information hardware pci drivers gpu diagnose verify hardware detection after installing cards. find which driver a device uses. collect device ids for driver research. hardware info pci lists all pci devices graphics cards network controllers storage controllers usb controllers"
+  },
+  {
+    "slug": "dmidecode",
+    "name": "dmidecode",
+    "desc": "Decodes the DMI/SMBIOS tables: exact motherboard model, serial numbers, BIOS version, and memory module details. Requires root.",
+    "category": "system-info",
+    "categoryName": "System Information",
+    "subcategory": "Hardware information",
+    "difficulty": "advanced",
+    "tags": [
+      "hardware",
+      "bios",
+      "memory",
+      "inventory",
+      "smbios"
+    ],
+    "flags": [
+      "(no args)",
+      "-t memory",
+      "-s KEYWORD"
+    ],
+    "keywords": "dmidecode hardware information hardware bios memory inventory smbios inventory servers (model, serial, ram slots). check bios versions before updates. verify ram configuration. hardware info bios decodes the dmi smbios tables exact motherboard model serial numbers bios version and memory module details requires root"
+  },
+  {
+    "slug": "blkid",
+    "name": "blkid",
+    "desc": "Locates and prints block device attributes: filesystem type, UUID, and label — the source for /etc/fstab entries.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Storage inspection",
+    "difficulty": "intermediate",
+    "tags": [
+      "uuid",
+      "filesystem",
+      "fstab",
+      "storage"
+    ],
+    "flags": [
+      "(no args)",
+      "DEVICE",
+      "-o list",
+      "-o value -s UUID"
+    ],
+    "keywords": "blkid storage inspection uuid filesystem fstab storage prepare /etc/fstab entries. identify filesystems on unknown disks. script uuid extraction. locates and prints block device attributes filesystem type uuid and label the source for etc fstab entries"
+  },
+  {
+    "slug": "fdisk",
+    "name": "fdisk",
+    "desc": "The classic interactive partition table tool for MBR and GPT disks.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Disk partitions",
+    "difficulty": "intermediate",
+    "tags": [
+      "partition",
+      "disk",
+      "gpt",
+      "mbr",
+      "storage"
+    ],
+    "flags": [
+      "-l",
+      "DEVICE",
+      "-l -o FIELDS"
+    ],
+    "keywords": "fdisk disk partitions partition disk gpt mbr storage partition new disks. inspect existing layouts. create partitions for lvm or filesystems. partitions partition disk the classic interactive partition table tool for mbr and gpt disks"
+  },
+  {
+    "slug": "parted",
+    "name": "parted",
+    "desc": "A partition editor that works both interactively and in scripts, with GPT support and online resizing.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Disk partitions",
+    "difficulty": "intermediate",
+    "tags": [
+      "partition",
+      "gpt",
+      "resize",
+      "script",
+      "storage"
+    ],
+    "flags": [
+      "print",
+      "mklabel gpt",
+      "mkpart NAME FS START END",
+      "resizepart N END",
+      "rm N",
+      "-s"
+    ],
+    "keywords": "parted disk partitions partition gpt resize script storage scripted disk provisioning. growing partitions on cloud vms. gpt management. partitions partition disk partition editor that works both interactively and scripts with gpt support and online resizing"
+  },
+  {
+    "slug": "mount",
+    "name": "mount",
+    "desc": "Attaches a filesystem (disk, partition, image, network share) to a directory in the tree.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Mounting",
+    "difficulty": "intermediate",
+    "tags": [
+      "mount",
+      "filesystem",
+      "storage",
+      "nfs",
+      "cifs"
+    ],
+    "flags": [
+      "DEVICE DIR",
+      "-t TYPE",
+      "-o OPTS",
+      "-a",
+      "--bind OLDDIR NEWDIR"
+    ],
+    "keywords": "mount mounting mount filesystem storage nfs cifs attach new disks and partitions. mount iso images: mount -o loop image.iso /mnt/iso. mount network shares (nfs, cifs). mount disk attach filesystem attaches filesystem disk partition image network share directory the tree"
+  },
+  {
+    "slug": "umount",
+    "name": "umount",
+    "desc": "Detaches a mounted filesystem, flushing pending writes before releasing it.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Unmounting",
+    "difficulty": "beginner",
+    "tags": [
+      "unmount",
+      "detach",
+      "storage",
+      "busy"
+    ],
+    "flags": [
+      "DIRECTORY",
+      "-l",
+      "-f"
+    ],
+    "keywords": "umount unmounting unmount detach storage busy detach usb drives safely. swap mounted data disks. recover from dead network mounts. unmount eject detaches mounted filesystem flushing pending writes before releasing"
+  },
+  {
+    "slug": "mkfs",
+    "name": "mkfs",
+    "desc": "Creates (formats) a filesystem on a partition or disk — mkfs.ext4, mkfs.xfs, mkfs.vfat are its concrete forms.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Filesystems",
+    "difficulty": "intermediate",
+    "tags": [
+      "format",
+      "filesystem",
+      "ext4",
+      "xfs",
+      "storage"
+    ],
+    "flags": [
+      "-t TYPE",
+      "-L LABEL",
+      "mkfs.ext4 DEVICE",
+      "-n DRYRUN"
+    ],
+    "keywords": "mkfs filesystems format filesystem ext4 xfs storage prepare new disks. reformat a partition for reuse. create cross-platform usb media. format create filesystem creates formats filesystem partition disk mkfs ext4 mkfs xfs mkfs vfat are its concrete forms"
+  },
+  {
+    "slug": "fsck",
+    "name": "fsck",
+    "desc": "Checks and repairs Linux filesystems for errors. Run it on UNMOUNTED filesystems only.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Filesystems",
+    "difficulty": "advanced",
+    "tags": [
+      "repair",
+      "check",
+      "filesystem",
+      "corruption",
+      "recovery"
+    ],
+    "flags": [
+      "(no args)",
+      "-y",
+      "-p",
+      "-A",
+      "-N"
+    ],
+    "keywords": "fsck filesystems repair check filesystem corruption recovery repair filesystems after unclean shutdowns. verify a disk before trusting it again. fix filesystems flagged dirty at boot. filesystem check repair checks and repairs linux filesystems for errors run unmounted filesystems only"
+  },
+  {
+    "slug": "swapon",
+    "name": "swapon",
+    "desc": "Enables swap space — a file or partition the kernel uses as overflow RAM.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Swap",
+    "difficulty": "intermediate",
+    "tags": [
+      "swap",
+      "memory",
+      "virtual",
+      "storage"
+    ],
+    "flags": [
+      "(no args)",
+      "DEVICE",
+      "-s",
+      "--show",
+      "-p N"
+    ],
+    "keywords": "swapon swap swap memory virtual storage add swap to small vps instances. increase swap before heavy workloads. fix \"out of memory\" kills (oom) with breathing room. swap enable swap enables swap space file partition the kernel uses overflow ram"
+  },
+  {
+    "slug": "smartctl",
+    "name": "smartctl",
+    "desc": "Reads S.M.A.R.T. self-monitoring data from disks: reallocated sectors, pending sectors, temperature, and overall health. Requires root.",
+    "category": "disk-storage",
+    "categoryName": "Disk & Storage Management",
+    "subcategory": "Disk health",
+    "difficulty": "advanced",
+    "tags": [
+      "smart",
+      "health",
+      "disk",
+      "failure",
+      "predict"
+    ],
+    "flags": [
+      "-a",
+      "-H",
+      "-i",
+      "-t short / -t long",
+      "-l selftest",
+      "-d nvme,NVMe-specific output."
+    ],
+    "keywords": "smartctl disk health smart health disk failure predict predict disk failures before they happen. verify used disks are healthy. baseline health after incidents. disk health smart reads self monitoring data from disks reallocated sectors pending sectors temperature and overall health requires root"
+  },
+  {
+    "slug": "systemctl",
+    "name": "systemctl",
+    "desc": "Controls systemd: services (units), system state, targets, and timers — the central administration tool on modern Linux.",
+    "category": "services-systemd",
+    "categoryName": "Services & Systemd",
+    "subcategory": "Managing services",
+    "difficulty": "beginner",
+    "tags": [
+      "services",
+      "systemd",
+      "start",
+      "boot",
+      "manage"
+    ],
+    "flags": [
+      "start UNIT / stop UNIT",
+      "restart UNIT / reload UNIT",
+      "status UNIT",
+      "enable UNIT / disable UNIT",
+      "--now",
+      "list-units --type=service",
+      "list-unit-files",
+      "daemon-reload",
+      "is-active / is-enabled UNIT"
+    ],
+    "keywords": "systemctl managing services services systemd start boot manage manage every server service. diagnose failed services. control boot behavior of software. manage services restart service start service services controls systemd services units system state targets and timers the central administration tool modern linux"
+  },
+  {
+    "slug": "service",
+    "name": "service",
+    "desc": "The legacy service management wrapper: forwards to systemctl on systemd systems and to init.d scripts on older ones.",
+    "category": "services-systemd",
+    "categoryName": "Services & Systemd",
+    "subcategory": "Managing services",
+    "difficulty": "beginner",
+    "tags": [
+      "services",
+      "legacy",
+      "init",
+      "compatibility"
+    ],
+    "flags": [
+      "NAME start/stop/restart/status",
+      "--status-all"
+    ],
+    "keywords": "service managing services services legacy init compatibility portability across old and new init systems. quick interactive checks. manage services services the legacy service management wrapper forwards systemctl systemd systems and init scripts older ones"
+  },
+  {
+    "slug": "journalctl",
+    "name": "journalctl",
+    "desc": "Queries the systemd journal: all system and service logs in one indexed, structured store.",
+    "category": "services-systemd",
+    "categoryName": "Services & Systemd",
+    "subcategory": "Service logs",
+    "difficulty": "intermediate",
+    "tags": [
+      "logs",
+      "journal",
+      "systemd",
+      "debug",
+      "errors"
+    ],
+    "flags": [
+      "-u UNIT",
+      "-f",
+      "-b / -b -1",
+      "--since / --until",
+      "-p err",
+      "-n N",
+      "--disk-usage / --vacuum-size=",
+      "-k"
+    ],
+    "keywords": "journalctl service logs logs journal systemd debug errors diagnose service failures. investigate previous boots after crashes. filter system-wide events by time and severity. logs service logs system logs queries the systemd journal all system and service logs one indexed structured store"
+  },
+  {
+    "slug": "timedatectl",
+    "name": "timedatectl",
+    "desc": "Shows and sets system time, timezone, and NTP synchronization.",
+    "category": "services-systemd",
+    "categoryName": "Services & Systemd",
+    "subcategory": "System targets",
+    "difficulty": "beginner",
+    "tags": [
+      "time",
+      "timezone",
+      "ntp",
+      "clock"
+    ],
+    "flags": [
+      "(no args)",
+      "list-timezones",
+      "set-timezone ZONE",
+      "set-ntp true/false",
+      "set-time \"2025-01-12 10:30:00\""
+    ],
+    "keywords": "timedatectl system targets time timezone ntp clock set server timezones. verify ntp is actually working. fix clock drift on vms. time timezone date shows and sets system time timezone and ntp synchronization"
+  },
+  {
+    "slug": "dmesg",
+    "name": "dmesg",
+    "desc": "Prints the kernel ring buffer: boot messages, hardware detection, driver errors, and runtime kernel events.",
+    "category": "logs-troubleshooting",
+    "categoryName": "Logs & Troubleshooting",
+    "subcategory": "Kernel logs",
+    "difficulty": "intermediate",
+    "tags": [
+      "kernel",
+      "boot",
+      "hardware",
+      "logs",
+      "debug"
+    ],
+    "flags": [
+      "(no args)",
+      "-T",
+      "-w",
+      "-l err,warn",
+      "--human --color"
+    ],
+    "keywords": "dmesg kernel logs kernel boot hardware logs debug diagnose hardware problems. see what happened at boot. catch oom (out of memory) kills. kernel logs boot logs prints the kernel ring buffer boot messages hardware detection driver errors and runtime kernel events"
+  },
+  {
+    "slug": "logger",
+    "name": "logger",
+    "desc": "Writes messages into the system log from scripts and the command line.",
+    "category": "logs-troubleshooting",
+    "categoryName": "Logs & Troubleshooting",
+    "subcategory": "Application logs",
+    "difficulty": "beginner",
+    "tags": [
+      "logging",
+      "scripts",
+      "syslog",
+      "debug"
+    ],
+    "flags": [
+      "-t TAG",
+      "-p FACILITY.LEVEL",
+      "-f FILE",
+      "-s"
+    ],
+    "keywords": "logger application logs logging scripts syslog debug log from shell scripts. annotate maintenance windows. centralize script output with real timestamps. writes messages into the system log from scripts and the command line"
+  },
+  {
+    "slug": "echo",
+    "name": "echo",
+    "desc": "Prints text or variable values to standard output.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Bash basics",
+    "difficulty": "beginner",
+    "tags": [
+      "print",
+      "output",
+      "variables",
+      "basic",
+      "scripting"
+    ],
+    "flags": [
+      "-e",
+      "-n",
+      "$VAR",
+      "'$VAR'"
+    ],
+    "keywords": "echo bash basics print output variables basic scripting print messages in scripts. inspect variables: echo \"$path\". append config lines to files. print text output text prints text variable values standard output"
+  },
+  {
+    "slug": "printf",
+    "name": "printf",
+    "desc": "Formats and prints data like the C printf: precise control over numbers, padding, and escapes.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Bash basics",
+    "difficulty": "beginner",
+    "tags": [
+      "format",
+      "print",
+      "scripting",
+      "portable"
+    ],
+    "flags": [
+      "%s",
+      "%d / %f",
+      "%5s / %-10s",
+      "%.2f",
+      "\\n \\t"
+    ],
+    "keywords": "printf bash basics format print scripting portable portable, predictable output in scripts. aligned columns and formatted numbers. printing lists safely. print text format output formats and prints data like the printf precise control over numbers padding and escapes"
+  },
+  {
+    "slug": "export",
+    "name": "export",
+    "desc": "Marks shell variables for export to child processes, making them environment variables.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Environment variables",
+    "difficulty": "beginner",
+    "tags": [
+      "variables",
+      "environment",
+      "export",
+      "path",
+      "scripting"
+    ],
+    "flags": [
+      "NAME=value",
+      "export NAME=value",
+      "-n NAME",
+      "-p"
+    ],
+    "keywords": "export environment variables variables environment export path scripting configure program behavior (editor, lang, java_home). pass secrets/paths to scripts per-session. extend path with personal bin directories. environment variable set variable marks shell variables for export child processes making them environment variables"
+  },
+  {
+    "slug": "alias",
+    "name": "alias",
+    "desc": "Creates command shortcuts: a short name that expands to a longer command.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Aliases",
+    "difficulty": "beginner",
+    "tags": [
+      "alias",
+      "shortcut",
+      "productivity",
+      "shell"
+    ],
+    "flags": [
+      "(no args)",
+      "NAME='COMMAND'",
+      "unalias NAME",
+      "\\NAME"
+    ],
+    "keywords": "alias aliases alias shortcut productivity shell shortcut for long frequent commands. add safety defaults (rm -i, mv -i). customize tool behavior (colors, flags). shortcut command alias creates command shortcuts short name that expands longer command"
+  },
+  {
+    "slug": "history",
+    "name": "history",
+    "desc": "Shows previously executed commands; combined with ! expansion it re-runs them.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "History",
+    "difficulty": "beginner",
+    "tags": [
+      "history",
+      "recall",
+      "shortcuts",
+      "productivity"
+    ],
+    "flags": [
+      "(no args)",
+      "!N",
+      "!!",
+      "!string",
+      "-c",
+      "Ctrl+R"
+    ],
+    "keywords": "history history history recall shortcuts productivity recover a long command you typed earlier. re-run complex commands with one keystroke. document what was done on a server. command history shows previously executed commands combined with expansion runs them"
+  },
+  {
+    "slug": "source",
+    "name": "source",
+    "desc": "Executes a script IN the current shell (no subshell), so its variable and function definitions persist afterward. Dot (.) is the POSIX synonym.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Shell scripting",
+    "difficulty": "beginner",
+    "tags": [
+      "shell",
+      "environment",
+      "reload",
+      "scripting"
+    ],
+    "flags": [
+      "FILENAME",
+      ". FILENAME"
+    ],
+    "keywords": "source shell scripting shell environment reload scripting reload shell configuration. load shared environment files. activate virtual environments. reload config run script executes script the current shell subshell its variable and function definitions persist afterward dot the posix synonym"
+  },
+  {
+    "slug": "env",
+    "name": "env",
+    "desc": "Runs a command with a modified environment, or prints the current environment.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Environment variables",
+    "difficulty": "beginner",
+    "tags": [
+      "environment",
+      "variables",
+      "debug",
+      "cron"
+    ],
+    "flags": [
+      "(no args)",
+      "NAME=VALUE CMD",
+      "-i CMD",
+      "-u NAME"
+    ],
+    "keywords": "env environment variables environment variables debug cron inspect the environment. run commands with temporary variable overrides. debug \"works in shell, fails in cron\" issues. environment variable environment runs command with modified environment prints the current environment"
+  },
+  {
+    "slug": "printenv",
+    "name": "printenv",
+    "desc": "Prints environment variables — all of them, or specific ones.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Environment variables",
+    "difficulty": "beginner",
+    "tags": [
+      "environment",
+      "variables",
+      "inspect"
+    ],
+    "flags": [
+      "(no args)",
+      "NAME",
+      "-0"
+    ],
+    "keywords": "printenv environment variables environment variables inspect check exact variable values. verify what a cron job or service actually receives. conditionals on variable presence. environment variable environment prints environment variables all them specific ones"
+  },
+  {
+    "slug": "type",
+    "name": "type",
+    "desc": "Tells you HOW a command name will be interpreted: alias, builtin, function, or executable file and its path.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Command lookup",
+    "difficulty": "beginner",
+    "tags": [
+      "builtin",
+      "alias",
+      "lookup",
+      "diagnose"
+    ],
+    "flags": [
+      "NAME",
+      "-a",
+      "-p",
+      "-t"
+    ],
+    "keywords": "type command lookup builtin alias lookup diagnose diagnose \"different behavior in scripts\". locate executables. detect hidden aliases/functions overriding commands. find command where is command tells you how command name will interpreted alias builtin function executable file and its path"
+  },
+  {
+    "slug": "which",
+    "name": "which",
+    "desc": "Shows the full path of an executable that the shell would run.",
+    "category": "shell-terminal",
+    "categoryName": "Shell & Terminal",
+    "subcategory": "Command lookup",
+    "difficulty": "beginner",
+    "tags": [
+      "path",
+      "locate",
+      "executable",
+      "which"
+    ],
+    "flags": [
+      "NAME",
+      "-a",
+      "-p"
+    ],
+    "keywords": "which command lookup path locate executable which find where a program is installed. detect multiple conflicting installations. verify a command exists before calling it. find command where is command shows the full path executable that the shell would run"
+  },
+  {
+    "slug": "tar",
+    "name": "tar",
+    "desc": "Tape ARchiver: bundles many files into one archive, optionally compressed. The mnemonic: Create, eXtract, List.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "TAR",
+    "difficulty": "beginner",
+    "tags": [
+      "archive",
+      "backup",
+      "compress",
+      "bundle",
+      "tar"
+    ],
+    "flags": [
+      "-c",
+      "-x",
+      "-t",
+      "-f FILE",
+      "-v",
+      "-z / -j / -J",
+      "-C DIR",
+      "--exclude=PATTERN"
+    ],
+    "keywords": "tar tar archive backup compress bundle tar backups and project snapshots. transferring many files as one unit. software source distribution (the classic .tar.gz). compress extract archive tape archiver bundles many files into one archive optionally compressed the mnemonic create extract list"
+  },
+  {
+    "slug": "zip",
+    "name": "zip",
+    "desc": "Creates .zip archives — the format Windows and macOS open natively.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "ZIP",
+    "difficulty": "beginner",
+    "tags": [
+      "zip",
+      "archive",
+      "compress",
+      "windows",
+      "share"
+    ],
+    "flags": [
+      "-r",
+      "-e",
+      "-9",
+      "-x PATTERN",
+      "-@"
+    ],
+    "keywords": "zip zip zip archive compress windows share share files with windows/macos users. quick protected archives with -e. upload bundles to services that expect .zip. compress archive creates zip archives the format windows and macos open natively"
+  },
+  {
+    "slug": "unzip",
+    "name": "unzip",
+    "desc": "Extracts .zip archives.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "ZIP",
+    "difficulty": "beginner",
+    "tags": [
+      "zip",
+      "extract",
+      "archive"
+    ],
+    "flags": [
+      "(no args) ARCHIVE",
+      "-l",
+      "-d DIR",
+      "-o",
+      "-n",
+      "-P PASS"
+    ],
+    "keywords": "unzip zip zip extract archive extract received zip files. preview archives before extraction. extract decompress extracts zip archives"
+  },
+  {
+    "slug": "gzip",
+    "name": "gzip",
+    "desc": "Compresses a single file, replacing it with file.gz. Decompress with gunzip or gzip -d.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "GZIP",
+    "difficulty": "beginner",
+    "tags": [
+      "compress",
+      "gzip",
+      "logs",
+      "archive"
+    ],
+    "flags": [
+      "-k",
+      "-d",
+      "-1..-9",
+      "-c"
+    ],
+    "keywords": "gzip gzip compress gzip logs archive compress logs before archiving. shrink files for transfer. pipe compression: command | gzip > out.gz. compress compresses single file replacing with file decompress with gunzip gzip"
+  },
+  {
+    "slug": "bzip2",
+    "name": "bzip2",
+    "desc": "Compresses single files with a stronger (but slower) algorithm than gzip; pairs with tar via -j.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "BZIP2",
+    "difficulty": "beginner",
+    "tags": [
+      "compress",
+      "bzip2",
+      "archive"
+    ],
+    "flags": [
+      "-k",
+      "-d",
+      "-1..-9",
+      "-c"
+    ],
+    "keywords": "bzip2 bzip2 compress bzip2 archive decompressing legacy .bz2 archives. compression-critical, speed-insensitive tasks. compresses single files with stronger but slower algorithm than gzip pairs with tar via"
+  },
+  {
+    "slug": "xz",
+    "name": "xz",
+    "desc": "High-ratio LZMA2 compression — the format of modern source releases and package tarballs.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "XZ",
+    "difficulty": "beginner",
+    "tags": [
+      "compress",
+      "xz",
+      "archive",
+      "ratio"
+    ],
+    "flags": [
+      "-k",
+      "-d",
+      "-0..-9",
+      "-T0",
+      "-l"
+    ],
+    "keywords": "xz xz compress xz archive ratio shrink large archives to the minimum. compress vm images and database dumps. high ratio lzma2 compression the format modern source releases and package tarballs"
+  },
+  {
+    "slug": "7z",
+    "name": "7z",
+    "desc": "p7zip's archiver: high AES-256 compression/encryption, supports dozens of formats including its own .7z.",
+    "category": "archive-compression",
+    "categoryName": "Archive & Compression",
+    "subcategory": "7-Zip",
+    "difficulty": "intermediate",
+    "tags": [
+      "7z",
+      "encrypt",
+      "archive",
+      "aes",
+      "compress"
+    ],
+    "flags": [
+      "a",
+      "x",
+      "e",
+      "l",
+      "-pPASSWORD",
+      "-mhe=on",
+      "-tTYPE"
+    ],
+    "keywords": "7z 7-zip 7z encrypt archive aes compress encrypted archives for sensitive data. cross-platform exchange with windows users. high-ratio compression. compress extract archive p7zip archiver high aes 256 compression encryption supports dozens formats including its own"
+  },
+  {
+    "slug": "ufw",
+    "name": "ufw",
+    "desc": "Uncomplicated Firewall: a friendly front end to nftables/iptables for managing Linux firewall rules.",
+    "category": "security-firewall",
+    "categoryName": "Security & Firewall",
+    "subcategory": "Firewall management",
+    "difficulty": "beginner",
+    "tags": [
+      "firewall",
+      "security",
+      "ports",
+      "network",
+      "ufw"
+    ],
+    "flags": [
+      "enable / disable",
+      "status verbose",
+      "allow PORT[/tcp|udp]",
+      "deny PORT",
+      "delete allow 22/tcp",
+      "default deny incoming",
+      "limit 22/tcp",
+      "reset"
+    ],
+    "keywords": "ufw firewall management firewall security ports network ufw server firewall setup in minutes. rate-limiting ssh brute force. restricting database/service ports to internal networks. firewall ports uncomplicated firewall friendly front end nftables iptables for managing linux firewall rules"
+  },
+  {
+    "slug": "firewall-cmd",
+    "name": "firewall-cmd",
+    "desc": "The firewalld control tool used by RHEL, Fedora, CentOS, and openSUSE: zone-based firewall management with runtime and permanent rules.",
+    "category": "security-firewall",
+    "categoryName": "Security & Firewall",
+    "subcategory": "Firewall management",
+    "difficulty": "intermediate",
+    "tags": [
+      "firewall",
+      "zones",
+      "rhel",
+      "security"
+    ],
+    "flags": [
+      "--state",
+      "--get-active-zones",
+      "--add-service=http",
+      "--add-port=8080/tcp",
+      "--permanent",
+      "--reload",
+      "--list-all"
+    ],
+    "keywords": "firewall-cmd firewall management firewall zones rhel security firewall management on rhel/fedora/opensuse. zone-based multi-network servers. firewall ports the firewalld control tool used rhel fedora centos and opensuse zone based firewall management with runtime and permanent rules"
+  },
+  {
+    "slug": "iptables",
+    "name": "iptables",
+    "desc": "The classic Linux firewall tool: chains of rules filtering packets by interface, address, port, and state. Superseded by nftables but still everywhere.",
+    "category": "security-firewall",
+    "categoryName": "Security & Firewall",
+    "subcategory": "Firewall management",
+    "difficulty": "advanced",
+    "tags": [
+      "firewall",
+      "iptables",
+      "packets",
+      "security",
+      "advanced"
+    ],
+    "flags": [
+      "-L -n -v",
+      "-A CHAIN",
+      "-I CHAIN 1",
+      "-D CHAIN SPEC",
+      "-p tcp --dport 22",
+      "-s CIDR / -d CIDR",
+      "-j ACCEPT|DROP|REJECT",
+      "-m state --state ESTABLISHED,RELATED"
+    ],
+    "keywords": "iptables firewall management firewall iptables packets security advanced precise firewall control on older systems. emergency ip blocks. understanding what ufw/firewalld do underneath. firewall rules the classic linux firewall tool chains rules filtering packets interface address port and state superseded nftables but still everywhere"
+  },
+  {
+    "slug": "ssh",
+    "name": "ssh",
+    "desc": "The Secure Shell client: encrypted remote terminal access, command execution, and tunneling — the backbone of Linux server administration.",
+    "category": "ssh-remote",
+    "categoryName": "SSH & Remote Administration",
+    "subcategory": "Remote connections",
+    "difficulty": "beginner",
+    "tags": [
+      "ssh",
+      "remote",
+      "tunnel",
+      "terminal",
+      "security"
+    ],
+    "flags": [
+      "-p PORT",
+      "-i KEYFILE",
+      "-L LOCAL:HOST:REMOTE",
+      "-R REMOTE:HOST:LOCAL",
+      "-D PORT",
+      "-v / -vvv",
+      "-C",
+      "-J JUMP"
+    ],
+    "keywords": "ssh remote connections ssh remote tunnel terminal security remote server administration. secure tunnels to internal services. automated remote commands in scripts and ci. remote server connect remote remote login the secure shell client encrypted remote terminal access command execution and tunneling the backbone linux server administration"
+  },
+  {
+    "slug": "ssh-keygen",
+    "name": "ssh-keygen",
+    "desc": "Creates SSH key pairs for passwordless, encrypted authentication.",
+    "category": "ssh-remote",
+    "categoryName": "SSH & Remote Administration",
+    "subcategory": "SSH keys",
+    "difficulty": "beginner",
+    "tags": [
+      "ssh",
+      "keys",
+      "authentication",
+      "security"
+    ],
+    "flags": [
+      "-t TYPE",
+      "-b BITS",
+      "-C COMMENT",
+      "-f FILE",
+      "-N PASSPHRASE",
+      "-l -f KEY"
+    ],
+    "keywords": "ssh-keygen ssh keys ssh keys authentication security passwordless server login. git hosting authentication (github, gitlab). ci/cd deploy keys. ssh keys generate key creates ssh key pairs for passwordless encrypted authentication"
+  },
+  {
+    "slug": "ssh-copy-id",
+    "name": "ssh-copy-id",
+    "desc": "Installs your public key on a server's ~/.ssh/authorized_keys — the one-command setup for key-based login.",
+    "category": "ssh-remote",
+    "categoryName": "SSH & Remote Administration",
+    "subcategory": "SSH keys",
+    "difficulty": "beginner",
+    "tags": [
+      "ssh",
+      "keys",
+      "setup",
+      "passwordless"
+    ],
+    "flags": [
+      "-i KEY.pub",
+      "-p PORT",
+      "-o OPTION"
+    ],
+    "keywords": "ssh-copy-id ssh keys ssh keys setup passwordless set up key authentication on new servers. roll out a new key to a fleet of machines. ssh keys passwordless installs your public key server ssh authorized keys the one command setup for key based login"
+  },
+  {
+    "slug": "gpg",
+    "name": "gpg",
+    "desc": "GnuPG: OpenPGP encryption, decryption, signing, and key management for files and communications.",
+    "category": "security-firewall",
+    "categoryName": "Security & Firewall",
+    "subcategory": "Encryption",
+    "difficulty": "advanced",
+    "tags": [
+      "encryption",
+      "gpg",
+      "signing",
+      "security",
+      "privacy"
+    ],
+    "flags": [
+      "-c FILE",
+      "-d FILE.gpg",
+      "-e -r NAME FILE",
+      "--gen-key",
+      "--list-keys / --list-secret-keys",
+      "--export / --import",
+      "--sign / --verify"
+    ],
+    "keywords": "gpg encryption encryption gpg signing security privacy encrypt sensitive files at rest. verify downloaded software signatures. sign your own releases and commits (git uses gpg signing). encryption sign keys gnupg openpgp encryption decryption signing and key management for files and communications"
+  },
+  {
+    "slug": "openssl",
+    "name": "openssl",
+    "desc": "The OpenSSL toolkit: TLS certificate inspection, generation, encryption, and protocol testing from the command line.",
+    "category": "security-firewall",
+    "categoryName": "Security & Firewall",
+    "subcategory": "Certificates",
+    "difficulty": "advanced",
+    "tags": [
+      "tls",
+      "ssl",
+      "certificate",
+      "encryption",
+      "debug"
+    ],
+    "flags": [
+      "s_client -connect",
+      "x509 -text -noout",
+      "req -x509 -newkey",
+      "enc -aes-256-cbc",
+      "dgst -sha256 FILE",
+      "version -a"
+    ],
+    "keywords": "openssl certificates tls ssl certificate encryption debug inspect certificates and expiry dates. debug tls handshake problems. generate hashes and self-signed dev certificates. certificates tls ssl encryption the openssl toolkit tls certificate inspection generation encryption and protocol testing from the command line"
+  },
+  {
+    "slug": "crontab",
+    "name": "crontab",
+    "desc": "Schedules recurring commands: each user has their own crontab of cron expressions and jobs.",
+    "category": "scheduling-automation",
+    "categoryName": "Scheduling & Automation",
+    "subcategory": "Cron",
+    "difficulty": "intermediate",
+    "tags": [
+      "cron",
+      "schedule",
+      "automation",
+      "jobs"
+    ],
+    "flags": [
+      "-e",
+      "-l",
+      "-r",
+      "-u USER",
+      "5 fields"
+    ],
+    "keywords": "crontab cron cron schedule automation jobs nightly backups. periodic cleanup and log rotation. regular report generation. schedule cron job automation schedules recurring commands each user has their own crontab cron expressions and jobs"
+  },
+  {
+    "slug": "at",
+    "name": "at",
+    "desc": "Schedules a one-time command to run at a specific time — cron for \"once\", not \"always\".",
+    "category": "scheduling-automation",
+    "categoryName": "Scheduling & Automation",
+    "subcategory": "At jobs",
+    "difficulty": "intermediate",
+    "tags": [
+      "schedule",
+      "one-time",
+      "at",
+      "automation"
+    ],
+    "flags": [
+      "TIME",
+      "-l",
+      "-r JOB",
+      "-f FILE",
+      "-c JOB"
+    ],
+    "keywords": "at at jobs schedule one-time at automation one-time maintenance windows. delayed reboots and updates. reminders and scheduled one-off scripts. schedule one time job schedules one time command run specific time cron for once not always"
+  },
+  {
+    "slug": "git",
+    "name": "git",
+    "desc": "The distributed version control system: tracks changes, branches, merges, and synchronizes work across machines and teams.",
+    "category": "dev-tools",
+    "categoryName": "Environment & Development Tools",
+    "subcategory": "Git",
+    "difficulty": "beginner",
+    "tags": [
+      "git",
+      "version control",
+      "collaboration",
+      "development"
+    ],
+    "flags": [
+      "init",
+      "clone URL",
+      "status",
+      "add FILE",
+      "commit -m \"msg\"",
+      "push / pull",
+      "branch / checkout / switch",
+      "log --oneline",
+      "diff"
+    ],
+    "keywords": "git git git version control collaboration development version control for any text project. team collaboration via remotes. deploy workflows and ci triggers. version control source control the distributed version control system tracks changes branches merges and synchronizes work across machines and teams"
+  },
+  {
+    "slug": "gcc",
+    "name": "gcc",
+    "desc": "The GNU Compiler Collection C compiler: compiles C (and with g++, C++) source into executables.",
+    "category": "dev-tools",
+    "categoryName": "Environment & Development Tools",
+    "subcategory": "GCC",
+    "difficulty": "intermediate",
+    "tags": [
+      "compiler",
+      "c",
+      "build",
+      "development"
+    ],
+    "flags": [
+      "-o FILE",
+      "-Wall -Wextra",
+      "-g",
+      "-O0/-O2/-O3",
+      "-c",
+      "-std=c17",
+      "-lm"
+    ],
+    "keywords": "gcc gcc compiler c build development compiling c projects. building software from source. learning systems programming. compile compiler c the gnu compiler collection compiler compiles and with source into executables"
+  },
+  {
+    "slug": "make",
+    "name": "make",
+    "desc": "Executes build rules from a Makefile: rebuilds only what changed, in the right order, in parallel.",
+    "category": "dev-tools",
+    "categoryName": "Environment & Development Tools",
+    "subcategory": "Make",
+    "difficulty": "intermediate",
+    "tags": [
+      "build",
+      "automation",
+      "compile",
+      "makefile"
+    ],
+    "flags": [
+      "(no args)",
+      "TARGET",
+      "-j N",
+      "-f FILE",
+      "-n",
+      "-C DIR"
+    ],
+    "keywords": "make make build automation compile makefile building c/c++ and multi-step projects. automating repetitive task chains (test, build, deploy). build compile executes build rules from makefile rebuilds only what changed the right order parallel"
+  },
+  {
+    "slug": "gdb",
+    "name": "gdb",
+    "desc": "The GNU debugger: pauses programs, inspects memory and variables, and steps through code line by line.",
+    "category": "dev-tools",
+    "categoryName": "Environment & Development Tools",
+    "subcategory": "Development utilities",
+    "difficulty": "advanced",
+    "tags": [
+      "debug",
+      "debugger",
+      "crash",
+      "development"
+    ],
+    "flags": [
+      "run ARGS",
+      "break FILE:LINE / break FUNC",
+      "next / step",
+      "print VAR",
+      "bt",
+      "continue",
+      "-c CORE"
+    ],
+    "keywords": "gdb development utilities debug debugger crash development find segfaults and their exact line. step through algorithms. post-mortem analysis of crashes. debugger debug the gnu debugger pauses programs inspects memory and variables and steps through code line line"
+  },
+  {
+    "slug": "strace",
+    "name": "strace",
+    "desc": "Traces the system calls a program makes: every file open, network connection, and memory operation, live.",
+    "category": "dev-tools",
+    "categoryName": "Environment & Development Tools",
+    "subcategory": "Development utilities",
+    "difficulty": "advanced",
+    "tags": [
+      "syscalls",
+      "trace",
+      "debug",
+      "diagnose",
+      "advanced"
+    ],
+    "flags": [
+      "-o FILE",
+      "-e trace=TYPE",
+      "-p PID",
+      "-f",
+      "-c",
+      "-T"
+    ],
+    "keywords": "strace development utilities syscalls trace debug diagnose advanced find which config file a program actually reads. diagnose permission and missing-file errors. see what a mystery binary connects to. trace system calls debug traces the system calls program makes every file open network connection and memory operation live"
+  },
+  {
+    "slug": "modprobe",
+    "name": "modprobe",
+    "desc": "Loads or removes kernel modules (drivers, filesystems) with automatic dependency resolution.",
+    "category": "linux-administration",
+    "categoryName": "Linux Administration",
+    "subcategory": "Kernel modules",
+    "difficulty": "advanced",
+    "tags": [
+      "kernel",
+      "modules",
+      "drivers",
+      "admin"
+    ],
+    "flags": [
+      "MODULE",
+      "-r MODULE",
+      "-v",
+      "-c",
+      "MODULE param=value"
+    ],
+    "keywords": "modprobe kernel modules kernel modules drivers admin load hardware drivers on demand. blacklist problematic drivers. tune module parameters. kernel module load module loads removes kernel modules drivers filesystems with automatic dependency resolution"
+  },
+  {
+    "slug": "lsmod",
+    "name": "lsmod",
+    "desc": "Lists all currently loaded kernel modules and what depends on them.",
+    "category": "linux-administration",
+    "categoryName": "Linux Administration",
+    "subcategory": "Kernel modules",
+    "difficulty": "beginner",
+    "tags": [
+      "kernel",
+      "modules",
+      "drivers",
+      "list"
+    ],
+    "flags": [
+      "(no options)"
+    ],
+    "keywords": "lsmod kernel modules kernel modules drivers list verify a driver loaded. check module dependencies before unloading. kernel module loaded modules lists all currently loaded kernel modules and what depends them"
+  },
+  {
+    "slug": "sysctl",
+    "name": "sysctl",
+    "desc": "Reads and changes kernel runtime parameters exposed under /proc/sys — networking buffers, swappiness, limits, and more.",
+    "category": "linux-administration",
+    "categoryName": "Linux Administration",
+    "subcategory": "Kernel parameters",
+    "difficulty": "advanced",
+    "tags": [
+      "kernel",
+      "tuning",
+      "network",
+      "sysctl",
+      "advanced"
+    ],
+    "flags": [
+      "-a",
+      "vm.swappiness",
+      "-w PARAM=VALUE",
+      "-p FILE",
+      "--system"
+    ],
+    "keywords": "sysctl kernel parameters kernel tuning network sysctl advanced tune network stack behavior. enable routing/forwarding. adjust memory management (swappiness, overcommit). kernel parameters tuning reads and changes kernel runtime parameters exposed under proc sys networking buffers swappiness limits and more"
+  },
+  {
+    "slug": "ulimit",
+    "name": "ulimit",
+    "desc": "A shell builtin that reports or sets per-process resource limits: open files, CPU time, memory, and processes.",
+    "category": "linux-administration",
+    "categoryName": "Linux Administration",
+    "subcategory": "System limits",
+    "difficulty": "advanced",
+    "tags": [
+      "limits",
+      "resources",
+      "files",
+      "tuning",
+      "advanced"
+    ],
+    "flags": [
+      "-a",
+      "-n",
+      "-u",
+      "-c",
+      "-v",
+      "-S / -H"
+    ],
+    "keywords": "ulimit system limits limits resources files tuning advanced fix \"too many open files\" for servers. raise process limits for load testing. cap runaway resources. resource limits limits shell builtin that reports sets per process resource limits open files cpu time memory and processes"
+  },
+  {
+    "slug": "chroot",
+    "name": "chroot",
+    "desc": "Runs a command with a different directory as its filesystem root — the foundation of recovery environments and containers.",
+    "category": "linux-administration",
+    "categoryName": "Linux Administration",
+    "subcategory": "System configuration",
+    "difficulty": "advanced",
+    "tags": [
+      "chroot",
+      "recovery",
+      "root",
+      "isolation",
+      "advanced"
+    ],
+    "flags": [
+      "NEWROOT",
+      "NEWROOT COMMAND"
+    ],
+    "keywords": "chroot system configuration chroot recovery root isolation advanced repair unbootable systems from a live usb. build minimal application environments (the ancestor of containers). jail change root runs command with different directory its filesystem root the foundation recovery environments and containers"
+  },
+  {
+    "slug": "update-grub",
+    "name": "update-grub",
+    "desc": "Debian/Ubuntu wrapper that regenerates the GRUB boot menu configuration from /etc/default/grub and detected kernels.",
+    "category": "linux-administration",
+    "categoryName": "Linux Administration",
+    "subcategory": "Boot process",
+    "difficulty": "intermediate",
+    "tags": [
+      "grub",
+      "boot",
+      "kernel",
+      "menu"
+    ],
+    "flags": [
+      "(no options)"
+    ],
+    "keywords": "update-grub boot process grub boot kernel menu change boot timeout or default kernel. add kernel parameters (quiet splash, nomodeset). refresh the menu after installing a custom kernel. bootloader grub debian ubuntu wrapper that regenerates the grub boot menu configuration from etc default grub and detected kernels"
+  },
+  {
+    "slug": "lsof",
+    "name": "lsof",
+    "desc": "Lists open files — and on Linux, everything is a file: regular files, sockets, pipes, devices. The tool for \"what is using this?\"",
+    "category": "advanced-linux",
+    "categoryName": "Advanced Linux",
+    "subcategory": "File descriptors",
+    "difficulty": "advanced",
+    "tags": [
+      "files",
+      "sockets",
+      "open",
+      "diagnose",
+      "advanced"
+    ],
+    "flags": [
+      "-i",
+      "+D DIR",
+      "-u USER / -c NAME",
+      "-p PID",
+      "+f -- PATH",
+      "-t"
+    ],
+    "keywords": "lsof file descriptors files sockets open diagnose advanced diagnose \"address already in use\". find what blocks an unmount. track deleted files still holding disk space. open files which process uses file ports lists open files and linux everything file regular files sockets pipes devices the tool for what using this"
+  },
+  {
+    "slug": "unshare",
+    "name": "unshare",
+    "desc": "Runs a program with selected kernel namespaces unshared from the parent — the primitive behind containers.",
+    "category": "advanced-linux",
+    "categoryName": "Advanced Linux",
+    "subcategory": "Namespaces",
+    "difficulty": "advanced",
+    "tags": [
+      "namespaces",
+      "containers",
+      "isolation",
+      "kernel",
+      "advanced"
+    ],
+    "flags": [
+      "--mount",
+      "--pid",
+      "--net",
+      "--uts",
+      "--fork",
+      "--map-root-user"
+    ],
+    "keywords": "unshare namespaces namespaces containers isolation kernel advanced learning how containers work. testing mount/network changes safely. building minimal sandboxes. runs program with selected kernel namespaces unshared from the parent the primitive behind containers"
+  },
+  {
+    "slug": "nsenter",
+    "name": "nsenter",
+    "desc": "Enters the namespaces of an existing process — how you attach to containers and inspect other processes' worlds.",
+    "category": "advanced-linux",
+    "categoryName": "Advanced Linux",
+    "subcategory": "Namespaces",
+    "difficulty": "advanced",
+    "tags": [
+      "namespaces",
+      "containers",
+      "debug",
+      "kernel",
+      "advanced"
+    ],
+    "flags": [
+      "-t PID",
+      "-m / -u / -i / -n / -p",
+      "-r / -w"
+    ],
+    "keywords": "nsenter namespaces namespaces containers debug kernel advanced debug containers from the host. inspect another process's network/mount view. recovery when exec tools fail. enters the namespaces existing process how you attach containers and inspect other processes worlds"
+  },
+  {
+    "slug": "taskset",
+    "name": "taskset",
+    "desc": "Sets or retrieves a process's CPU affinity — which cores it may run on.",
+    "category": "advanced-linux",
+    "categoryName": "Advanced Linux",
+    "subcategory": "Cgroups",
+    "difficulty": "advanced",
+    "tags": [
+      "cpu",
+      "affinity",
+      "cores",
+      "performance",
+      "advanced"
+    ],
+    "flags": [
+      "-c LIST",
+      "-p PID",
+      "-a"
+    ],
+    "keywords": "taskset cgroups cpu affinity cores performance advanced deterministic benchmarks. isolating noisy processes from latency-sensitive ones. numa-aware placement on multi-socket servers. cpu affinity pin process sets retrieves process cpu affinity which cores may run"
+  },
+  {
+    "slug": "ln",
+    "name": "ln",
+    "desc": "Creates links between files: hard links that point to the same inode, or symbolic links that point to a path.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Symbolic links",
+    "difficulty": "intermediate",
+    "tags": [
+      "links",
+      "symlink",
+      "inode",
+      "filesystem"
+    ],
+    "flags": [
+      "-s",
+      "-f",
+      "-v",
+      "-i"
+    ],
+    "keywords": "ln symbolic links links symlink inode filesystem expose versioned application directories under stable paths. enable/disable service configs by managing symlinks (nginx, systemd wants). save disk space by hard-linking identical files. symbolic link hard link symlink creates links between files hard links that point the same inode symbolic links that point path"
+  },
+  {
+    "slug": "find",
+    "name": "find",
+    "desc": "Searches for files and directories in a directory hierarchy, matching by name, size, time, type, permissions, and more, and can execute actions on results.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Finding files",
+    "difficulty": "intermediate",
+    "tags": [
+      "search",
+      "find",
+      "files",
+      "recursive",
+      "bulk"
+    ],
+    "flags": [
+      "-name PATTERN",
+      "-type f / -type d",
+      "-size +100M",
+      "-mtime -7",
+      "-user NAME",
+      "-exec CMD {} ;",
+      "-maxdepth N",
+      "-delete"
+    ],
+    "keywords": "find finding files search find files recursive bulk locate files by name, size, age, or owner. bulk operations: change permissions, delete, or compress matched files. clean up build artifacts and old logs. find files search files searches for files and directories directory hierarchy matching name size time type permissions and more and can execute actions results"
+  },
+  {
+    "slug": "locate",
+    "name": "locate",
+    "desc": "Quickly finds files by name using a prebuilt database maintained by updatedb, far faster than find for whole-disk searches.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Finding files",
+    "difficulty": "beginner",
+    "tags": [
+      "search",
+      "find",
+      "database",
+      "fast"
+    ],
+    "flags": [
+      "-i",
+      "-c",
+      "-n N",
+      "-e",
+      "-r REGEX"
+    ],
+    "keywords": "locate finding files search find database fast fast whole-system filename lookups. checking where a package installed its files. find files search files quickly finds files name using prebuilt database maintained updatedb far faster than find for whole disk searches"
+  },
+  {
+    "slug": "stat",
+    "name": "stat",
+    "desc": "Displays detailed status of files or filesystems: size, blocks, inode, permissions, ownership, and all timestamps.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "File metadata",
+    "difficulty": "intermediate",
+    "tags": [
+      "metadata",
+      "inode",
+      "timestamps",
+      "permissions"
+    ],
+    "flags": [
+      "-c FORMAT",
+      "-f",
+      "-x"
+    ],
+    "keywords": "stat file metadata metadata inode timestamps permissions inspect exact permissions and ownership in octal form. check inode numbers when troubleshooting hard links. script-friendly metadata extraction with -c. file metadata file info displays detailed status files filesystems size blocks inode permissions ownership and all timestamps"
+  },
+  {
+    "slug": "file",
+    "name": "file",
+    "desc": "Determines the type of a file by examining its magic numbers and content, not just its extension.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "File metadata",
+    "difficulty": "beginner",
+    "tags": [
+      "type",
+      "format",
+      "magic",
+      "identify"
+    ],
+    "flags": [
+      "-b",
+      "-i",
+      "-L",
+      "-z"
+    ],
+    "keywords": "file file metadata type format magic identify identify files with missing or wrong extensions. verify that a download is really the expected format. check text encodings before processing files with scripts. file type identify file determines the type file examining its magic numbers and content not just its extension"
+  },
+  {
+    "slug": "du",
+    "name": "du",
+    "desc": "Estimates disk space used by files and directories.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Disk usage",
+    "difficulty": "beginner",
+    "tags": [
+      "disk",
+      "space",
+      "size",
+      "usage",
+      "cleanup"
+    ],
+    "flags": [
+      "-h",
+      "-s",
+      "-a",
+      "--max-depth=N",
+      "-x",
+      "--exclude=PATTERN"
+    ],
+    "keywords": "du disk usage disk space size usage cleanup find what is consuming disk space. estimate directory sizes before copying or backing up. verify cleanup results. disk space disk usage folder size estimates disk space used files and directories"
+  },
+  {
+    "slug": "df",
+    "name": "df",
+    "desc": "Reports free and used disk space for mounted filesystems.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "Disk usage",
+    "difficulty": "beginner",
+    "tags": [
+      "disk",
+      "space",
+      "filesystem",
+      "monitor"
+    ],
+    "flags": [
+      "-h",
+      "-T",
+      "-i",
+      "-x TYPE",
+      "--output=FIELDS"
+    ],
+    "keywords": "df disk usage disk space filesystem monitor check remaining disk space. verify that a new disk was mounted correctly. diagnose inode exhaustion with df -i. disk space disk free filesystem usage reports free and used disk space for mounted filesystems"
+  },
+  {
+    "slug": "diff",
+    "name": "diff",
+    "desc": "Compares files line by line and reports the differences; also compares directories recursively.",
+    "category": "file-directory",
+    "categoryName": "File & Directory Management",
+    "subcategory": "File comparison",
+    "difficulty": "intermediate",
+    "tags": [
+      "compare",
+      "differences",
+      "patch",
+      "files"
+    ],
+    "flags": [
+      "-u",
+      "-r",
+      "-i",
+      "-w",
+      "-q",
+      "-y"
+    ],
+    "keywords": "diff file comparison compare differences patch files compare configuration files before and after edits. generate patches to share changes. verify directory copies or backups with diff -r. compare files compares files line line and reports the differences also compares directories recursively"
+  },
+  {
+    "slug": "cat",
+    "name": "cat",
+    "desc": "Concatenates files and prints them to standard output; the default way to quickly view short files.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Reading files",
+    "difficulty": "beginner",
+    "tags": [
+      "view",
+      "read",
+      "concatenate",
+      "files",
+      "basic"
+    ],
+    "flags": [
+      "-n",
+      "-b",
+      "-A",
+      "-s",
+      "-E"
+    ],
+    "keywords": "cat reading files view read concatenate files basic quickly view short files. join files together. feed a file into a pipe: cat file | program (though program < file is cleaner). read file print file view file concatenates files and prints them standard output the default way quickly view short files"
+  },
+  {
+    "slug": "less",
+    "name": "less",
+    "desc": "A pager that views files one screen at a time with scrolling, searching, and navigation — without loading the whole file into memory.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Reading files",
+    "difficulty": "beginner",
+    "tags": [
+      "pager",
+      "view",
+      "read",
+      "scroll",
+      "search"
+    ],
+    "flags": [
+      "+F",
+      "-N",
+      "-S",
+      "-i",
+      "-R"
+    ],
+    "keywords": "less reading files pager view read scroll search read long files comfortably. view man pages (man uses less by default). follow growing logs while retaining scrollback. read file view file pager pager that views files one screen time with scrolling searching and navigation without loading the whole file into memory"
+  },
+  {
+    "slug": "head",
+    "name": "head",
+    "desc": "Prints the first lines (or bytes) of each input file.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Reading files",
+    "difficulty": "beginner",
+    "tags": [
+      "view",
+      "lines",
+      "preview",
+      "beginning"
+    ],
+    "flags": [
+      "-n N",
+      "-c N",
+      "-q"
+    ],
+    "keywords": "head reading files view lines preview beginning preview files and streams. sample the start of large logs or datasets. combine with tail to print middle sections. first lines prints the first lines bytes each input file"
+  },
+  {
+    "slug": "tail",
+    "name": "tail",
+    "desc": "Prints the last lines of each input file, or follows a file as it grows.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Reading files",
+    "difficulty": "beginner",
+    "tags": [
+      "view",
+      "log",
+      "follow",
+      "realtime",
+      "end"
+    ],
+    "flags": [
+      "-n N",
+      "-f",
+      "-F",
+      "-c N"
+    ],
+    "keywords": "tail reading files view log follow realtime end watch logs in real time. inspect the end of large files without opening them. follow rotated log files reliably with -f. last lines logs follow file prints the last lines each input file follows file grows"
+  },
+  {
+    "slug": "grep",
+    "name": "grep",
+    "desc": "Searches input for lines matching a pattern and prints them; the workhorse of text filtering on Linux.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Searching inside files",
+    "difficulty": "beginner",
+    "tags": [
+      "search",
+      "filter",
+      "regex",
+      "text",
+      "log"
+    ],
+    "flags": [
+      "-i",
+      "-v",
+      "-r",
+      "-n",
+      "-c",
+      "-l",
+      "-w",
+      "-E",
+      "-A N / -B N / -C N",
+      "--color=auto"
+    ],
+    "keywords": "grep searching inside files search filter regex text log find text in files and command output. filter logs for errors and warnings. count occurrences and locate files containing a term. search text find text search inside files search searches input for lines matching pattern and prints them the workhorse text filtering linux"
+  },
+  {
+    "slug": "sed",
+    "name": "sed",
+    "desc": "A stream editor that transforms text: substitution, deletion, insertion, and line selection, applied line by line.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Replacing text",
+    "difficulty": "intermediate",
+    "tags": [
+      "replace",
+      "substitute",
+      "stream",
+      "edit",
+      "regex"
+    ],
+    "flags": [
+      "s/old/new/",
+      "-i",
+      "-n",
+      "-E",
+      "/pattern/d",
+      "-n NUMBERp"
+    ],
+    "keywords": "sed replacing text replace substitute stream edit regex batch text replacement across files. strip comments and blank lines from configs. extract specific line ranges from large files. transform output inside pipes. replace text substitute edit text stream editor that transforms text substitution deletion insertion and line selection applied line line"
+  },
+  {
+    "slug": "awk",
+    "name": "awk",
+    "desc": "A pattern-scanning and processing language: splits lines into fields and applies programs to them, ideal for column-based data.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Text streams",
+    "difficulty": "intermediate",
+    "tags": [
+      "columns",
+      "fields",
+      "report",
+      "text",
+      "processing"
+    ],
+    "flags": [
+      "{print $1}",
+      "-F SEP",
+      "/pattern/{action}",
+      "BEGIN{} / END{}",
+      "-v VAR=value"
+    ],
+    "keywords": "awk text streams columns fields report text processing extract and sum columns from logs and csvs. generate quick reports (totals, counts, averages). reformat data between tools in a pipeline. columns fields text processing pattern scanning and processing language splits lines into fields and applies programs them ideal for column based data"
+  },
+  {
+    "slug": "cut",
+    "name": "cut",
+    "desc": "Cuts out selected fields or character ranges from each line of input.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Extracting text",
+    "difficulty": "beginner",
+    "tags": [
+      "columns",
+      "extract",
+      "fields",
+      "slice"
+    ],
+    "flags": [
+      "-d DELIM",
+      "-f LIST",
+      "-c LIST",
+      "--complement"
+    ],
+    "keywords": "cut extracting text columns extract fields slice pull a single column from delimited data. extract fixed-width regions. shorten git hashes: git log --pretty=format:%h | cut -c1-7. columns fields cuts out selected fields character ranges from each line input"
+  },
+  {
+    "slug": "sort",
+    "name": "sort",
+    "desc": "Sorts lines of text alphabetically, numerically, or by key.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Sorting",
+    "difficulty": "beginner",
+    "tags": [
+      "sort",
+      "order",
+      "numeric",
+      "text"
+    ],
+    "flags": [
+      "-r",
+      "-n",
+      "-h",
+      "-u",
+      "-k N",
+      "-t SEP",
+      "-f"
+    ],
+    "keywords": "sort sorting sort order numeric text order command output (du, ps, ls). prepare data for uniq (which requires sorted input). rank logs by frequency with sort | uniq -c | sort -rn. sort lines sorts lines text alphabetically numerically key"
+  },
+  {
+    "slug": "uniq",
+    "name": "uniq",
+    "desc": "Filters adjacent repeated lines: removes, counts, or shows duplicates.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Counting",
+    "difficulty": "beginner",
+    "tags": [
+      "duplicate",
+      "unique",
+      "count",
+      "frequency"
+    ],
+    "flags": [
+      "-c",
+      "-d",
+      "-u",
+      "-i",
+      "-w N"
+    ],
+    "keywords": "uniq counting duplicate unique count frequency count and rank ip addresses, urls, or error types. remove duplicate entries from sorted lists. detect repeated lines in logs. duplicates unique lines filters adjacent repeated lines removes counts shows duplicates"
+  },
+  {
+    "slug": "wc",
+    "name": "wc",
+    "desc": "Counts lines, words, and bytes (or characters) in files or input.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Counting",
+    "difficulty": "beginner",
+    "tags": [
+      "count",
+      "lines",
+      "words",
+      "statistics"
+    ],
+    "flags": [
+      "-l",
+      "-w",
+      "-c",
+      "-m",
+      "-L"
+    ],
+    "keywords": "wc counting count lines words statistics count log entries, results, or files. measure text size before processing. quick code metrics: wc -l *.py. count lines word count counts lines words and bytes characters files input"
+  },
+  {
+    "slug": "tr",
+    "name": "tr",
+    "desc": "Translates or deletes characters from standard input.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Replacing text",
+    "difficulty": "beginner",
+    "tags": [
+      "translate",
+      "characters",
+      "case",
+      "clean"
+    ],
+    "flags": [
+      "SET1 SET2",
+      "-d SET",
+      "-s SET",
+      "-c"
+    ],
+    "keywords": "tr replacing text translate characters case clean change case. clean line endings. normalize whitespace. strip unwanted characters from data. translates deletes characters from standard input"
+  },
+  {
+    "slug": "tee",
+    "name": "tee",
+    "desc": "Reads standard input and writes it both to standard output and to one or more files — a T-splitter in the pipe.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Text streams",
+    "difficulty": "beginner",
+    "tags": [
+      "pipe",
+      "split",
+      "log",
+      "redirect"
+    ],
+    "flags": [
+      "-a",
+      "-i",
+      "/dev/tty"
+    ],
+    "keywords": "tee text streams pipe split log redirect log pipeline output while watching it. write to protected files with sudo without losing the pipe. branch a stream to multiple files. write and show split output reads standard input and writes both standard output and one more files splitter the pipe"
+  },
+  {
+    "slug": "xargs",
+    "name": "xargs",
+    "desc": "Builds and executes command lines from standard input — the bridge between lists of items and commands that take arguments.",
+    "category": "text-processing",
+    "categoryName": "File Reading & Text Processing",
+    "subcategory": "Text streams",
+    "difficulty": "intermediate",
+    "tags": [
+      "arguments",
+      "batch",
+      "parallel",
+      "pipe"
+    ],
+    "flags": [
+      "-n N",
+      "-I {}",
+      "-0",
+      "-P N",
+      "-r",
+      "-t"
+    ],
+    "keywords": "xargs text streams arguments batch parallel pipe apply a command to thousands of files. parallelize downloads, conversions, or compression. convert stdin lists into command arguments. build commands pipe arguments builds and executes command lines from standard input the bridge between lists items and commands that take arguments"
+  },
+  {
+    "slug": "chmod",
+    "name": "chmod",
+    "desc": "Changes the access permissions of files and directories, either symbolically (u+x) or numerically (755).",
+    "category": "permissions",
+    "categoryName": "File Permissions & Ownership",
+    "subcategory": "Understanding Linux permissions",
+    "difficulty": "intermediate",
+    "tags": [
+      "permissions",
+      "security",
+      "mode",
+      "execute"
+    ],
+    "flags": [
+      "u/g/o/a",
+      "+/-/=",
+      "r/w/x",
+      "NNN",
+      "-R",
+      "--reference=FILE",
+      "X (capital)"
+    ],
+    "keywords": "chmod understanding linux permissions permissions security mode execute make scripts executable. lock down private keys and credentials. prepare web roots and shared directories. fix permissions after copying files as root. permissions change permissions changes the access permissions files and directories either symbolically numerically 755"
+  },
+  {
+    "slug": "chown",
+    "name": "chown",
+    "desc": "Changes the owner and/or group of files and directories. Requires root for changing owners.",
+    "category": "permissions",
+    "categoryName": "File Permissions & Ownership",
+    "subcategory": "Understanding Linux permissions",
+    "difficulty": "intermediate",
+    "tags": [
+      "ownership",
+      "permissions",
+      "users",
+      "security"
+    ],
+    "flags": [
+      "USER",
+      "USER:GROUP",
+      ":GROUP",
+      "-R",
+      "--reference=FILE",
+      "--from=OLD"
+    ],
+    "keywords": "chown understanding linux permissions ownership permissions users security assign files to service accounts (www-data, postgres). fix ownership after copying files as root or extracting archives. prepare shared directories for teams. ownership change owner changes the owner and group files and directories requires root for changing owners"
+  },
+  {
+    "slug": "chgrp",
+    "name": "chgrp",
+    "desc": "Changes the group ownership of files and directories.",
+    "category": "permissions",
+    "categoryName": "File Permissions & Ownership",
+    "subcategory": "Understanding Linux permissions",
+    "difficulty": "beginner",
+    "tags": [
+      "group",
+      "ownership",
+      "permissions"
+    ],
+    "flags": [
+      "-R",
+      "-v",
+      "--reference=FILE"
+    ],
+    "keywords": "chgrp understanding linux permissions group ownership permissions hand files to a team or service group. fix group ownership of web content. changes the group ownership files and directories"
+  },
+  {
+    "slug": "umask",
+    "name": "umask",
+    "desc": "Sets or shows the permission mask that determines the default permissions of newly created files and directories.",
+    "category": "permissions",
+    "categoryName": "File Permissions & Ownership",
+    "subcategory": "Understanding Linux permissions",
+    "difficulty": "intermediate",
+    "tags": [
+      "permissions",
+      "default",
+      "security",
+      "mask"
+    ],
+    "flags": [
+      "(no args)",
+      "-S",
+      "MASK"
+    ],
+    "keywords": "umask understanding linux permissions permissions default security mask make your home directory private: umask 077 in ~/.bashrc. tighten defaults for a service by setting umask= in its systemd unit. understand why files created by scripts have \"unexpected\" permissions. default permissions permissions sets shows the permission mask that determines the default permissions newly created files and directories"
+  },
+  {
+    "slug": "getfacl",
+    "name": "getfacl",
+    "desc": "Displays Access Control Lists — fine-grained permissions beyond the classic owner/group/other model.",
+    "category": "permissions",
+    "categoryName": "File Permissions & Ownership",
+    "subcategory": "ACL permissions",
+    "difficulty": "advanced",
+    "tags": [
+      "acl",
+      "permissions",
+      "security",
+      "access"
+    ],
+    "flags": [
+      "(no options)",
+      "-R",
+      "--absolute-names"
+    ],
+    "keywords": "getfacl acl permissions acl permissions security access grant a specific user access without changing group membership. back up and restore complex permission trees. audit who really has access to shared data. acl permissions displays access control lists fine grained permissions beyond the classic owner group other model"
+  },
+  {
+    "slug": "scp",
+    "name": "scp",
+    "desc": "Copies files between hosts over SSH, with the same authentication and encryption as ssh.",
+    "category": "file-transfer",
+    "categoryName": "File Transfer & Synchronization",
+    "subcategory": "Secure copy",
+    "difficulty": "beginner",
+    "tags": [
+      "copy",
+      "ssh",
+      "remote",
+      "upload",
+      "download"
+    ],
+    "flags": [
+      "-r",
+      "-P PORT",
+      "-p",
+      "-C",
+      "-i KEYFILE",
+      "-3"
+    ],
+    "keywords": "scp secure copy copy ssh remote upload download quick one-off file copies to/from servers. pull a log or config off a remote machine. push a build artifact during deployment. copy files secure copy remote copy copies files between hosts over ssh with the same authentication and encryption ssh"
+  },
+  {
+    "slug": "rsync",
+    "name": "rsync",
+    "desc": "Efficiently synchronizes files and directories, transferring only the differences, locally or over SSH.",
+    "category": "file-transfer",
+    "categoryName": "File Transfer & Synchronization",
+    "subcategory": "Synchronization",
+    "difficulty": "intermediate",
+    "tags": [
+      "sync",
+      "backup",
+      "copy",
+      "ssh",
+      "mirror",
+      "efficient"
+    ],
+    "flags": [
+      "-a",
+      "-v",
+      "-z",
+      "-P",
+      "--delete",
+      "-n",
+      "--exclude=PATTERN",
+      "-e ssh"
+    ],
+    "keywords": "rsync synchronization sync backup copy ssh mirror efficient scheduled backups (cron + rsync). deploying websites incrementally. mirroring directories and resuming interrupted transfers. copy files sync synchronize backup mirror efficiently synchronizes files and directories transferring only the differences locally over ssh"
+  },
+  {
+    "slug": "curl",
+    "name": "curl",
+    "desc": "A command-line tool for transferring data to or from servers using HTTP, HTTPS, FTP and many other protocols.",
+    "category": "file-transfer",
+    "categoryName": "File Transfer & Synchronization",
+    "subcategory": "Network file transfer",
+    "difficulty": "beginner",
+    "tags": [
+      "http",
+      "download",
+      "api",
+      "web",
+      "request"
+    ],
+    "flags": [
+      "-o FILE",
+      "-L",
+      "-I",
+      "-X METHOD",
+      "-d DATA",
+      "-H HEADER",
+      "-u USER:PASS",
+      "-F file=@path",
+      "-k"
+    ],
+    "keywords": "curl network file transfer http download api web request test and debug http apis. download files in scripts. check service health with curl -i or curl -fss. upload files and submit forms. download http request api rest command line tool for transferring data from servers using http https ftp and many other protocols"
+  },
+  {
+    "slug": "wget",
+    "name": "wget",
+    "desc": "A non-interactive network downloader designed for robust downloads: retries, resume, mirroring, and background operation.",
+    "category": "file-transfer",
+    "categoryName": "File Transfer & Synchronization",
+    "subcategory": "Network file transfer",
+    "difficulty": "beginner",
+    "tags": [
+      "download",
+      "mirror",
+      "resume",
+      "http"
+    ],
+    "flags": [
+      "-O FILE",
+      "-c",
+      "-q",
+      "-r",
+      "-A LIST",
+      "--limit-rate=200k",
+      "--user=U --password=P"
+    ],
+    "keywords": "wget network file transfer download mirror resume http download large files with resume. fetch files in cron jobs and scripts. mirror documentation or static assets. download fetch non interactive network downloader designed for robust downloads retries resume mirroring and background operation"
+  },
+  {
+    "slug": "sftp",
+    "name": "sftp",
+    "desc": "An interactive file transfer program over SSH: browse remote directories, upload, and download in a secure FTP-like session.",
+    "category": "file-transfer",
+    "categoryName": "File Transfer & Synchronization",
+    "subcategory": "FTP and SFTP",
+    "difficulty": "intermediate",
+    "tags": [
+      "transfer",
+      "sftp",
+      "ssh",
+      "upload",
+      "interactive"
+    ],
+    "flags": [
+      "-P PORT",
+      "-i KEYFILE",
+      "-b FILE",
+      "get FILE",
+      "put FILE",
+      "ls / cd / lcd"
+    ],
+    "keywords": "sftp ftp and sftp transfer sftp ssh upload interactive interactive browsing and transfer on remote servers. automated uploads in scripts with -b batch files. replacing insecure ftp entirely. file transfer upload download interactive file transfer program over ssh browse remote directories upload and download secure ftp like session"
+  },
+  {
+    "slug": "useradd",
+    "name": "useradd",
+    "desc": "The low-level command for creating new user accounts (adduser is a friendlier interactive wrapper on Debian-based systems).",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Creating users",
+    "difficulty": "intermediate",
+    "tags": [
+      "users",
+      "accounts",
+      "create",
+      "admin"
+    ],
+    "flags": [
+      "-m",
+      "-s SHELL",
+      "-G GROUPS",
+      "-g GROUP",
+      "-u UID",
+      "-d PATH",
+      "-e DATE"
+    ],
+    "keywords": "useradd creating users users accounts create admin create service accounts with specific uids. provision users in scripts with exact options. understand what adduser does under the hood. create user add user the low level command for creating new user accounts adduser friendlier interactive wrapper debian based systems"
+  },
+  {
+    "slug": "usermod",
+    "name": "usermod",
+    "desc": "Modifies an existing user account: groups, shell, home directory, lock state, and more.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Modifying users",
+    "difficulty": "intermediate",
+    "tags": [
+      "users",
+      "modify",
+      "groups",
+      "sudo",
+      "admin"
+    ],
+    "flags": [
+      "-aG GROUPS",
+      "-s SHELL",
+      "-d PATH -m",
+      "-L / -U",
+      "-l NEWNAME",
+      "-e DATE"
+    ],
+    "keywords": "usermod modifying users users modify groups sudo admin grant or revoke administrative rights. change shells and home directories. temporarily lock accounts instead of deleting them. modify user change user modifies existing user account groups shell home directory lock state and more"
+  },
+  {
+    "slug": "userdel",
+    "name": "userdel",
+    "desc": "Deletes a user account and optionally its home directory and mail spool.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Deleting users",
+    "difficulty": "intermediate",
+    "tags": [
+      "users",
+      "delete",
+      "accounts",
+      "admin"
+    ],
+    "flags": [
+      "-r",
+      "-f",
+      "-Z"
+    ],
+    "keywords": "userdel deleting users users delete accounts admin clean up departed users on shared servers. remove test accounts. delete user remove user deletes user account and optionally its home directory and mail spool"
+  },
+  {
+    "slug": "passwd",
+    "name": "passwd",
+    "desc": "Changes user passwords and password policies (expiry, lock state).",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Password management",
+    "difficulty": "beginner",
+    "tags": [
+      "password",
+      "users",
+      "security",
+      "account"
+    ],
+    "flags": [
+      "(no args)",
+      "USERNAME",
+      "-l / -u",
+      "-S",
+      "-e",
+      "-d"
+    ],
+    "keywords": "passwd password management password users security account change your own password. reset a forgotten user password as admin. lock accounts quickly with -l. change password password changes user passwords and password policies expiry lock state"
+  },
+  {
+    "slug": "id",
+    "name": "id",
+    "desc": "Prints the real and effective user and group IDs of the current user or a specified user.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "User identity",
+    "difficulty": "beginner",
+    "tags": [
+      "identity",
+      "uid",
+      "gid",
+      "groups"
+    ],
+    "flags": [
+      "(no args)",
+      "USERNAME",
+      "-u",
+      "-g",
+      "-G",
+      "-n"
+    ],
+    "keywords": "id user identity identity uid gid groups verify group membership after usermod -ag. check uid/gid values when fixing file ownership. script checks for group membership. user id groups identity prints the real and effective user and group ids the current user specified user"
+  },
+  {
+    "slug": "whoami",
+    "name": "whoami",
+    "desc": "Prints the effective username of the current process.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "User identity",
+    "difficulty": "beginner",
+    "tags": [
+      "identity",
+      "user",
+      "basic"
+    ],
+    "flags": [
+      "(no options)"
+    ],
+    "keywords": "whoami user identity identity user basic verify which account you are operating as before destructive work. confirm sudo/su switched you to root. current user username prints the effective username the current process"
+  },
+  {
+    "slug": "who",
+    "name": "who",
+    "desc": "Shows who is logged into the system, from which terminal, and since when.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Login sessions",
+    "difficulty": "beginner",
+    "tags": [
+      "sessions",
+      "login",
+      "users",
+      "monitor"
+    ],
+    "flags": [
+      "(no args)",
+      "-b",
+      "-u",
+      "-a",
+      "am i"
+    ],
+    "keywords": "who login sessions sessions login users monitor see who else is on a shared server before rebooting or updating. check the last boot time. find which terminal your session is on. logged in users sessions shows who logged into the system from which terminal and since when"
+  },
+  {
+    "slug": "su",
+    "name": "su",
+    "desc": "Switches to another user account in the current shell (substitute user).",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Switching users",
+    "difficulty": "beginner",
+    "tags": [
+      "switch",
+      "root",
+      "users",
+      "shell"
+    ],
+    "flags": [
+      "(no args)",
+      "USERNAME",
+      "-",
+      "-c CMD"
+    ],
+    "keywords": "su switching users switch root users shell switch to service accounts (postgres, www-data) that have no sudo policy. become root on systems where root has a password. switch user root switches another user account the current shell substitute user"
+  },
+  {
+    "slug": "sudo",
+    "name": "sudo",
+    "desc": "Executes a command with the privileges of another user (usually root), authenticated with your own password and controlled by the sudoers policy.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Switching users",
+    "difficulty": "beginner",
+    "tags": [
+      "root",
+      "privileges",
+      "admin",
+      "security"
+    ],
+    "flags": [
+      "COMMAND",
+      "-i",
+      "-s",
+      "-u USER",
+      "-l",
+      "!!"
+    ],
+    "keywords": "sudo switching users root privileges admin security perform administrative tasks from a regular account. delegate limited rights to specific users/commands. keep an audit trail of privileged commands. root administrator elevate privileges executes command with the privileges another user usually root authenticated with your own password and controlled the sudoers policy"
+  },
+  {
+    "slug": "groupadd",
+    "name": "groupadd",
+    "desc": "Creates a new group. Groups collect users to simplify permission management.",
+    "category": "users-groups",
+    "categoryName": "User & Group Management",
+    "subcategory": "Managing groups",
+    "difficulty": "beginner",
+    "tags": [
+      "groups",
+      "users",
+      "permissions",
+      "admin"
+    ],
+    "flags": [
+      "-g GID",
+      "-r",
+      "-f"
+    ],
+    "keywords": "groupadd managing groups groups users permissions admin set up shared team directories. model roles (developers, operators, auditors). manage service access groups (docker, wireshark). create group add group creates new group groups collect users simplify permission management"
+  },
+  {
+    "slug": "ps",
+    "name": "ps",
+    "desc": "Reports a snapshot of current processes. The classic Unix style (ps aux) and BSD style are the most common.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Listing processes",
+    "difficulty": "beginner",
+    "tags": [
+      "processes",
+      "monitor",
+      "pid",
+      "snapshot"
+    ],
+    "flags": [
+      "aux",
+      "-ef",
+      "-e --forest",
+      "-u USER",
+      "--sort=-%mem",
+      "-p PID"
+    ],
+    "keywords": "ps listing processes processes monitor pid snapshot find a process id to kill or inspect. diagnose memory and cpu hogs. see the process tree to understand service relationships. running processes list processes processes reports snapshot current processes the classic unix style aux and bsd style are the most common"
+  },
+  {
+    "slug": "top",
+    "name": "top",
+    "desc": "An interactive, continuously updating view of processes and system resource usage, built into every distribution.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Process monitoring",
+    "difficulty": "beginner",
+    "tags": [
+      "monitor",
+      "cpu",
+      "memory",
+      "processes",
+      "live"
+    ],
+    "flags": [
+      "(interactive)",
+      "-d SECS",
+      "-u USER",
+      "-p PID",
+      "-b"
+    ],
+    "keywords": "top process monitoring monitor cpu memory processes live live diagnosis of cpu/memory problems. kill or renice processes without leaving the monitor. watch system health during load tests. check memory cpu monitor processes processes interactive continuously updating view processes and system resource usage built into every distribution"
+  },
+  {
+    "slug": "htop",
+    "name": "htop",
+    "desc": "An enhanced, interactive process viewer with colors, mouse support, tree view, and easy filtering — friendlier than top.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Process monitoring",
+    "difficulty": "beginner",
+    "tags": [
+      "monitor",
+      "cpu",
+      "memory",
+      "interactive",
+      "processes"
+    ],
+    "flags": [
+      "-u USER",
+      "-d DELAY",
+      "-t",
+      "F1-F10"
+    ],
+    "keywords": "htop process monitoring monitor cpu memory interactive processes daily driver for process inspection. interactive killing and renicing. teaching process management — the ui is self-explanatory. check memory cpu monitor processes processes enhanced interactive process viewer with colors mouse support tree view and easy filtering friendlier than top"
+  },
+  {
+    "slug": "pgrep",
+    "name": "pgrep",
+    "desc": "Finds processes by name or attributes and prints their PIDs — grep for the process table, without the grep-itself problem.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Finding processes",
+    "difficulty": "beginner",
+    "tags": [
+      "find",
+      "pid",
+      "processes",
+      "search"
+    ],
+    "flags": [
+      "(no options)",
+      "-l",
+      "-a",
+      "-u USER",
+      "-f",
+      "-n / -o"
+    ],
+    "keywords": "pgrep finding processes find pid processes search get pids for scripting. check whether a service process is running. find processes by full command line. find process process id finds processes name attributes and prints their pids grep for the process table without the grep itself problem"
+  },
+  {
+    "slug": "pkill",
+    "name": "pkill",
+    "desc": "Sends signals to processes selected by name, pattern, or attributes — pkill NAME is the shortcut for kill $(pgrep NAME).",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Killing processes",
+    "difficulty": "intermediate",
+    "tags": [
+      "kill",
+      "signal",
+      "terminate",
+      "processes"
+    ],
+    "flags": [
+      "PATTERN",
+      "-9",
+      "-f",
+      "-u USER",
+      "-HUP",
+      "-x"
+    ],
+    "keywords": "pkill killing processes kill signal terminate processes stop runaway applications. reload daemons with -hup. kill all processes of a pattern at once. kill process stop process terminate sends signals processes selected name pattern attributes pkill name the shortcut for kill pgrep name"
+  },
+  {
+    "slug": "kill",
+    "name": "kill",
+    "desc": "Sends a signal to a process by PID. Despite the name, it can send any signal, not only termination.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Signals",
+    "difficulty": "beginner",
+    "tags": [
+      "signal",
+      "terminate",
+      "pid",
+      "processes"
+    ],
+    "flags": [
+      "(no options)",
+      "-9",
+      "-1",
+      "-l",
+      "-SIGSTOP / -SIGCONT"
+    ],
+    "keywords": "kill signals signal terminate pid processes terminate unresponsive programs. reload daemon configurations. pause and resume processes. kill process stop process terminate sends signal process pid despite the name can send any signal not only termination"
+  },
+  {
+    "slug": "killall",
+    "name": "killall",
+    "desc": "Kills processes by exact command name (not pattern) — simpler than pkill but less flexible.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Killing processes",
+    "difficulty": "beginner",
+    "tags": [
+      "kill",
+      "terminate",
+      "name",
+      "processes"
+    ],
+    "flags": [
+      "NAME",
+      "-9",
+      "-u USER",
+      "-i",
+      "-l"
+    ],
+    "keywords": "killall killing processes kill terminate name processes stop all instances of a known program. quickly restart a misbehaving application. kill process by name kills processes exact command name not pattern simpler than pkill but less flexible"
+  },
+  {
+    "slug": "nice",
+    "name": "nice",
+    "desc": "Starts a program with a modified scheduling priority (niceness). Higher nice value = lower priority.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Process priorities",
+    "difficulty": "intermediate",
+    "tags": [
+      "priority",
+      "scheduling",
+      "cpu",
+      "performance"
+    ],
+    "flags": [
+      "-n N",
+      "(no command)"
+    ],
+    "keywords": "nice process priorities priority scheduling cpu performance run batch jobs without hurting interactive performance. give critical tasks a scheduling boost. priority process priority starts program with modified scheduling priority niceness higher nice value lower priority"
+  },
+  {
+    "slug": "jobs",
+    "name": "jobs",
+    "desc": "Lists jobs started from the current shell session and their state (running/stopped).",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Background processes",
+    "difficulty": "beginner",
+    "tags": [
+      "background",
+      "jobs",
+      "shell",
+      "control"
+    ],
+    "flags": [
+      "-l",
+      "%N"
+    ],
+    "keywords": "jobs background processes background jobs shell control suspend an editor, run a quick command, resume with fg. run long tasks in the background. manage multiple concurrent tasks in one terminal. background jobs background lists jobs started from the current shell session and their state running stopped"
+  },
+  {
+    "slug": "nohup",
+    "name": "nohup",
+    "desc": "Runs a command immune to hangups (SIGHUP), so it keeps running after the terminal or SSH session closes; output goes to nohup.out by default.",
+    "category": "processes",
+    "categoryName": "Process Management",
+    "subcategory": "Background processes",
+    "difficulty": "beginner",
+    "tags": [
+      "background",
+      "detach",
+      "logout",
+      "survive"
+    ],
+    "flags": [
+      "COMMAND &",
+      "-p PID"
+    ],
+    "keywords": "nohup background processes background detach logout survive keep scripts running after ssh disconnects. start long downloads or migrations before leaving. background keep running logout runs command immune hangups sighup keeps running after the terminal ssh session closes output goes nohup out default"
+  },
+  {
+    "slug": "apt",
+    "name": "apt",
+    "desc": "The high-level Debian/Ubuntu package tool: installs, upgrades, and removes software with automatic dependency resolution.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "Debian and Ubuntu",
+    "difficulty": "beginner",
+    "tags": [
+      "packages",
+      "install",
+      "update",
+      "debian",
+      "ubuntu"
+    ],
+    "flags": [
+      "update",
+      "upgrade",
+      "full-upgrade",
+      "install PKG",
+      "remove PKG",
+      "purge PKG",
+      "search TERM",
+      "show PKG",
+      "list --installed",
+      "autoremove"
+    ],
+    "keywords": "apt debian and ubuntu packages install update debian ubuntu install and update software on debian-family systems. search available packages. clean up unused dependencies. install package install software package the high level debian ubuntu package tool installs upgrades and removes software with automatic dependency resolution"
+  },
+  {
+    "slug": "apt-get",
+    "name": "apt-get",
+    "desc": "The lower-level, script-stable APT front end. Same engine as apt with a guaranteed-stable output and option set.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "Debian and Ubuntu",
+    "difficulty": "beginner",
+    "tags": [
+      "packages",
+      "install",
+      "script",
+      "debian",
+      "ubuntu"
+    ],
+    "flags": [
+      "update / upgrade",
+      "install / remove / purge",
+      "dist-upgrade",
+      "-y",
+      "--no-install-recommends",
+      "autoremove / autoclean"
+    ],
+    "keywords": "apt-get debian and ubuntu packages install script debian ubuntu dockerfiles and provisioning scripts. minimal installs without recommends. any place output stability matters. install package install software package the lower level script stable apt front end same engine apt with guaranteed stable output and option set"
+  },
+  {
+    "slug": "dpkg",
+    "name": "dpkg",
+    "desc": "The base package manager for .deb files: installs, removes, and inspects individual packages without dependency resolution.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "Debian and Ubuntu",
+    "difficulty": "intermediate",
+    "tags": [
+      "deb",
+      "packages",
+      "install",
+      "inspect",
+      "debian"
+    ],
+    "flags": [
+      "-i FILE.deb",
+      "-l [PATTERN]",
+      "-L PKG",
+      "-S FILE",
+      "-r PKG / -P PKG",
+      "--configure -a"
+    ],
+    "keywords": "dpkg debian and ubuntu deb packages install inspect debian install downloaded .deb files. inspect package contents and ownership. recover a broken package state. install package deb the base package manager for deb files installs removes and inspects individual packages without dependency resolution"
+  },
+  {
+    "slug": "dnf",
+    "name": "dnf",
+    "desc": "The modern package manager of Fedora, RHEL 8+, CentOS Stream, Rocky, and AlmaLinux — the successor to yum with the same command surface.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "Fedora",
+    "difficulty": "beginner",
+    "tags": [
+      "packages",
+      "fedora",
+      "rhel",
+      "install"
+    ],
+    "flags": [
+      "install PKG / remove PKG",
+      "update / upgrade",
+      "search TERM / info PKG",
+      "provides FILE",
+      "list installed",
+      "history",
+      "--enablerepo=REPO"
+    ],
+    "keywords": "dnf fedora packages fedora rhel install package management on fedora/rhel-family servers. finding packages that provide missing files. rolling back a bad update with history undo. install package install software package the modern package manager fedora rhel centos stream rocky and almalinux the successor yum with the same command surface"
+  },
+  {
+    "slug": "yum",
+    "name": "yum",
+    "desc": "The classic RHEL-family package manager. On RHEL 8+ it is a compatibility alias for dnf; on RHEL 7 and CentOS 7 it is the real tool.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "RHEL",
+    "difficulty": "beginner",
+    "tags": [
+      "packages",
+      "rhel",
+      "centos",
+      "install"
+    ],
+    "flags": [
+      "install / remove PKG",
+      "update",
+      "search / info / list",
+      "provides FILE",
+      "clean all"
+    ],
+    "keywords": "yum rhel packages rhel centos install managing packages on centos 7 / rhel 7. following older documentation that references yum. install package install software package the classic rhel family package manager rhel compatibility alias for dnf rhel and centos the real tool"
+  },
+  {
+    "slug": "rpm",
+    "name": "rpm",
+    "desc": "The low-level RPM package tool: installs .rpm files, queries the package database, and verifies installed files — no dependency resolution.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "RHEL",
+    "difficulty": "intermediate",
+    "tags": [
+      "rpm",
+      "packages",
+      "query",
+      "verify",
+      "rhel"
+    ],
+    "flags": [
+      "-i FILE.rpm",
+      "-q PKG",
+      "-ql PKG",
+      "-qf FILE",
+      "-Va",
+      "-e PKG"
+    ],
+    "keywords": "rpm rhel rpm packages query verify rhel inspect and verify installed packages. install vendor-provided .rpm files. audit changed system files. install package rpm the low level rpm package tool installs rpm files queries the package database and verifies installed files dependency resolution"
+  },
+  {
+    "slug": "pacman",
+    "name": "pacman",
+    "desc": "The package manager of Arch Linux and its derivatives: fast, simple, and combined with the Arch User Repository via AUR helpers.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "Arch Linux",
+    "difficulty": "intermediate",
+    "tags": [
+      "packages",
+      "arch",
+      "install",
+      "aur"
+    ],
+    "flags": [
+      "-Syu",
+      "-S PKG",
+      "-R PKG / -Rns PKG",
+      "-Ss TERM",
+      "-Qi / -Ql PKG",
+      "-Qdt",
+      "-F FILE"
+    ],
+    "keywords": "pacman arch linux packages arch install aur daily package management on arch, manjaro, endeavouros. finding package ownership of files. cleaning orphans. install package install software package the package manager arch linux and its derivatives fast simple and combined with the arch user repository via aur helpers"
+  },
+  {
+    "slug": "zypper",
+    "name": "zypper",
+    "desc": "The package manager of openSUSE and SUSE Linux Enterprise, built on libzypp with strong dependency solving and repository management.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "openSUSE",
+    "difficulty": "intermediate",
+    "tags": [
+      "packages",
+      "suse",
+      "install",
+      "repositories"
+    ],
+    "flags": [
+      "refresh / ref",
+      "install / in PKG",
+      "remove / rm PKG",
+      "update / up",
+      "dup",
+      "search / se TERM",
+      "ar URL ALIAS"
+    ],
+    "keywords": "zypper opensuse packages suse install repositories package management on opensuse leap and tumbleweed. sles server administration. install package install software package the package manager opensuse and suse linux enterprise built libzypp with strong dependency solving and repository management"
+  },
+  {
+    "slug": "flatpak",
+    "name": "flatpak",
+    "desc": "A cross-distribution application framework: desktop apps ship with their own runtimes and sandboxed permissions, independent of the system package manager.",
+    "category": "package-management",
+    "categoryName": "Package Management",
+    "subcategory": "Fedora",
+    "difficulty": "beginner",
+    "tags": [
+      "packages",
+      "sandbox",
+      "desktop",
+      "apps",
+      "cross-distro"
+    ],
+    "flags": [
+      "remote-add",
+      "install APP",
+      "search TERM",
+      "list / run",
+      "update",
+      "uninstall APP",
+      "--user / --system"
+    ],
+    "keywords": "flatpak fedora packages sandbox desktop apps cross-distro install fresh desktop apps on debian stable, rhel, or any distro. sandboxed applications with controlled permissions. install app universal package cross distribution application framework desktop apps ship with their own runtimes and sandboxed permissions independent the system package manager"
+  }
+]

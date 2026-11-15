@@ -1,0 +1,73 @@
+{
+  "slug": "top",
+  "name": "top",
+  "category": "processes",
+  "subcategory": "Process monitoring",
+  "difficulty": "beginner",
+  "description": "An interactive, continuously updating view of processes and system resource usage, built into every distribution.",
+  "syntax": "top [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(interactive)",
+      "description": "h help, k kill, r renice, 1 per-core CPUs, M sort by memory, P sort by CPU, q quit."
+    },
+    {
+      "flag": "-d SECS",
+      "description": "Refresh interval."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Only processes of USER."
+    },
+    {
+      "flag": "-p PID",
+      "description": "Monitor specific PIDs."
+    },
+    {
+      "flag": "-b",
+      "description": "Batch mode for logging to a file."
+    }
+  ],
+  "examples": [
+    {
+      "command": "top",
+      "output": "\ntop - 10:14:01 up 2:14,  1 user,  load average: 0.42, 0.35, 0.30\nTasks: 231 total,   1 running, 230 sleeping\n%Cpu(s):  4.2 us,  1.1 sy, 94.7 id\nMiB Mem :  15932 total,   8420 free,   3102 used\n  PID USER   %CPU %MEM  COMMAND\n 1187 mysql  45.0 18.3  mysqld\n",
+      "explanation": "Header shows uptime, load averages (1/5/15 min), CPU breakdown (us=user, sy=system, id=idle, wa=waiting on I/O), and memory. The process list is sorted by CPU by default."
+    },
+    {
+      "command": "top -u www-data",
+      "output": null,
+      "explanation": "Monitors only the web server user's processes."
+    },
+    {
+      "command": "M",
+      "output": null,
+      "explanation": "Inside top: sorts by memory usage. P sorts by CPU. Press 1 to expand each CPU core."
+    }
+  ],
+  "related": [
+    "htop",
+    "ps",
+    "free",
+    "uptime"
+  ],
+  "tags": [
+    "monitor",
+    "cpu",
+    "memory",
+    "processes",
+    "live"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/top.1.html",
+  "about": [
+    "Load average deserves attention: values near or above your CPU core count indicate saturation. In the memory line, \"available\" (not \"free\") is the realistic figure — Linux uses spare RAM for caches and releases it on demand. Press h inside top for the full key list."
+  ],
+  "useCases": [
+    "Live diagnosis of CPU/memory problems.",
+    "Kill or renice processes without leaving the monitor.",
+    "Watch system health during load tests."
+  ],
+  "mistakes": [
+    "Worrying about low \"free\" memory — cached memory is available on demand; look at \"available\"."
+  ]
+}

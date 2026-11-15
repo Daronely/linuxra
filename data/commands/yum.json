@@ -1,0 +1,70 @@
+{
+  "slug": "yum",
+  "name": "yum",
+  "category": "package-management",
+  "subcategory": "RHEL",
+  "difficulty": "beginner",
+  "description": "The classic RHEL-family package manager. On RHEL 8+ it is a compatibility alias for dnf; on RHEL 7 and CentOS 7 it is the real tool.",
+  "syntax": "yum [OPTIONS] COMMAND [PACKAGE...]",
+  "flags": [
+    {
+      "flag": "install / remove PKG",
+      "description": "Install / remove packages."
+    },
+    {
+      "flag": "update",
+      "description": "Update all or specified packages."
+    },
+    {
+      "flag": "search / info / list",
+      "description": "Search, detail, and list packages."
+    },
+    {
+      "flag": "provides FILE",
+      "description": "Find the package that supplies a file."
+    },
+    {
+      "flag": "clean all",
+      "description": "Clear cached metadata and packages."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo yum update -y",
+      "output": null,
+      "explanation": "The RHEL 7-era update routine — identical semantics on dnf systems."
+    },
+    {
+      "command": "sudo yum install epel-release",
+      "output": null,
+      "explanation": "Adds the EPEL repository, unlocking thousands of extra community packages on RHEL-family systems."
+    },
+    {
+      "command": "yum provides zip",
+      "output": null,
+      "explanation": "Finds and shows the package providing the zip capability."
+    }
+  ],
+  "related": [
+    "dnf",
+    "rpm"
+  ],
+  "tags": [
+    "packages",
+    "rhel",
+    "centos",
+    "install"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/yum.8.html",
+  "about": [
+    "yum and dnf share the command surface, so knowledge transfers both ways. On RHEL 7 systems yum is the genuine package manager; from RHEL 8 onward typing yum simply invokes dnf."
+  ],
+  "useCases": [
+    "Managing packages on CentOS 7 / RHEL 7.",
+    "Following older documentation that references yum."
+  ],
+  "mistakes": [
+    "Expecting yum-only features (like plugins written for yum) on dnf systems."
+  ],
+  "distroNotes": "RHEL/CentOS 7 and earlier as the native tool; alias to dnf on 8+."
+}

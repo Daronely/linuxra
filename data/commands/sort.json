@@ -1,0 +1,86 @@
+{
+  "slug": "sort",
+  "name": "sort",
+  "category": "text-processing",
+  "subcategory": "Sorting",
+  "difficulty": "beginner",
+  "description": "Sorts lines of text alphabetically, numerically, or by key.",
+  "syntax": "sort [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-r",
+      "description": "Reverse order."
+    },
+    {
+      "flag": "-n",
+      "description": "Numeric sort (essential — otherwise 10 sorts before 2)."
+    },
+    {
+      "flag": "-h",
+      "description": "Human-numeric sort: understands 2K, 3M, 1G."
+    },
+    {
+      "flag": "-u",
+      "description": "Unique: remove duplicate lines after sorting."
+    },
+    {
+      "flag": "-k N",
+      "description": "Sort by column N; -k2,2nr sorts column 2 numerically, reversed."
+    },
+    {
+      "flag": "-t SEP",
+      "description": "Field separator for -k."
+    },
+    {
+      "flag": "-f",
+      "description": "Fold case (case-insensitive)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sort names.txt",
+      "output": null,
+      "explanation": "Sorts lines alphabetically."
+    },
+    {
+      "command": "sort -n sizes.txt",
+      "output": "\n2\n10\n100\n",
+      "explanation": "Numeric order instead of lexicographic (where 10 would come before 2)."
+    },
+    {
+      "command": "du -sh * | sort -rh",
+      "output": "\n4.2G    Downloads\n1.1G    projects\n380M    .cache\n",
+      "explanation": "Finds the largest items: human sizes sorted with -h and reversed."
+    },
+    {
+      "command": "sort -t: -k3 -n /etc/passwd",
+      "output": null,
+      "explanation": "Sorts accounts by UID (3rd colon-separated field), numerically."
+    }
+  ],
+  "related": [
+    "uniq",
+    "awk",
+    "cut",
+    "head"
+  ],
+  "tags": [
+    "sort",
+    "order",
+    "numeric",
+    "text"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/sort-invocation.html",
+  "about": [
+    "sort uses the locale for alphabetical ordering, which can surprise in scripts (e.g. ignoring punctuation). Set LC_ALL=C for strict byte-wise sorting — faster and predictable. -u both sorts and deduplicates, often replacing a separate uniq call."
+  ],
+  "useCases": [
+    "Order command output (du, ps, ls).",
+    "Prepare data for uniq (which requires sorted input).",
+    "Rank logs by frequency with sort | uniq -c | sort -rn."
+  ],
+  "mistakes": [
+    "Forgetting -n and getting 1, 10, 2 ordering.",
+    "Locale surprises in scripts; prefix with LC_ALL=C."
+  ]
+}

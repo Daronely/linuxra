@@ -1,0 +1,51 @@
+# LINUXORA — Apache configuration for shared hosting (cPanel).
+# Safe defaults: everything works even if mod_rewrite is unavailable,
+# because all routing uses query strings (?page=...).
+
+Options -Indexes
+
+# ---------- security headers ----------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Block direct access to internal directories and build tooling.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^includes/ - [F,L]
+  RewriteRule ^build/ - [F,L]
+</IfModule>
+
+<FilesMatch "^(generate\.js|d[0-9]+\.js|\.htaccess)$">
+  Require all denied
+</FilesMatch>
+
+# ---------- optional pretty URLs (bonus; site links use query strings) ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  DirectoryIndex index.php index.html
+
+  RewriteRule ^commands/([a-z0-9+-]+)/?$ index.php?page=command&cmd=$1 [L,QSA]
+  RewriteRule ^categories/([a-z0-9-]+)/?$ index.php?page=category&cat=$1 [L,QSA]
+</IfModule>
+
+# ---------- caching for static assets ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType application/json "access plus 1 hour"
+</IfModule>
+
+# ---------- compression ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Serve JSON with the correct type.
+AddType application/json .json

@@ -1,0 +1,101 @@
+{
+  "slug": "tar",
+  "name": "tar",
+  "category": "archive-compression",
+  "subcategory": "TAR",
+  "difficulty": "beginner",
+  "description": "Tape ARchiver: bundles many files into one archive, optionally compressed. The mnemonic: Create, eXtract, List.",
+  "syntax": "tar [OPTIONS] [ARCHIVE] [FILES...]",
+  "flags": [
+    {
+      "flag": "-c",
+      "description": "Create an archive."
+    },
+    {
+      "flag": "-x",
+      "description": "Extract an archive."
+    },
+    {
+      "flag": "-t",
+      "description": "List contents without extracting."
+    },
+    {
+      "flag": "-f FILE",
+      "description": "Archive filename (almost always required, comes last in short flags)."
+    },
+    {
+      "flag": "-v",
+      "description": "Verbose: list files as processed."
+    },
+    {
+      "flag": "-z / -j / -J",
+      "description": "Filter through gzip / bzip2 / xz compression."
+    },
+    {
+      "flag": "-C DIR",
+      "description": "Change to DIR before operating (extract target)."
+    },
+    {
+      "flag": "--exclude=PATTERN",
+      "description": "Skip matching files."
+    }
+  ],
+  "examples": [
+    {
+      "command": "tar -czf backup.tar.gz project/",
+      "output": null,
+      "explanation": "Creates a gzip-compressed archive of the project directory. c=create, z=gzip, f=filename."
+    },
+    {
+      "command": "tar -xzf backup.tar.gz",
+      "output": null,
+      "explanation": "Extracts into the current directory. Modern tar auto-detects compression: tar -xf backup.tar.gz also works."
+    },
+    {
+      "command": "tar -tzf backup.tar.gz | head",
+      "output": null,
+      "explanation": "Lists the first entries WITHOUT extracting — always inspect unknown archives first."
+    },
+    {
+      "command": "tar -xzf backup.tar.gz -C /tmp/restore",
+      "output": null,
+      "explanation": "Extracts into a specific existing directory instead of the current one."
+    },
+    {
+      "command": "tar -czf site.tar.gz --exclude=\"node_modules\" --exclude=\".git\" site/",
+      "output": null,
+      "explanation": "Archives a web project while skipping dependencies and version-control data."
+    }
+  ],
+  "related": [
+    "gzip",
+    "zip",
+    "xz",
+    "rsync"
+  ],
+  "tags": [
+    "archive",
+    "backup",
+    "compress",
+    "bundle",
+    "tar"
+  ],
+  "docs": "https://www.gnu.org/software/tar/manual/",
+  "about": [
+    "tar preserves Unix metadata: permissions, ownership (as root), timestamps, and symlinks. Compression is a filter, not a feature of tar itself — .tar.gz (gzip: fast), .tar.bz2 (better ratio), .tar.xz (best ratio, slowest). GNU tar auto-detects the compression of input archives when extracting."
+  ],
+  "useCases": [
+    "Backups and project snapshots.",
+    "Transferring many files as one unit.",
+    "Software source distribution (the classic .tar.gz)."
+  ],
+  "mistakes": [
+    "Forgetting -f (or putting it before other flags): tar czf file.tar.gz works, tar -fz file.tar.gz does not.",
+    "Extracting unknown archives in the current directory and scattering files — list first with -t.",
+    "Double extensions missing: file.tar.gz must be created with -z, file.tar without."
+  ],
+  "warnings": [
+    "Never extract archives as root without inspecting them: malicious archives can contain absolute paths or ../ traversals (path traversal). GNU tar strips leading / by default but verify with -t."
+  ],
+  "distroNotes": "GNU tar is universal on Linux. BSD tar (bsdtar) shares the common flags; GNU extensions like --transform are not portable."
+}
