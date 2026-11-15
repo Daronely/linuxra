@@ -1,0 +1,68 @@
+{
+  "slug": "htop",
+  "name": "htop",
+  "category": "processes",
+  "subcategory": "Process monitoring",
+  "difficulty": "beginner",
+  "description": "An enhanced, interactive process viewer with colors, mouse support, tree view, and easy filtering — friendlier than top.",
+  "syntax": "htop [OPTIONS]",
+  "flags": [
+    {
+      "flag": "-u USER",
+      "description": "Only processes of USER."
+    },
+    {
+      "flag": "-d DELAY",
+      "description": "Refresh delay in tenths of a second."
+    },
+    {
+      "flag": "-t",
+      "description": "Tree view by default."
+    },
+    {
+      "flag": "F1-F10",
+      "description": "Built-in function keys: F3 search, F4 filter, F5 tree, F6 sort, F9 kill, F10 quit."
+    }
+  ],
+  "examples": [
+    {
+      "command": "htop",
+      "output": null,
+      "explanation": "Opens the interactive monitor: colored CPU/ RAM/swap bars, a scrollable process list, and mouse support."
+    },
+    {
+      "command": "htop -u www-data",
+      "output": null,
+      "explanation": "Filters the view to web server processes."
+    },
+    {
+      "command": "F5",
+      "output": null,
+      "explanation": "Inside htop: toggles tree view, showing parent-child process relationships visually."
+    }
+  ],
+  "related": [
+    "top",
+    "ps",
+    "kill"
+  ],
+  "tags": [
+    "monitor",
+    "cpu",
+    "memory",
+    "interactive",
+    "processes"
+  ],
+  "docs": "https://htop.dev/",
+  "about": [
+    "htop shows the same data as top but with per-core bars, easy sorting, text search (F3), filtering (F4), and tag-then-kill workflows. It is a separate package (install with your package manager) and does not exist on minimal systems where top always does."
+  ],
+  "useCases": [
+    "Daily driver for process inspection.",
+    "Interactive killing and renicing.",
+    "Teaching process management — the UI is self-explanatory."
+  ],
+  "mistakes": [
+    "Assuming htop is preinstalled on servers — often it is not; install it explicitly."
+  ]
+}

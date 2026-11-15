@@ -1,0 +1,60 @@
+{
+  "slug": "nsenter",
+  "name": "nsenter",
+  "category": "advanced-linux",
+  "subcategory": "Namespaces",
+  "difficulty": "advanced",
+  "description": "Enters the namespaces of an existing process — how you attach to containers and inspect other processes' worlds.",
+  "syntax": "nsenter [OPTIONS] PID [COMMAND]",
+  "flags": [
+    {
+      "flag": "-t PID",
+      "description": "Target process whose namespaces to enter."
+    },
+    {
+      "flag": "-m / -u / -i / -n / -p",
+      "description": "Enter mount / UTS / IPC / network / PID namespace (default: all)."
+    },
+    {
+      "flag": "-r / -w",
+      "description": "Change root / working directory inside."
+    }
+  ],
+  "examples": [
+    {
+      "command": "nsenter -t 2140 -n ip a",
+      "output": null,
+      "explanation": "Runs ip a inside PID 2140's network namespace — shows a container's interfaces from the host."
+    },
+    {
+      "command": "PID=$(pgrep -f \"app.py\") ; nsenter -t $PID -m -p -r bash",
+      "output": null,
+      "explanation": "A shell inside a process's mount and PID namespaces — manual container debugging without docker exec."
+    }
+  ],
+  "related": [
+    "unshare",
+    "lsof",
+    "ps"
+  ],
+  "tags": [
+    "namespaces",
+    "containers",
+    "debug",
+    "kernel",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/nsenter.1.html",
+  "about": [
+    "nsenter is the inverse of unshare: instead of creating new namespaces, it joins existing ones via /proc/PID/ns/*. It requires root (or matching user-namespace ownership). It works even where docker exec cannot — on crashed containers or non-container namespaces."
+  ],
+  "useCases": [
+    "Debug containers from the host.",
+    "Inspect another process's network/mount view.",
+    "Recovery when exec tools fail."
+  ],
+  "mistakes": [
+    "Forgetting -t and wondering what it entered.",
+    "Expecting it to work without root for other users' processes."
+  ]
+}

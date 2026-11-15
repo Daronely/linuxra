@@ -1,0 +1,74 @@
+{
+  "slug": "killall",
+  "name": "killall",
+  "category": "processes",
+  "subcategory": "Killing processes",
+  "difficulty": "beginner",
+  "description": "Kills processes by exact command name (not pattern) — simpler than pkill but less flexible.",
+  "syntax": "killall [OPTIONS] NAME...",
+  "flags": [
+    {
+      "flag": "NAME",
+      "description": "Send SIGTERM to every process whose name matches exactly."
+    },
+    {
+      "flag": "-9",
+      "description": "-KILL: force kill."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Only processes owned by USER."
+    },
+    {
+      "flag": "-i",
+      "description": "Ask for confirmation for each process."
+    },
+    {
+      "flag": "-l",
+      "description": "List known signal names."
+    }
+  ],
+  "examples": [
+    {
+      "command": "killall firefox",
+      "output": null,
+      "explanation": "Terminates all processes literally named firefox."
+    },
+    {
+      "command": "killall -9 java",
+      "output": null,
+      "explanation": "Force-kills every java process."
+    },
+    {
+      "command": "killall -i bash",
+      "output": "\nKill bash(2140) ? (y/N) \n",
+      "explanation": "Interactive mode: confirms each match, protecting you from killing your own shell."
+    }
+  ],
+  "related": [
+    "pkill",
+    "kill",
+    "pgrep"
+  ],
+  "tags": [
+    "kill",
+    "terminate",
+    "name",
+    "processes"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/killall.1.html",
+  "about": [
+    "killall matches the exact name (no regex, unlike pkill) and comes from the psmisc package. On some Unix systems (Solaris, older System V) killall is a DIFFERENT, dangerous command that shuts down all processes — do not assume portability."
+  ],
+  "useCases": [
+    "Stop all instances of a known program.",
+    "Quickly restart a misbehaving application."
+  ],
+  "mistakes": [
+    "Expecting regex or partial matches — names must match exactly.",
+    "Using killall on non-Linux Unix systems where it has a different meaning."
+  ],
+  "warnings": [
+    "killall bash can kill your own shell. Use -i when unsure."
+  ]
+}

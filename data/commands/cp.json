@@ -1,0 +1,108 @@
+{
+  "slug": "cp",
+  "name": "cp",
+  "category": "file-directory",
+  "subcategory": "Copying files",
+  "difficulty": "beginner",
+  "description": "Copies files and directories from one location to another.",
+  "syntax": "cp [OPTIONS] SOURCE... DESTINATION",
+  "flags": [
+    {
+      "flag": "-r",
+      "description": "-R: copy directories recursively, including their contents."
+    },
+    {
+      "flag": "-i",
+      "description": "Ask before overwriting an existing destination file."
+    },
+    {
+      "flag": "-n",
+      "description": "Never overwrite an existing file."
+    },
+    {
+      "flag": "-f",
+      "description": "Force copying by removing the destination file if it cannot be opened."
+    },
+    {
+      "flag": "-v",
+      "description": "Print each file as it is copied."
+    },
+    {
+      "flag": "-p",
+      "description": "Preserve mode, ownership, and timestamps."
+    },
+    {
+      "flag": "-a",
+      "description": "Archive mode: same as -dR --preserve=all; ideal for backups."
+    },
+    {
+      "flag": "-u",
+      "description": "Copy only when the source is newer than the destination or the destination is missing."
+    }
+  ],
+  "examples": [
+    {
+      "command": "cp file.txt backup.txt",
+      "output": null,
+      "explanation": "Creates a copy of file.txt named backup.txt in the same directory."
+    },
+    {
+      "command": "cp file.txt /home/user/Documents/",
+      "output": null,
+      "explanation": "Copies file.txt into the Documents directory, keeping its original name."
+    },
+    {
+      "command": "cp -r project/ backup/",
+      "output": null,
+      "explanation": "Copies the entire project directory, including all subdirectories, into backup/. The -r flag is required for directories."
+    },
+    {
+      "command": "cp -p file.txt backup.txt",
+      "output": null,
+      "explanation": "Preserves the original file's permissions, owner, and timestamps in the copy."
+    },
+    {
+      "command": "cp -i file.txt backup.txt",
+      "output": "\ncp: overwrite 'backup.txt'? y\n",
+      "explanation": "Prompts before overwriting an existing destination file, protecting against accidental data loss."
+    },
+    {
+      "command": "cp -av /data /mnt/backup/",
+      "output": "\n'/data' -> '/mnt/backup/data'\n'/data/reports' -> '/mnt/backup/data/reports'\n",
+      "explanation": "Archive mode with verbose output — a reliable pattern for full directory backups."
+    }
+  ],
+  "related": [
+    "mv",
+    "rsync",
+    "rm",
+    "ln",
+    "tar"
+  ],
+  "tags": [
+    "copy",
+    "backup",
+    "duplicate",
+    "files",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/cp-invocation.html",
+  "about": [
+    "cp copies file contents and, depending on options, metadata. Without -r it refuses to copy directories. Without -p or -a, the copy receives fresh timestamps and permissions derived from the umask, which frequently surprises users making backups.",
+    "Writing to a directory destination requires the directory to exist; cp does not create it for you."
+  ],
+  "useCases": [
+    "Duplicate files or entire directory trees.",
+    "Back up configuration before editing: cp -a /etc/nginx /etc/nginx.bak.",
+    "Refresh copies only when sources changed with cp -u."
+  ],
+  "mistakes": [
+    "Copying a directory without -r: cp dir/ other/ fails with \"omitting directory\".",
+    "Overwriting files unintentionally because -i was not used in scripts run as root."
+  ],
+  "warnings": [
+    "cp overwrites existing destination files silently unless -i or -n is given. There is no built-in undo.",
+    "Do not use cp -r on /proc, /sys, or /dev — it can hang or produce errors; those are virtual filesystems."
+  ],
+  "distroNotes": "cp is part of GNU coreutils on Linux. BSD cp supports -a and -p but lacks some GNU extensions such as --parents."
+}

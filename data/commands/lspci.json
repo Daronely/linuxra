@@ -1,0 +1,63 @@
+{
+  "slug": "lspci",
+  "name": "lspci",
+  "category": "system-info",
+  "subcategory": "Hardware information",
+  "difficulty": "intermediate",
+  "description": "Lists all PCI devices: graphics cards, network controllers, storage controllers, USB controllers.",
+  "syntax": "lspci [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "One line per PCI device."
+    },
+    {
+      "flag": "-v / -vv",
+      "description": "Verbose / very verbose details."
+    },
+    {
+      "flag": "-k",
+      "description": "Show kernel driver in use per device — the key troubleshooting flag."
+    },
+    {
+      "flag": "-nn",
+      "description": "Show numeric vendor:device IDs (for driver searches)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "lspci | grep -i net",
+      "output": "\n00:1f.6 Ethernet controller: Intel Corporation Ethernet Connection I219-V\n03:00.0 Network controller: Intel Corporation Wi-Fi 6 AX200\n",
+      "explanation": "Finds network hardware. Here: wired Ethernet plus a Wi-Fi card."
+    },
+    {
+      "command": "lspci -k | grep -A 3 -i vga",
+      "output": "\n01:00.0 VGA compatible controller: NVIDIA GA106 [GeForce RTX 3060]\n  Kernel driver in use: nvidia\n",
+      "explanation": "Shows the GPU and WHICH driver the kernel loaded — the first check when graphics misbehave (nvidia vs nouveau)."
+    }
+  ],
+  "related": [
+    "lsblk",
+    "dmesg",
+    "dmidecode"
+  ],
+  "tags": [
+    "hardware",
+    "pci",
+    "drivers",
+    "gpu",
+    "diagnose"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+  "about": [
+    "lspci walks the PCI bus via /sys/bus/pci. The -k flag is the most valuable in practice: it reveals the driver bound to each device, which answers \"is my hardware even detected and driven?\" instantly."
+  ],
+  "useCases": [
+    "Verify hardware detection after installing cards.",
+    "Find which driver a device uses.",
+    "Collect device IDs for driver research."
+  ],
+  "mistakes": [
+    "Assuming hardware is broken when only the driver is missing — check lspci -k first."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "slug": "sysctl",
+  "name": "sysctl",
+  "category": "linux-administration",
+  "subcategory": "Kernel parameters",
+  "difficulty": "advanced",
+  "description": "Reads and changes kernel runtime parameters exposed under /proc/sys — networking buffers, swappiness, limits, and more.",
+  "syntax": "sysctl [OPTIONS] [PARAMETER[=VALUE]]",
+  "flags": [
+    {
+      "flag": "-a",
+      "description": "All parameters (hundreds)."
+    },
+    {
+      "flag": "vm.swappiness",
+      "description": "Read one parameter (dots map to /proc/sys/ paths)."
+    },
+    {
+      "flag": "-w PARAM=VALUE",
+      "description": "Set a parameter at runtime (lost at reboot)."
+    },
+    {
+      "flag": "-p FILE",
+      "description": "Load settings from a file (default /etc/sysctl.conf)."
+    },
+    {
+      "flag": "--system",
+      "description": "Load settings from all standard locations."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sysctl vm.swappiness",
+      "output": "\nvm.swappiness = 60\n",
+      "explanation": "How eagerly the kernel swaps (0 = avoid, 100 = aggressive)."
+    },
+    {
+      "command": "sudo sysctl -w net.ipv4.ip_forward=1",
+      "output": null,
+      "explanation": "Enables IP forwarding immediately — required for routers, VPNs, and Docker NAT setups."
+    },
+    {
+      "command": "echo \"net.ipv4.ip_forward = 1\" | sudo tee /etc/sysctl.d/99-forward.conf && sudo sysctl -p /etc/sysctl.d/99-forward.conf",
+      "output": null,
+      "explanation": "The persistent way: a file in /etc/sysctl.d/ plus loading it."
+    },
+    {
+      "command": "sysctl fs.file-max",
+      "output": "\nfs.file-max = 2097152\n",
+      "explanation": "System-wide open file limit — relevant for high-connection servers."
+    }
+  ],
+  "related": [
+    "ulimit",
+    "modprobe",
+    "dmesg"
+  ],
+  "tags": [
+    "kernel",
+    "tuning",
+    "network",
+    "sysctl",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+  "about": [
+    "Every file under /proc/sys/ is a tunable kernel parameter; sysctl is just a friendly interface to reading/writing them. Runtime changes (-w) vanish at reboot — persistence lives in /etc/sysctl.conf or /etc/sysctl.d/*.conf. Some parameters (e.g. certain network settings) only take effect safely in specific states; document changes."
+  ],
+  "useCases": [
+    "Tune network stack behavior.",
+    "Enable routing/forwarding.",
+    "Adjust memory management (swappiness, overcommit)."
+  ],
+  "mistakes": [
+    "Setting parameters with -w and wondering why they reset at reboot.",
+    "Copying random tuning guides without understanding the parameters."
+  ],
+  "warnings": [
+    "Kernel tunables can destabilize or open security holes (e.g. ip_forward on a multi-tenant host). Change one at a time and verify."
+  ]
+}

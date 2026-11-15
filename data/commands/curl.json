@@ -1,0 +1,110 @@
+{
+  "slug": "curl",
+  "name": "curl",
+  "category": "file-transfer",
+  "subcategory": "Network file transfer",
+  "difficulty": "beginner",
+  "description": "A command-line tool for transferring data to or from servers using HTTP, HTTPS, FTP and many other protocols.",
+  "syntax": "curl [OPTIONS] [URL...]",
+  "flags": [
+    {
+      "flag": "-o FILE",
+      "description": "-O: write output to a file / save with the remote filename."
+    },
+    {
+      "flag": "-L",
+      "description": "Follow redirects."
+    },
+    {
+      "flag": "-I",
+      "description": "Fetch only the HTTP headers (HEAD request)."
+    },
+    {
+      "flag": "-X METHOD",
+      "description": "Set the HTTP method (GET, POST, PUT, DELETE)."
+    },
+    {
+      "flag": "-d DATA",
+      "description": "Send POST data; -d '{\"k\":1}' -H \"Content-Type: application/json\" for JSON APIs."
+    },
+    {
+      "flag": "-H HEADER",
+      "description": "Add a request header."
+    },
+    {
+      "flag": "-u USER:PASS",
+      "description": "HTTP basic authentication."
+    },
+    {
+      "flag": "-F file=@path",
+      "description": "Multipart file upload."
+    },
+    {
+      "flag": "-k",
+      "description": "Skip TLS certificate verification (testing only)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "curl https://example.com",
+      "output": null,
+      "explanation": "Prints the response body to the terminal."
+    },
+    {
+      "command": "curl -O https://example.com/file.tar.gz",
+      "output": null,
+      "explanation": "Downloads the file, keeping its remote filename."
+    },
+    {
+      "command": "curl -L -o page.html https://example.com",
+      "output": null,
+      "explanation": "Follows redirects and saves the final page to page.html."
+    },
+    {
+      "command": "curl -I https://example.com",
+      "output": "\nHTTP/2 200\ncontent-type: text/html; charset=UTF-8\n",
+      "explanation": "Checks status code and headers without downloading the body — the fastest health check for a URL."
+    },
+    {
+      "command": "curl -X POST -H \"Content-Type: application/json\" -d '{\"name\":\"test\"}' https://api.example.com/users",
+      "output": null,
+      "explanation": "Sends a JSON POST request to an API — the standard quick API test."
+    },
+    {
+      "command": "curl -F \"file=@photo.jpg\" https://upload.example.com/api",
+      "output": null,
+      "explanation": "Uploads a file as multipart/form-data, like an HTML form."
+    }
+  ],
+  "related": [
+    "wget",
+    "nc",
+    "openssl"
+  ],
+  "tags": [
+    "http",
+    "download",
+    "api",
+    "web",
+    "request"
+  ],
+  "docs": "https://curl.se/docs/",
+  "about": [
+    "curl speaks many protocols and gives fine control over requests: headers, methods, auth, cookies, proxies, timeouts, and TLS options. It writes response bodies to stdout by default, which makes it composable in scripts. For interactive downloads with resume, wget is often more convenient; for detailed API work, curl -v shows the full request/response exchange."
+  ],
+  "useCases": [
+    "Test and debug HTTP APIs.",
+    "Download files in scripts.",
+    "Check service health with curl -I or curl -fsS.",
+    "Upload files and submit forms."
+  ],
+  "mistakes": [
+    "Forgetting -L and getting a 301 redirect page instead of content.",
+    "Posting JSON without the Content-Type header.",
+    "Using -k in production and silently accepting invalid certificates."
+  ],
+  "warnings": [
+    "curl prints secrets (tokens in headers/URLs) to your shell history and terminal; avoid pasting credentials in commands, use config files or environment variables."
+  ],
+  "distroNotes": "curl is preinstalled on nearly every distribution and macOS. Windows 10+ includes it too."
+}

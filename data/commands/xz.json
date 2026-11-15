@@ -1,0 +1,76 @@
+{
+  "slug": "xz",
+  "name": "xz",
+  "category": "archive-compression",
+  "subcategory": "XZ",
+  "difficulty": "beginner",
+  "description": "High-ratio LZMA2 compression — the format of modern source releases and package tarballs.",
+  "syntax": "xz [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-k",
+      "description": "Keep the original file."
+    },
+    {
+      "flag": "-d",
+      "description": "Decompress (same as unxz)."
+    },
+    {
+      "flag": "-0..-9",
+      "description": "Compression level; -9e is extreme."
+    },
+    {
+      "flag": "-T0",
+      "description": "Use all CPU cores for multithreaded compression."
+    },
+    {
+      "flag": "-l",
+      "description": "List .xz archive details."
+    }
+  ],
+  "examples": [
+    {
+      "command": "xz -k dataset.csv",
+      "output": null,
+      "explanation": "Creates dataset.csv.xz, keeping the original."
+    },
+    {
+      "command": "tar -cJf backup.tar.xz project/",
+      "output": null,
+      "explanation": "tar with xz filter (-J) — smallest tarballs, slowest to create."
+    },
+    {
+      "command": "xz -T0 -9 -k big.dump",
+      "output": null,
+      "explanation": "Maximum compression using every core — the practical recipe for huge files."
+    },
+    {
+      "command": "unxz backup.tar.xz",
+      "output": null,
+      "explanation": "Decompresses back to backup.tar."
+    }
+  ],
+  "related": [
+    "gzip",
+    "tar",
+    "bzip2"
+  ],
+  "tags": [
+    "compress",
+    "xz",
+    "archive",
+    "ratio"
+  ],
+  "docs": "https://tukaani.org/xz/",
+  "about": [
+    "xz offers the best mainstream compression ratio. The tradeoff is memory: decompressing needs ~10% of dictionary size in RAM, multi-GB dictionaries can fail on small systems. zstd has become the preferred alternative when speed matters; xz remains king for distribution size."
+  ],
+  "useCases": [
+    "Shrink large archives to the minimum.",
+    "Compress VM images and database dumps."
+  ],
+  "mistakes": [
+    "Using xz -9 on huge files without -T0 — single-threaded and very slow.",
+    "xz on data that must decompress on tiny-memory systems."
+  ]
+}

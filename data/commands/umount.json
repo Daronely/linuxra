@@ -1,0 +1,66 @@
+{
+  "slug": "umount",
+  "name": "umount",
+  "category": "disk-storage",
+  "subcategory": "Unmounting",
+  "difficulty": "beginner",
+  "description": "Detaches a mounted filesystem, flushing pending writes before releasing it.",
+  "syntax": "umount [OPTIONS] DIRECTORY|DEVICE",
+  "flags": [
+    {
+      "flag": "DIRECTORY",
+      "description": "Unmount by mount point (preferred)."
+    },
+    {
+      "flag": "-l",
+      "description": "Lazy unmount: detach now, clean up when active accesses finish."
+    },
+    {
+      "flag": "-f",
+      "description": "Force unmount (mainly for dead NFS mounts)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo umount /mnt/data",
+      "output": null,
+      "explanation": "Safely detaches the filesystem. Data is flushed; the device can then be removed."
+    },
+    {
+      "command": "sudo umount /mnt/share",
+      "output": "\numount: /mnt/share: target is busy.\n",
+      "explanation": "\"Target is busy\" means some process still uses the mount. Find it: lsof +f -- /mnt/share or fuser -vm /mnt/share, close it, retry."
+    },
+    {
+      "command": "sudo umount -l /mnt/share",
+      "output": null,
+      "explanation": "Lazy unmount for stubborn cases: the mount disappears from the tree immediately; open file handles finish before cleanup."
+    }
+  ],
+  "related": [
+    "mount",
+    "lsof"
+  ],
+  "tags": [
+    "unmount",
+    "detach",
+    "storage",
+    "busy"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man2/umount.2.html",
+  "about": [
+    "umount refuses when files are open or a process has its working directory inside the mount — this is data protection, not a bug. USB devices must be unmounted (or safely ejected) before removal to avoid losing buffered writes."
+  ],
+  "useCases": [
+    "Detach USB drives safely.",
+    "Swap mounted data disks.",
+    "Recover from dead network mounts."
+  ],
+  "mistakes": [
+    "Pulling a USB drive without unmounting and losing the last seconds of writes.",
+    "Not finding the busy process — check fuser -vm or lsof."
+  ],
+  "warnings": [
+    "Force-unmounting (-f) can leave the filesystem needing an fsck; use -l instead when possible."
+  ]
+}

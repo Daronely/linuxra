@@ -1,0 +1,88 @@
+{
+  "slug": "wget",
+  "name": "wget",
+  "category": "file-transfer",
+  "subcategory": "Network file transfer",
+  "difficulty": "beginner",
+  "description": "A non-interactive network downloader designed for robust downloads: retries, resume, mirroring, and background operation.",
+  "syntax": "wget [OPTIONS] [URL...]",
+  "flags": [
+    {
+      "flag": "-O FILE",
+      "description": "Write to a specific file (-O - for stdout)."
+    },
+    {
+      "flag": "-c",
+      "description": "Continue a partially downloaded file."
+    },
+    {
+      "flag": "-q",
+      "description": "Quiet mode; -q --show-progress shows a bar quietly."
+    },
+    {
+      "flag": "-r",
+      "description": "-np: recursive download / do not ascend to parent directories."
+    },
+    {
+      "flag": "-A LIST",
+      "description": "-R LIST: accept / reject file suffixes when mirroring."
+    },
+    {
+      "flag": "--limit-rate=200k",
+      "description": "Throttle bandwidth."
+    },
+    {
+      "flag": "--user=U --password=P",
+      "description": "Authentication."
+    }
+  ],
+  "examples": [
+    {
+      "command": "wget https://example.com/file.iso",
+      "output": null,
+      "explanation": "Downloads file.iso into the current directory with a progress bar."
+    },
+    {
+      "command": "wget -c https://example.com/big.tar.gz",
+      "output": null,
+      "explanation": "Resumes an interrupted download instead of starting over."
+    },
+    {
+      "command": "wget -q -O - https://example.com/api/status",
+      "output": null,
+      "explanation": "Fetches the body to stdout quietly — useful in scripts: status=$(wget -qO- url)."
+    },
+    {
+      "command": "wget -r -np -A \".pdf\" https://example.com/docs/",
+      "output": null,
+      "explanation": "Mirrors only PDF files from a documentation section without ascending to parent paths."
+    }
+  ],
+  "related": [
+    "curl",
+    "rsync"
+  ],
+  "tags": [
+    "download",
+    "mirror",
+    "resume",
+    "http"
+  ],
+  "docs": "https://www.gnu.org/software/wget/manual/",
+  "about": [
+    "wget excels at unattended downloading: it retries on failure, supports resume (-c), can run with nohup in the background, and can mirror sites recursively. curl is better for APIs and fine-grained requests; wget is better for plain robust downloads."
+  ],
+  "useCases": [
+    "Download large files with resume.",
+    "Fetch files in cron jobs and scripts.",
+    "Mirror documentation or static assets."
+  ],
+  "mistakes": [
+    "Re-running without -c and re-downloading everything from scratch.",
+    "Recursive mirroring without -np, accidentally following links to the whole site."
+  ],
+  "warnings": [
+    "Recursive downloads can fetch far more than expected; always bound them with -np, -A/-R, or --mirror with --no-parent."
+  ],
+  "distroNotes": "wget is GNU software, present on virtually all Linux distributions. BusyBox includes a minimal wget variant with fewer options."
+}

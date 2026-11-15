@@ -1,0 +1,59 @@
+{
+  "slug": "hostnamectl",
+  "name": "hostnamectl",
+  "category": "system-info",
+  "subcategory": "Distribution information",
+  "difficulty": "beginner",
+  "description": "systemd's control tool for the hostname plus a summary of the OS, kernel, and virtualization.",
+  "syntax": "hostnamectl [COMMAND] [ARGS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Show hostname, OS, kernel, architecture, and virtualization."
+    },
+    {
+      "flag": "set-hostname NAME",
+      "description": "Set the persistent hostname (also updates /etc/hostname)."
+    },
+    {
+      "flag": "set-hostname --pretty NAME",
+      "description": "Set a display name (spaces allowed) alongside the static name."
+    }
+  ],
+  "examples": [
+    {
+      "command": "hostnamectl",
+      "output": "\n Static hostname: webserver01\n       Icon name: computer-vm\n Operating System: Ubuntu 24.04.1 LTS\n           Kernel: Linux 6.8.0-45-generic\n     Architecture: x86-64\n   Virtualization: kvm\n",
+      "explanation": "A one-stop summary: OS release, kernel, architecture, and that this is a KVM virtual machine."
+    },
+    {
+      "command": "sudo hostnamectl set-hostname webserver02",
+      "output": null,
+      "explanation": "Permanently renames the machine — updates /etc/hostname and the running kernel immediately. Also update /etc/hosts if it references the old name."
+    }
+  ],
+  "related": [
+    "hostname",
+    "uname",
+    "timedatectl"
+  ],
+  "tags": [
+    "hostname",
+    "system",
+    "os",
+    "virtualization"
+  ],
+  "docs": "https://www.freedesktop.org/software/systemd/man/hostnamectl.html",
+  "about": [
+    "hostnamectl talks to systemd-hostated over D-Bus. It reports the distro from /etc/os-release and detects the hypervisor (kvm, vmware, microsoft, docker). It is the correct tool for hostname changes on any systemd distribution."
+  ],
+  "useCases": [
+    "Rename servers safely.",
+    "Identify OS and virtualization at a glance.",
+    "Script-friendly system identification."
+  ],
+  "mistakes": [
+    "Editing /etc/hostname manually and forgetting to apply it — hostnamectl does both."
+  ],
+  "distroNotes": "systemd distributions only (all major Linux distros today)."
+}

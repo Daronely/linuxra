@@ -1,0 +1,71 @@
+{
+  "slug": "timedatectl",
+  "name": "timedatectl",
+  "category": "services-systemd",
+  "subcategory": "System targets",
+  "difficulty": "beginner",
+  "description": "Shows and sets system time, timezone, and NTP synchronization.",
+  "syntax": "timedatectl [COMMAND]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Current time, timezone, NTP status."
+    },
+    {
+      "flag": "list-timezones",
+      "description": "Available timezones."
+    },
+    {
+      "flag": "set-timezone ZONE",
+      "description": "Change timezone, e.g. Europe/Berlin."
+    },
+    {
+      "flag": "set-ntp true/false",
+      "description": "Enable/disable NTP sync."
+    },
+    {
+      "flag": "set-time \"2025-01-12 10:30:00\"",
+      "description": "Set the clock manually (disables NTP)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "timedatectl",
+      "output": "\n               Local time: Sat 2025-01-12 10:14:01 CET\n           Universal time: Sat 2025-01-12 09:14:01 UTC\n                 Time zone: Europe/Berlin (CET, +0100)\n System clock synchronized: yes\n               NTP service: active\n",
+      "explanation": "Everything about the clock in one view. \"synchronized: yes\" means NTP is keeping it accurate."
+    },
+    {
+      "command": "sudo timedatectl set-timezone UTC",
+      "output": null,
+      "explanation": "Switches the server to UTC — best practice for servers so logs align across timezones."
+    },
+    {
+      "command": "sudo timedatectl set-ntp true",
+      "output": null,
+      "explanation": "Enables NTP via systemd-timesyncd. A wrong clock breaks TLS certificates and Kerberos."
+    }
+  ],
+  "related": [
+    "journalctl",
+    "hostnamectl"
+  ],
+  "tags": [
+    "time",
+    "timezone",
+    "ntp",
+    "clock"
+  ],
+  "docs": "https://www.freedesktop.org/software/systemd/man/timedatectl.html",
+  "about": [
+    "Correct time matters more than most admins expect: TLS certificate validation, cron jobs, log correlation, and Kerberos all break with clock drift. systemd-timesyncd is a lightweight SNTP client; chrony or ntpd are used when more accuracy is needed."
+  ],
+  "useCases": [
+    "Set server timezones.",
+    "Verify NTP is actually working.",
+    "Fix clock drift on VMs."
+  ],
+  "mistakes": [
+    "Setting the timezone but not checking that NTP is active — the clock will drift again."
+  ],
+  "distroNotes": "systemd distributions."
+}

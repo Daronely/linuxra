@@ -1,0 +1,62 @@
+{
+  "slug": "source",
+  "name": "source",
+  "category": "shell-terminal",
+  "subcategory": "Shell scripting",
+  "difficulty": "beginner",
+  "description": "Executes a script IN the current shell (no subshell), so its variable and function definitions persist afterward. Dot (.) is the POSIX synonym.",
+  "syntax": "source FILENAME",
+  "flags": [
+    {
+      "flag": "FILENAME",
+      "description": "Read and execute the file in the current shell."
+    },
+    {
+      "flag": ". FILENAME",
+      "description": "Identical, POSIX-portable form."
+    }
+  ],
+  "examples": [
+    {
+      "command": "source ~/.bashrc",
+      "output": null,
+      "explanation": "Applies changes you just made to .bashrc without logging out — the standard reload."
+    },
+    {
+      "command": "source env.sh && ./deploy.sh",
+      "output": null,
+      "explanation": "Loads shared settings (APIs, paths) from a file, then runs the deploy with them."
+    },
+    {
+      "command": "source venv/bin/activate",
+      "output": null,
+      "explanation": "Activates a Python virtual environment — the most famous source use case."
+    }
+  ],
+  "related": [
+    "export",
+    "alias",
+    "which"
+  ],
+  "tags": [
+    "shell",
+    "environment",
+    "reload",
+    "scripting"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html",
+  "about": [
+    "source runs the file line by line in YOUR shell: variables, functions, cd, and umask changes persist. Executing the file normally (./script.sh) runs it in a child shell whose changes vanish — the key difference."
+  ],
+  "useCases": [
+    "Reload shell configuration.",
+    "Load shared environment files.",
+    "Activate virtual environments."
+  ],
+  "mistakes": [
+    "Confusing source file with ./file — only the first changes your current shell."
+  ],
+  "warnings": [
+    "source executes arbitrary code with your current privileges. Never source files you have not reviewed."
+  ]
+}

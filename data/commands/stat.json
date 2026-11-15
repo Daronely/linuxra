@@ -1,0 +1,63 @@
+{
+  "slug": "stat",
+  "name": "stat",
+  "category": "file-directory",
+  "subcategory": "File metadata",
+  "difficulty": "intermediate",
+  "description": "Displays detailed status of files or filesystems: size, blocks, inode, permissions, ownership, and all timestamps.",
+  "syntax": "stat [OPTIONS] FILE...",
+  "flags": [
+    {
+      "flag": "-c FORMAT",
+      "description": "-printf FORMAT: control the output with a format string (%s size, %y human time, %a access rights, %U user, %G group, %i inode)."
+    },
+    {
+      "flag": "-f",
+      "description": "Report filesystem status instead of file status."
+    },
+    {
+      "flag": "-x",
+      "description": "Use a more verbose, labeled output format."
+    }
+  ],
+  "examples": [
+    {
+      "command": "stat notes.txt",
+      "output": "\n  File: notes.txt\n  Size: 220         Blocks: 8          IO Block: 4096   regular file\nDevice: 8,2   Inode: 131073   Links: 1\nAccess: (0644/-rw-r--r--)  Uid: ( 1000/  user)   Gid: ( 1000/  user)\nModify: 2025-01-10 09:15:03.000000000 +0100\n",
+      "explanation": "Shows the inode number, permission bits with octal value, owner, and the timestamps (Access, Modify, Change)."
+    },
+    {
+      "command": "stat -c \"%n %s bytes\" *.log",
+      "output": "\napp.log 40211 bytes\nsyslog 1188432 bytes\n",
+      "explanation": "Custom format: prints each filename and its size in bytes."
+    },
+    {
+      "command": "stat -c \"%a %U:%G %n\" /etc/shadow",
+      "output": "\n640 root:shadow /etc/shadow\n",
+      "explanation": "Quick permission check: octal mode, owner, group, and path in one line."
+    }
+  ],
+  "related": [
+    "ls",
+    "touch",
+    "chmod"
+  ],
+  "tags": [
+    "metadata",
+    "inode",
+    "timestamps",
+    "permissions"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/stat-invocation.html",
+  "about": [
+    "stat reports the raw inode metadata. The three timestamps are: atime (last read), mtime (last content modification), and ctime (last inode change — including permission or ownership changes, not just content). There is no \"creation time\" in classic Linux inodes; some filesystems expose a birth time (statx) but support varies."
+  ],
+  "useCases": [
+    "Inspect exact permissions and ownership in octal form.",
+    "Check inode numbers when troubleshooting hard links.",
+    "Script-friendly metadata extraction with -c."
+  ],
+  "mistakes": [
+    "Confusing ctime with creation time — ctime means \"change time\" of the inode."
+  ]
+}

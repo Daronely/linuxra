@@ -1,0 +1,85 @@
+{
+  "slug": "awk",
+  "name": "awk",
+  "category": "text-processing",
+  "subcategory": "Text streams",
+  "difficulty": "intermediate",
+  "description": "A pattern-scanning and processing language: splits lines into fields and applies programs to them, ideal for column-based data.",
+  "syntax": "awk [OPTIONS] 'PROGRAM' [FILE...]",
+  "flags": [
+    {
+      "flag": "{print $1}",
+      "description": "$1..$N are whitespace-separated fields; $0 is the whole line; NF is the field count."
+    },
+    {
+      "flag": "-F SEP",
+      "description": "Set the field separator (e.g. -F: for /etc/passwd, -F, for CSV)."
+    },
+    {
+      "flag": "/pattern/{action}",
+      "description": "Run the action only on lines matching the pattern."
+    },
+    {
+      "flag": "BEGIN{} / END{}",
+      "description": "Blocks that run before the first line and after the last."
+    },
+    {
+      "flag": "-v VAR=value",
+      "description": "Pass a shell variable into the awk program."
+    }
+  ],
+  "examples": [
+    {
+      "command": "awk '{print $1}' access.log",
+      "output": "\n203.0.113.7\n198.51.100.9\n",
+      "explanation": "Prints the first field (the client IP) of every log line."
+    },
+    {
+      "command": "awk -F: '{print $1, $3}' /etc/passwd",
+      "output": "\nroot 0\ndaemon 1\nuser 1000\n",
+      "explanation": "Prints username and UID by splitting each line on colons."
+    },
+    {
+      "command": "awk '/ERROR/{count++} END{print count}' app.log",
+      "output": "\n142\n",
+      "explanation": "Counts lines containing ERROR — a one-line log analyzer."
+    },
+    {
+      "command": "df -h | awk 'NR>1 {print $5, $6}'",
+      "output": "\n44% /\n71% /data\n",
+      "explanation": "Skips the header row (NR>1) and prints the use-percent and mount point columns."
+    },
+    {
+      "command": "awk '$3 >= 1000 {print $1}' /etc/passwd",
+      "output": null,
+      "explanation": "Field comparison: prints usernames whose UID is 1000 or higher (regular users on most distributions)."
+    }
+  ],
+  "related": [
+    "sed",
+    "cut",
+    "sort",
+    "grep"
+  ],
+  "tags": [
+    "columns",
+    "fields",
+    "report",
+    "text",
+    "processing"
+  ],
+  "docs": "https://www.gnu.org/software/gawk/manual/",
+  "about": [
+    "An awk program is a series of pattern {action} pairs evaluated per line. Default field separator is any run of spaces/tabs. Built-in variables: NR (line number), NF (fields in the line), FS/OFS (separators). awk also supports arithmetic, arrays, if/for — it is a full small language, which makes it perfect for quick reports without writing a script."
+  ],
+  "useCases": [
+    "Extract and sum columns from logs and CSVs.",
+    "Generate quick reports (totals, counts, averages).",
+    "Reformat data between tools in a pipeline."
+  ],
+  "mistakes": [
+    "Mixing up single and double quotes: the awk program must be in single quotes so the shell does not expand $1.",
+    "Forgetting -F when the separator is not whitespace, then wondering why $2 is empty."
+  ],
+  "distroNotes": "gawk (GNU awk) adds features like PROCINFO and network access; mawk is a smaller, faster implementation common in minimal Debian installs; busybox awk is limited. Core syntax is portable across all of them."
+}

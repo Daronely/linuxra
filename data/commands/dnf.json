@@ -1,0 +1,85 @@
+{
+  "slug": "dnf",
+  "name": "dnf",
+  "category": "package-management",
+  "subcategory": "Fedora",
+  "difficulty": "beginner",
+  "description": "The modern package manager of Fedora, RHEL 8+, CentOS Stream, Rocky, and AlmaLinux — the successor to yum with the same command surface.",
+  "syntax": "dnf [OPTIONS] COMMAND [PACKAGE...]",
+  "flags": [
+    {
+      "flag": "install PKG / remove PKG",
+      "description": "Install / remove packages with dependency resolution."
+    },
+    {
+      "flag": "update / upgrade",
+      "description": "Apply available updates (upgrade is the preferred alias)."
+    },
+    {
+      "flag": "search TERM / info PKG",
+      "description": "Search repositories / show package details."
+    },
+    {
+      "flag": "provides FILE",
+      "description": "Which package provides this file or capability?"
+    },
+    {
+      "flag": "list installed",
+      "description": "List installed packages."
+    },
+    {
+      "flag": "history",
+      "description": "Show past transactions — the base for undo/rollback."
+    },
+    {
+      "flag": "--enablerepo=REPO",
+      "description": "Temporarily enable a repository."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo dnf upgrade -y",
+      "output": null,
+      "explanation": "Applies all available updates (RHEL-family equivalent of apt upgrade)."
+    },
+    {
+      "command": "sudo dnf install nginx",
+      "output": null,
+      "explanation": "Installs nginx with all dependencies."
+    },
+    {
+      "command": "dnf provides \"*/ifconfig\"",
+      "output": null,
+      "explanation": "Finds which package supplies a missing command: the answer here is net-tools."
+    },
+    {
+      "command": "sudo dnf history",
+      "output": null,
+      "explanation": "Lists transactions with IDs; sudo dnf history undo 42 reverts transaction 42 — a capability apt lacks."
+    }
+  ],
+  "related": [
+    "yum",
+    "rpm",
+    "apt"
+  ],
+  "tags": [
+    "packages",
+    "fedora",
+    "rhel",
+    "install"
+  ],
+  "docs": "https://dnf.readthedocs.io/",
+  "about": [
+    "dnf resolves dependencies via libsolv, supports Python plugins, and keeps a transaction history enabling undo/rollback. yum still exists as a symlink to dnf on modern releases, so old yum documentation remains valid."
+  ],
+  "useCases": [
+    "Package management on Fedora/RHEL-family servers.",
+    "Finding packages that provide missing files.",
+    "Rolling back a bad update with history undo."
+  ],
+  "mistakes": [
+    "Looking for yum documentation on RHEL 8+ — dnf replaced it (yum is an alias)."
+  ],
+  "distroNotes": "Fedora, RHEL 8+, CentOS Stream, Rocky, AlmaLinux. RHEL 7 and older use yum."
+}

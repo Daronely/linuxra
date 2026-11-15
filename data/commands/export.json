@@ -1,0 +1,77 @@
+{
+  "slug": "export",
+  "name": "export",
+  "category": "shell-terminal",
+  "subcategory": "Environment variables",
+  "difficulty": "beginner",
+  "description": "Marks shell variables for export to child processes, making them environment variables.",
+  "syntax": "export [OPTIONS] [NAME=VALUE...]",
+  "flags": [
+    {
+      "flag": "NAME=value",
+      "description": "Set the variable in the current shell only."
+    },
+    {
+      "flag": "export NAME=value",
+      "description": "Set AND export to child processes."
+    },
+    {
+      "flag": "-n NAME",
+      "description": "Un-export but keep the variable."
+    },
+    {
+      "flag": "-p",
+      "description": "List all exported variables."
+    }
+  ],
+  "examples": [
+    {
+      "command": "export EDITOR=vim",
+      "output": null,
+      "explanation": "Programs launched from this shell (git, crontab -e) now open vim."
+    },
+    {
+      "command": "export API_KEY=\"abc123\"",
+      "output": null,
+      "explanation": "Exports a variable — child scripts can read it as $API_KEY. Note: this lands in shell history."
+    },
+    {
+      "command": "MYVAR=hello ./script.sh",
+      "output": null,
+      "explanation": "Alternative one-shot form: the variable exists ONLY for that command, never entering the shell or history."
+    },
+    {
+      "command": "export PATH=\"$PATH:/opt/tools/bin\"",
+      "output": null,
+      "explanation": "Appends to PATH. Always include the existing $PATH — overwriting it breaks every command lookup."
+    }
+  ],
+  "related": [
+    "env",
+    "printenv",
+    "source"
+  ],
+  "tags": [
+    "variables",
+    "environment",
+    "export",
+    "path",
+    "scripting"
+  ],
+  "docs": "https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html",
+  "about": [
+    "A plain variable lives only in the current shell; an exported one is copied into the environment of every child process. Environment is inherited downward only — a child can never modify the parent's variables, which is why scripts cannot \"export back\" to your shell (use source for that)."
+  ],
+  "useCases": [
+    "Configure program behavior (EDITOR, LANG, JAVA_HOME).",
+    "Pass secrets/paths to scripts per-session.",
+    "Extend PATH with personal bin directories."
+  ],
+  "mistakes": [
+    "Forgetting export and wondering why a script cannot see the variable.",
+    "Overwriting PATH instead of appending ($PATH: missing)."
+  ],
+  "warnings": [
+    "Secrets exported in ~/.bashrc or typed on the command line persist in files and shell history — prefer secret managers or per-command env for sensitive values."
+  ]
+}

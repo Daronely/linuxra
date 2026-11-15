@@ -1,0 +1,81 @@
+{
+  "slug": "cat",
+  "name": "cat",
+  "category": "text-processing",
+  "subcategory": "Reading files",
+  "difficulty": "beginner",
+  "description": "Concatenates files and prints them to standard output; the default way to quickly view short files.",
+  "syntax": "cat [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-n",
+      "description": "Number all output lines."
+    },
+    {
+      "flag": "-b",
+      "description": "Number only non-empty lines."
+    },
+    {
+      "flag": "-A",
+      "description": "Show all characters: tabs as ^I, line ends as $ (debugging whitespace)."
+    },
+    {
+      "flag": "-s",
+      "description": "Squeeze multiple blank lines into one."
+    },
+    {
+      "flag": "-E",
+      "description": "Display $ at the end of each line."
+    }
+  ],
+  "examples": [
+    {
+      "command": "cat notes.txt",
+      "output": "\nFirst line of the file\nSecond line\n",
+      "explanation": "Prints the entire file to the terminal."
+    },
+    {
+      "command": "cat -n script.sh",
+      "output": "\n1  #!/bin/bash\n2  echo \"hello\"\n",
+      "explanation": "Numbers every line — handy when discussing a file or reading compiler errors."
+    },
+    {
+      "command": "cat part1.txt part2.txt > full.txt",
+      "output": null,
+      "explanation": "Concatenates two files into a new one — the original meaning of the name."
+    },
+    {
+      "command": "cat > note.txt",
+      "output": null,
+      "explanation": "Starts reading from the keyboard into note.txt; finish with Ctrl+D. A quick way to create a file without an editor."
+    }
+  ],
+  "related": [
+    "less",
+    "head",
+    "tail"
+  ],
+  "tags": [
+    "view",
+    "read",
+    "concatenate",
+    "files",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/cat-invocation.html",
+  "about": [
+    "cat copies each input file to stdout in order. With no file (or -), it reads standard input. For anything longer than a screen, use less; for the top or bottom of files, head or tail."
+  ],
+  "useCases": [
+    "Quickly view short files.",
+    "Join files together.",
+    "Feed a file into a pipe: cat file | program (though program < file is cleaner)."
+  ],
+  "mistakes": [
+    "Using cat on huge files and flooding the terminal — use less instead.",
+    "Useless use of cat: cat file | grep x works but grep x file is better."
+  ],
+  "warnings": [
+    "cat > existing-file.txt truncates it immediately before you type anything."
+  ]
+}

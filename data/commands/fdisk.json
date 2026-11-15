@@ -1,0 +1,70 @@
+{
+  "slug": "fdisk",
+  "name": "fdisk",
+  "category": "disk-storage",
+  "subcategory": "Disk partitions",
+  "difficulty": "intermediate",
+  "description": "The classic interactive partition table tool for MBR and GPT disks.",
+  "syntax": "fdisk [OPTIONS] DEVICE",
+  "flags": [
+    {
+      "flag": "-l",
+      "description": "List partition tables of all (or the given) disks."
+    },
+    {
+      "flag": "DEVICE",
+      "description": "Enter interactive mode. Inside: n new, d delete, t change type, p print, w write, q quit without saving."
+    },
+    {
+      "flag": "-l -o FIELDS",
+      "description": "Custom column output for listing."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo fdisk -l",
+      "output": "\nDisk /dev/sda: 238.5 GiB, 256060514304 bytes\nDevice     Boot  Start    End Sectors  Size Id Type\n/dev/sda1  *      2048 1050623 1048576  512M ef EFI\n/dev/sda2       1050624 ...        238G 83 Linux\n",
+      "explanation": "Lists every disk with its partition layout. The Id/Type column shows EFI, Linux, swap, etc."
+    },
+    {
+      "command": "sudo fdisk /dev/sdb",
+      "output": null,
+      "explanation": "Interactive partitioning of /dev/sdb: press n (new partition), accept defaults, t (type 8e for LVM or 20 for Linux), w (write). NOTHING is changed until w."
+    },
+    {
+      "command": "sudo fdisk -l /dev/nvme0n1",
+      "output": null,
+      "explanation": "Inspects one NVMe disk specifically."
+    }
+  ],
+  "related": [
+    "parted",
+    "lsblk",
+    "blkid",
+    "mkfs"
+  ],
+  "tags": [
+    "partition",
+    "disk",
+    "gpt",
+    "mbr",
+    "storage"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/fdisk.8.html",
+  "about": [
+    "fdisk edits the partition table in memory and writes it on w. GPT is the modern standard (UEFI boot, disks > 2 TB); MBR survives for legacy BIOS. parted and sfdisk offer non-interactive alternatives; gdisk is fdisk's dedicated GPT cousin. After changes, run partprobe or partx -u so the kernel re-reads the table."
+  ],
+  "useCases": [
+    "Partition new disks.",
+    "Inspect existing layouts.",
+    "Create partitions for LVM or filesystems."
+  ],
+  "mistakes": [
+    "Forgetting w in interactive mode and losing all your work.",
+    "Operating on the wrong disk — triple-check the device name (lsblk first!)."
+  ],
+  "warnings": [
+    "fdisk writes directly to the disk. A wrong target destroys data. Always confirm with lsblk which disk is which before starting."
+  ],
+  "distroNotes": "util-linux fdisk supports GPT fully on all modern distributions. DOS-fdisk-era limitations no longer apply."
+}

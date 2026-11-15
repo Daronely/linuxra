@@ -1,0 +1,64 @@
+{
+  "slug": "head",
+  "name": "head",
+  "category": "text-processing",
+  "subcategory": "Reading files",
+  "difficulty": "beginner",
+  "description": "Prints the first lines (or bytes) of each input file.",
+  "syntax": "head [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-n N",
+      "description": "Print the first N lines (default 10)."
+    },
+    {
+      "flag": "-c N",
+      "description": "Print the first N bytes instead of lines."
+    },
+    {
+      "flag": "-q",
+      "description": "Never print filename headers when multiple files are given."
+    }
+  ],
+  "examples": [
+    {
+      "command": "head /var/log/syslog",
+      "output": null,
+      "explanation": "Prints the first 10 lines of the log."
+    },
+    {
+      "command": "head -n 20 data.csv",
+      "output": null,
+      "explanation": "Prints the first 20 lines — useful for previewing a CSV and checking its header row."
+    },
+    {
+      "command": "head -c 512 file.bin | xxd | head",
+      "output": null,
+      "explanation": "Shows the first 512 bytes as hex — a quick way to inspect a binary header."
+    }
+  ],
+  "related": [
+    "tail",
+    "less",
+    "cat",
+    "wc"
+  ],
+  "tags": [
+    "view",
+    "lines",
+    "preview",
+    "beginning"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/head-invocation.html",
+  "about": [
+    "head reads from the beginning and stops early, which makes it cheap even on huge files. With multiple files it prints a ==> filename <== header before each one."
+  ],
+  "useCases": [
+    "Preview files and streams.",
+    "Sample the start of large logs or datasets.",
+    "Combine with tail to print middle sections."
+  ],
+  "mistakes": [
+    "Expecting head -5 to work everywhere — POSIX requires head -n 5; the -5 shorthand is a common GNU/BSD extension that usually works but is not portable."
+  ]
+}

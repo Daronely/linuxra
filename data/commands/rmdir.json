@@ -1,0 +1,75 @@
+{
+  "slug": "rmdir",
+  "name": "rmdir",
+  "category": "file-directory",
+  "subcategory": "Deleting files",
+  "difficulty": "beginner",
+  "description": "Removes empty directories only — the safe, deliberate alternative to rm -r.",
+  "syntax": "rmdir [OPTIONS] DIRECTORY...",
+  "flags": [
+    {
+      "flag": "-p",
+      "description": "Remove the directory and its parents if they become empty (e.g. rmdir -p a/b/c removes c, then b, then a)."
+    },
+    {
+      "flag": "-v",
+      "description": "--verbose: print a message for each directory removed."
+    },
+    {
+      "flag": "--ignore-fail-on-non-empty",
+      "description": "Do not report an error if a directory is not empty (still exits nonzero in some implementations)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "rmdir old-dir",
+      "output": null,
+      "explanation": "Deletes old-dir only if it contains nothing. If it has any file, rmdir refuses."
+    },
+    {
+      "command": "rmdir: failed to remove 'old-dir': Directory not empty",
+      "output": "\nrmdir: failed to remove 'old-dir': Directory not empty\n",
+      "explanation": "This refusal is the whole point: rmdir cannot destroy data, unlike rm -r."
+    },
+    {
+      "command": "mkdir -p a/b/c && rmdir -p a/b/c",
+      "output": "\n",
+      "explanation": "Creates a nested path and then removes the entire empty chain: c, then b, then a."
+    },
+    {
+      "command": "rmdir -v work/scratch",
+      "output": "\nrmdir: removing directory, 'work/scratch'\n",
+      "explanation": "Verbose mode confirms each removal — useful in cleanup scripts."
+    }
+  ],
+  "related": [
+    "rm",
+    "mkdir",
+    "mv"
+  ],
+  "tags": [
+    "delete",
+    "remove",
+    "directory",
+    "empty",
+    "basic"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/rmdir-invocation.html",
+  "about": [
+    "rmdir calls the rmdir(2) system call, which the kernel only honors for empty directories. Where rm -r deletes trees, rmdir is a scalpel: it fails loudly on anything containing files, making it safe for scripted cleanup where you only want to prune empty structure.",
+    "A common shell pattern is rmdir -p $(dirname \"$f\") after moving the last file out of a directory tree."
+  ],
+  "useCases": [
+    "Prune empty directory chains after moving files out.",
+    "Delete directories safely when you are not sure they are empty — rmdir will refuse rather than destroy data.",
+    "Clean up empty work directories in scripts."
+  ],
+  "mistakes": [
+    "Using rmdir on a directory with hidden files (.bashrc counts as content) and being surprised it fails.",
+    "Reaching for rm -rf out of habit when rmdir would do the job safely."
+  ],
+  "warnings": [
+    "None significant — rmdir cannot delete non-empty directories, which is precisely its safety feature."
+  ],
+  "distroNotes": "Part of GNU coreutils on Linux; behavior is identical on BSD/macOS since it maps directly to the POSIX rmdir(2) call."
+}

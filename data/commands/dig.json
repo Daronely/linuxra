@@ -1,0 +1,82 @@
+{
+  "slug": "dig",
+  "name": "dig",
+  "category": "networking",
+  "subcategory": "DNS",
+  "difficulty": "intermediate",
+  "description": "A flexible DNS lookup utility: queries specific record types, specific servers, and shows full response details.",
+  "syntax": "dig [@SERVER] [NAME] [TYPE]",
+  "flags": [
+    {
+      "flag": "@SERVER",
+      "description": "Query a specific DNS server, e.g. @8.8.8.8 or @1.1.1.1."
+    },
+    {
+      "flag": "TYPE",
+      "description": "Record type: A, AAAA, MX, TXT, NS, CNAME, ANY."
+    },
+    {
+      "flag": "+short",
+      "description": "Answer only — perfect for scripts."
+    },
+    {
+      "flag": "+trace",
+      "description": "Follow delegation from the root servers down — shows how resolution really works."
+    },
+    {
+      "flag": "-x IP",
+      "description": "Reverse lookup: IP to hostname."
+    }
+  ],
+  "examples": [
+    {
+      "command": "dig example.com +short",
+      "output": "\n93.184.216.34\n",
+      "explanation": "Just the A record — the fastest way to resolve a name in scripts."
+    },
+    {
+      "command": "dig example.com MX +short",
+      "output": "\n10 mail.example.com.\n",
+      "explanation": "Mail servers for the domain, with priority."
+    },
+    {
+      "command": "dig @8.8.8.8 example.com",
+      "output": null,
+      "explanation": "Queries Google DNS directly, bypassing your system resolver — the standard test for \"is my DNS server lying?\"."
+    },
+    {
+      "command": "dig -x 8.8.8.8 +short",
+      "output": "\ndns.google.\n",
+      "explanation": "Reverse DNS: resolves an IP back to its hostname."
+    },
+    {
+      "command": "dig example.com TXT +short",
+      "output": null,
+      "explanation": "Reads TXT records — where SPF, DKIM, and domain-verification tokens live."
+    }
+  ],
+  "related": [
+    "nslookup",
+    "hostname"
+  ],
+  "tags": [
+    "dns",
+    "lookup",
+    "mx",
+    "resolve",
+    "debug"
+  ],
+  "docs": "https://bind9.readthedocs.io/en/latest/manpages.html",
+  "about": [
+    "dig shows the full DNS conversation: QUESTION, ANSWER, AUTHORITY, and the query time plus server that answered. The flags line reveals DNSSEC status (do flag) and recursion. nslookup and host are simpler front ends; dig gives the complete picture."
+  ],
+  "useCases": [
+    "Debug DNS records and propagation.",
+    "Verify SPF/DKIM/verification records.",
+    "Compare answers between resolvers."
+  ],
+  "mistakes": [
+    "Reading the default \"ANSWER: 0\" as an error — it means the name has no record of the requested type.",
+    "Forgetting +short in scripts and parsing decorated output."
+  ]
+}

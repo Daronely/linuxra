@@ -1,0 +1,69 @@
+{
+  "slug": "traceroute",
+  "name": "traceroute",
+  "category": "networking",
+  "subcategory": "Connectivity testing",
+  "difficulty": "intermediate",
+  "description": "Shows the route packets take to a host, hop by hop, revealing where connections slow down or die.",
+  "syntax": "traceroute [OPTIONS] HOST",
+  "flags": [
+    {
+      "flag": "-n",
+      "description": "Do not resolve hop IPs to names (much faster)."
+    },
+    {
+      "flag": "-I",
+      "description": "Use ICMP echoes instead of UDP (some paths treat UDP differently)."
+    },
+    {
+      "flag": "-T",
+      "description": "Use TCP SYN packets — often passes firewalls that block UDP/ICMP."
+    },
+    {
+      "flag": "-m N",
+      "description": "Maximum hops (default 30)."
+    },
+    {
+      "flag": "-p PORT",
+      "description": "Port for TCP/UDP probes."
+    }
+  ],
+  "examples": [
+    {
+      "command": "traceroute -n example.com",
+      "output": "\n 1  192.168.1.1    1.2 ms\n 2  10.50.0.1      9.8 ms\n 3  72.14.196.1   12.4 ms\n 4  142.250.74.142 13.1 ms\n",
+      "explanation": "Each line is one router on the path with its round-trip time. The first hop is your own gateway."
+    },
+    {
+      "command": "traceroute -T -p 443 example.com",
+      "output": null,
+      "explanation": "TCP-based tracing to port 443 — the way to trace when UDP probes are filtered."
+    }
+  ],
+  "related": [
+    "ping",
+    "mtr",
+    "ip"
+  ],
+  "tags": [
+    "route",
+    "hops",
+    "diagnose",
+    "network",
+    "path"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/traceroute.8.html",
+  "about": [
+    "traceroute exploits the IP TTL field: it sends packets with TTL 1, 2, 3...; each router that decrements TTL to zero returns an ICMP Time Exceeded message, identifying itself. Routers may rate-limit these replies, showing *** for hops that are actually fine. mtr combines traceroute with continuous statistics."
+  ],
+  "useCases": [
+    "Find where traffic stops or slows.",
+    "Identify the ISP or backbone segment causing problems.",
+    "Verify routing changes."
+  ],
+  "mistakes": [
+    "Treating *** hops as failures — many routers simply deprioritize TTL-exceeded replies.",
+    "Expecting symmetric paths: the return route may differ."
+  ],
+  "distroNotes": "traceroute is from the traceroute package. tracepath (iputils) needs no root and auto-detects MTU; Windows calls it tracert."
+}

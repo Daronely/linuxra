@@ -1,0 +1,73 @@
+{
+  "slug": "less",
+  "name": "less",
+  "category": "text-processing",
+  "subcategory": "Reading files",
+  "difficulty": "beginner",
+  "description": "A pager that views files one screen at a time with scrolling, searching, and navigation — without loading the whole file into memory.",
+  "syntax": "less [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "+F",
+      "description": "Follow mode: stream new content like tail -f, press Ctrl+C to stop and navigate."
+    },
+    {
+      "flag": "-N",
+      "description": "Show line numbers."
+    },
+    {
+      "flag": "-S",
+      "description": "Chop long lines instead of wrapping them."
+    },
+    {
+      "flag": "-i",
+      "description": "Ignore case in searches."
+    },
+    {
+      "flag": "-R",
+      "description": "Render ANSI color escape sequences."
+    }
+  ],
+  "examples": [
+    {
+      "command": "less /var/log/syslog",
+      "output": null,
+      "explanation": "Opens the log in a pager. Navigate with arrows, Page Up/Down, g (top), G (end)."
+    },
+    {
+      "command": "less +F app.log",
+      "output": null,
+      "explanation": "Follows the file like tail -f but lets you press Ctrl+C to scroll back through history, then F to resume following."
+    },
+    {
+      "command": "/error",
+      "output": null,
+      "explanation": "Inside less: searches forward for \"error\". Press n for the next match, N for the previous one. Press q to quit."
+    }
+  ],
+  "related": [
+    "cat",
+    "tail",
+    "grep"
+  ],
+  "tags": [
+    "pager",
+    "view",
+    "read",
+    "scroll",
+    "search"
+  ],
+  "docs": "https://www.gnu.org/software/less/manual/",
+  "about": [
+    "less is the modern successor to more. It loads only what it displays, so it opens gigabyte-sized files instantly. Common in-pager keys: Space/PageDown forward, b back, /pattern search, ?pattern reverse search, v open in $EDITOR, q quit, -S toggle line chopping."
+  ],
+  "useCases": [
+    "Read long files comfortably.",
+    "View man pages (man uses less by default).",
+    "Follow growing logs while retaining scrollback."
+  ],
+  "mistakes": [
+    "Typing exit to leave less — the quit key is q.",
+    "Losing colors when piping into less; use less -R or ls --color=always | less -R."
+  ]
+}

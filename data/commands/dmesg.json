@@ -1,0 +1,76 @@
+{
+  "slug": "dmesg",
+  "name": "dmesg",
+  "category": "logs-troubleshooting",
+  "subcategory": "Kernel logs",
+  "difficulty": "intermediate",
+  "description": "Prints the kernel ring buffer: boot messages, hardware detection, driver errors, and runtime kernel events.",
+  "syntax": "dmesg [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "All kernel messages (newest last)."
+    },
+    {
+      "flag": "-T",
+      "description": "Human-readable timestamps instead of seconds since boot."
+    },
+    {
+      "flag": "-w",
+      "description": "Follow new kernel messages live."
+    },
+    {
+      "flag": "-l err,warn",
+      "description": "Filter by severity level."
+    },
+    {
+      "flag": "--human --color",
+      "description": "Newer combined friendly output."
+    }
+  ],
+  "examples": [
+    {
+      "command": "dmesg -T | tail -20",
+      "output": null,
+      "explanation": "The last 20 kernel events with real timestamps — the first check when hardware acts up."
+    },
+    {
+      "command": "dmesg -T | grep -iE \"error|fail|usb\"",
+      "output": "\n[Tue Jan 12 09:41:02 2025] usb 1-2: new high-speed USB device\n[Tue Jan 12 09:41:03 2025] sd 6:0:0:0: [sdb] Attached SCSI removable disk\n",
+      "explanation": "Filters for problems and USB events — here a USB stick was just plugged in and became sdb."
+    },
+    {
+      "command": "dmesg -l err,warn -T",
+      "output": null,
+      "explanation": "Only warnings and errors, cleanly separated from informational noise."
+    }
+  ],
+  "related": [
+    "journalctl",
+    "smartctl",
+    "lspci"
+  ],
+  "tags": [
+    "kernel",
+    "boot",
+    "hardware",
+    "logs",
+    "debug"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+  "about": [
+    "The ring buffer holds the kernel's own messages, including everything from boot (before syslog starts). With systemd, the same content is available via journalctl -k with better filtering and persistence. dmesg shows OOM kills, disk errors, USB events, and driver problems that never reach application logs."
+  ],
+  "useCases": [
+    "Diagnose hardware problems.",
+    "See what happened at boot.",
+    "Catch OOM (out of memory) kills."
+  ],
+  "mistakes": [
+    "Reading raw second-based timestamps and misjudging when things happened — use -T.",
+    "Looking for application errors in dmesg — those live in the journal/app logs."
+  ],
+  "warnings": [
+    "On some hardened systems, unprivileged dmesg is restricted (kernel.dmesg_restrict=1); use sudo."
+  ]
+}

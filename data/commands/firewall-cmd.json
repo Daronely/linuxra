@@ -1,0 +1,78 @@
+{
+  "slug": "firewall-cmd",
+  "name": "firewall-cmd",
+  "category": "security-firewall",
+  "subcategory": "Firewall management",
+  "difficulty": "intermediate",
+  "description": "The firewalld control tool used by RHEL, Fedora, CentOS, and openSUSE: zone-based firewall management with runtime and permanent rules.",
+  "syntax": "firewall-cmd [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "--state",
+      "description": "Is firewalld running?"
+    },
+    {
+      "flag": "--get-active-zones",
+      "description": "Which zones are active and on which interfaces."
+    },
+    {
+      "flag": "--add-service=http",
+      "description": "Allow a named service (http, ssh, samba...) in the current zone."
+    },
+    {
+      "flag": "--add-port=8080/tcp",
+      "description": "Allow a raw port."
+    },
+    {
+      "flag": "--permanent",
+      "description": "Make the change survive reload/reboot (without it, rules are runtime-only)."
+    },
+    {
+      "flag": "--reload",
+      "description": "Apply all permanent rules to the runtime."
+    },
+    {
+      "flag": "--list-all",
+      "description": "Show everything the current zone allows."
+    }
+  ],
+  "examples": [
+    {
+      "command": "firewall-cmd --list-all",
+      "output": "\npublic (active)\n  services: cockpit dhcpv6-client ssh\n  ports: 443/tcp 80/tcp\n",
+      "explanation": "The current zone's complete rule set — the firewalld equivalent of ufw status verbose."
+    },
+    {
+      "command": "sudo firewall-cmd --permanent --add-service=https && sudo firewall-cmd --reload",
+      "output": null,
+      "explanation": "The firewalld idiom: add permanently, then reload. Forgetting --permanent loses the rule on the next reload."
+    },
+    {
+      "command": "sudo firewall-cmd --permanent --add-port=5432/tcp",
+      "output": null,
+      "explanation": "Opens PostgreSQL to everyone — combine with --add-source=10.0.0.0/24 to restrict to a subnet."
+    }
+  ],
+  "related": [
+    "ufw",
+    "iptables"
+  ],
+  "tags": [
+    "firewall",
+    "zones",
+    "rhel",
+    "security"
+  ],
+  "docs": "https://firewalld.org/documentation/",
+  "about": [
+    "firewalld groups interfaces into zones (public, internal, trusted) with per-zone rule sets. The runtime/permanent split is its key concept: changes without --permanent vanish on reload; changes with --permanent do not take effect until --reload. Many tutorials forget one half — check with --list-all after every change."
+  ],
+  "useCases": [
+    "Firewall management on RHEL/Fedora/openSUSE.",
+    "Zone-based multi-network servers."
+  ],
+  "mistakes": [
+    "Forgetting --permanent (rule lost at reload) or forgetting --reload (rule not active)."
+  ],
+  "distroNotes": "RHEL/CentOS/Fedora/openSUSE default. Debian/Ubuntu use ufw or raw nftables."
+}

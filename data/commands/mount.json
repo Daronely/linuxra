@@ -1,0 +1,82 @@
+{
+  "slug": "mount",
+  "name": "mount",
+  "category": "disk-storage",
+  "subcategory": "Mounting",
+  "difficulty": "intermediate",
+  "description": "Attaches a filesystem (disk, partition, image, network share) to a directory in the tree.",
+  "syntax": "mount [OPTIONS] DEVICE DIRECTORY",
+  "flags": [
+    {
+      "flag": "DEVICE DIR",
+      "description": "Mount a device at a directory."
+    },
+    {
+      "flag": "-t TYPE",
+      "description": "Filesystem type (ext4, xfs, vfat, ntfs, nfs, cifs)."
+    },
+    {
+      "flag": "-o OPTS",
+      "description": "Options: ro (read-only), rw, noexec, nosuid, umask=, credentials=."
+    },
+    {
+      "flag": "-a",
+      "description": "Mount everything in /etc/fstab not yet mounted."
+    },
+    {
+      "flag": "--bind OLDDIR NEWDIR",
+      "description": "Make a directory visible at another location."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo mkdir -p /mnt/data && sudo mount /dev/sdb1 /mnt/data",
+      "output": null,
+      "explanation": "Mounts the partition sdb1 at /mnt/data — files appear inside that directory until unmounted."
+    },
+    {
+      "command": "sudo mount -o ro /dev/sdc1 /mnt/recovery",
+      "output": null,
+      "explanation": "Read-only mount — the safe way to examine a suspect disk without writing to it."
+    },
+    {
+      "command": "sudo mount -t cifs //server/share /mnt/share -o credentials=/etc/cifs.cred,uid=1000",
+      "output": null,
+      "explanation": "Mounts a Windows/Samba share using a credentials file (username/password kept out of the command line)."
+    },
+    {
+      "command": "mount | column -t",
+      "output": null,
+      "explanation": "Lists all current mounts — /proc, /sys, tmpfs entries are kernel-managed virtual filesystems."
+    }
+  ],
+  "related": [
+    "umount",
+    "blkid",
+    "mkfs"
+  ],
+  "tags": [
+    "mount",
+    "filesystem",
+    "storage",
+    "nfs",
+    "cifs"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/mount.8.html",
+  "about": [
+    "Mounting connects a filesystem to the unified tree: everything on Linux is reachable from /. Persistent mounts live in /etc/fstab (or systemd mount units). Modern desktop systems auto-mount removable media via udisks under /media/USER/. Mount options control security: noexec stops binaries executing from data partitions, nosuid ignores setuid bits."
+  ],
+  "useCases": [
+    "Attach new disks and partitions.",
+    "Mount ISO images: mount -o loop image.iso /mnt/iso.",
+    "Mount network shares (NFS, CIFS)."
+  ],
+  "mistakes": [
+    "Mounting over a non-empty directory — its contents are hidden until unmounted.",
+    "Expecting mount to persist across reboots — add an fstab line or systemd mount unit."
+  ],
+  "warnings": [
+    "Always test fstab changes with mount -a (or findmnt --verify) BEFORE rebooting; a bad fstab line can make the system unbootable."
+  ],
+  "distroNotes": "Universal. NFS needs nfs-utils, CIFS needs cifs-utils installed."
+}

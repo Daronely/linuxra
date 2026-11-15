@@ -1,0 +1,77 @@
+{
+  "slug": "strace",
+  "name": "strace",
+  "category": "dev-tools",
+  "subcategory": "Development utilities",
+  "difficulty": "advanced",
+  "description": "Traces the system calls a program makes: every file open, network connection, and memory operation, live.",
+  "syntax": "strace [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "-o FILE",
+      "description": "Write the trace to a file."
+    },
+    {
+      "flag": "-e trace=TYPE",
+      "description": "Filter: file, network, memory, or specific calls (open,read)."
+    },
+    {
+      "flag": "-p PID",
+      "description": "Attach to a running process."
+    },
+    {
+      "flag": "-f",
+      "description": "Follow child processes/threads."
+    },
+    {
+      "flag": "-c",
+      "description": "Summary: count and time per syscall."
+    },
+    {
+      "flag": "-T",
+      "description": "Show time spent in each call."
+    }
+  ],
+  "examples": [
+    {
+      "command": "strace -e trace=open,openat ls",
+      "output": "\nopenat(AT_FDCWD, \"/etc/ld.so.cache\", O_RDONLY) = 3\nopenat(AT_FDCWD, \"/lib/x86_64/...libc.so.6\", O_RDONLY) = 3\n",
+      "explanation": "Reveals exactly which files ls opens — the fastest answer to \"where does this program read its config from?\"."
+    },
+    {
+      "command": "strace -c curl -s example.com > /dev/null",
+      "output": "\n% time  calls  syscall\n 31.20     12  poll\n 18.44      9  read\n",
+      "explanation": "Summary mode: which system calls dominate the runtime."
+    },
+    {
+      "command": "strace -p 2140 -e trace=network",
+      "output": null,
+      "explanation": "Watches a running process's network activity live — invaluable for \"what is this process connecting to?\"."
+    }
+  ],
+  "related": [
+    "lsof",
+    "gdb",
+    "ps"
+  ],
+  "tags": [
+    "syscalls",
+    "trace",
+    "debug",
+    "diagnose",
+    "advanced"
+  ],
+  "docs": "https://strace.io/",
+  "about": [
+    "strace intercepts syscalls via ptrace. It shows the raw truth of what a program does: failed file opens (ENOACC), DNS lookups, connect() targets. Slows programs significantly — never use in production hot paths, always for diagnosis."
+  ],
+  "useCases": [
+    "Find which config file a program actually reads.",
+    "Diagnose permission and missing-file errors.",
+    "See what a mystery binary connects to."
+  ],
+  "mistakes": [
+    "Running strace on setuid binaries expecting elevated tracing (kernel drops privileges first).",
+    "Using it in production performance analysis without accounting for its overhead."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "slug": "nslookup",
+  "name": "nslookup",
+  "category": "networking",
+  "subcategory": "DNS",
+  "difficulty": "beginner",
+  "description": "An interactive and non-interactive DNS query tool, familiar from Windows; simpler than dig for quick lookups.",
+  "syntax": "nslookup [OPTIONS] [NAME] [SERVER]",
+  "flags": [
+    {
+      "flag": "NAME",
+      "description": "Resolve a name with the system resolver."
+    },
+    {
+      "flag": "NAME SERVER",
+      "description": "Resolve using a specific server."
+    },
+    {
+      "flag": "set type=MX",
+      "description": "Inside interactive mode: change the queried record type."
+    },
+    {
+      "flag": "-type=TXT",
+      "description": "Query a specific record type from the command line."
+    }
+  ],
+  "examples": [
+    {
+      "command": "nslookup example.com",
+      "output": "\nServer:   127.0.0.53\nAddress:  127.0.0.53#53\nNon-authoritative answer:\nName: example.com\nAddress: 93.184.216.34\n",
+      "explanation": "Shows which resolver answered (here systemd-resolved) and the result."
+    },
+    {
+      "command": "nslookup -type=MX gmail.com",
+      "output": "\ngmail.com  MX preference = 5, mail exchanger = gmail-smtp-in.l.google.com\n",
+      "explanation": "Mail exchanger lookup from the command line."
+    }
+  ],
+  "related": [
+    "dig"
+  ],
+  "tags": [
+    "dns",
+    "lookup",
+    "resolve"
+  ],
+  "docs": "https://bind9.readthedocs.io/",
+  "about": [
+    "nslookup is maintained by ISC but considered legacy on Linux; dig is preferred for diagnosis and host for scripts. nslookup remains useful because it is identical on Windows, making it a common denominator when documenting DNS troubleshooting."
+  ],
+  "useCases": [
+    "Quick DNS checks.",
+    "Cross-platform instructions shared with Windows users."
+  ],
+  "mistakes": [
+    "Trusting \"Non-authoritative answer\" as an error — it just means the answer came from a cache, not the domain's own nameservers."
+  ]
+}

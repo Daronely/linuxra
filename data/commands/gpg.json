@@ -1,0 +1,89 @@
+{
+  "slug": "gpg",
+  "name": "gpg",
+  "category": "security-firewall",
+  "subcategory": "Encryption",
+  "difficulty": "advanced",
+  "description": "GnuPG: OpenPGP encryption, decryption, signing, and key management for files and communications.",
+  "syntax": "gpg [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "-c FILE",
+      "description": "Symmetric encryption with a passphrase (gpg -c file → file.gpg)."
+    },
+    {
+      "flag": "-d FILE.gpg",
+      "description": "Decrypt."
+    },
+    {
+      "flag": "-e -r NAME FILE",
+      "description": "Encrypt for a recipient's public key."
+    },
+    {
+      "flag": "--gen-key",
+      "description": "Generate a key pair (interactive)."
+    },
+    {
+      "flag": "--list-keys / --list-secret-keys",
+      "description": "Show public / private keys."
+    },
+    {
+      "flag": "--export / --import",
+      "description": "Exchange public keys."
+    },
+    {
+      "flag": "--sign / --verify",
+      "description": "Sign / verify files."
+    }
+  ],
+  "examples": [
+    {
+      "command": "gpg -c secrets.txt",
+      "output": "\nEnter passphrase: \n",
+      "explanation": "Symmetric encryption: prompts for a passphrase, produces secrets.txt.gpg. Decrypt with gpg -d secrets.txt.gpg > secrets.txt."
+    },
+    {
+      "command": "gpg --gen-key",
+      "output": null,
+      "explanation": "Interactive key pair creation: name, email, passphrase. The public key is shareable; the private key never leaves your machine."
+    },
+    {
+      "command": "gpg -e -r alice@example.com report.pdf",
+      "output": null,
+      "explanation": "Encrypts so that ONLY alice can decrypt it, using her public key — the heart of public-key cryptography."
+    },
+    {
+      "command": "gpg --verify package.tar.gz.sig package.tar.gz",
+      "output": null,
+      "explanation": "Verifies a software download against the developer's signature — the standard integrity check for source releases."
+    }
+  ],
+  "related": [
+    "openssl",
+    "7z",
+    "ssh-keygen"
+  ],
+  "tags": [
+    "encryption",
+    "gpg",
+    "signing",
+    "security",
+    "privacy"
+  ],
+  "docs": "https://www.gnupg.org/documentation/",
+  "about": [
+    "GPG supports two modes: symmetric (one shared passphrase) and asymmetric (key pairs: public to encrypt, private to decrypt). Keys live in ~/.gnupg/. Software projects publish release signatures — verifying them confirms the download is untouched."
+  ],
+  "useCases": [
+    "Encrypt sensitive files at rest.",
+    "Verify downloaded software signatures.",
+    "Sign your own releases and commits (git uses GPG signing)."
+  ],
+  "mistakes": [
+    "Losing the private key or passphrase — the data is gone forever; there is no recovery.",
+    "Confusing public (share) and private (never share) keys."
+  ],
+  "warnings": [
+    "No key, no recovery. Back up private keys securely (gpg --export-secret-keys) before relying on them."
+  ]
+}

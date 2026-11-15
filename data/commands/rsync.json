@@ -1,0 +1,101 @@
+{
+  "slug": "rsync",
+  "name": "rsync",
+  "category": "file-transfer",
+  "subcategory": "Synchronization",
+  "difficulty": "intermediate",
+  "description": "Efficiently synchronizes files and directories, transferring only the differences, locally or over SSH.",
+  "syntax": "rsync [OPTIONS] SOURCE [DEST]",
+  "flags": [
+    {
+      "flag": "-a",
+      "description": "Archive mode: recursive, preserves permissions, times, symlinks, owner/group (as root)."
+    },
+    {
+      "flag": "-v",
+      "description": "Verbose."
+    },
+    {
+      "flag": "-z",
+      "description": "Compress during transfer."
+    },
+    {
+      "flag": "-P",
+      "description": "--partial --progress: keep partially transferred files and show progress."
+    },
+    {
+      "flag": "--delete",
+      "description": "Delete files in the destination that no longer exist in the source (makes an exact mirror)."
+    },
+    {
+      "flag": "-n",
+      "description": "--dry-run: show what would happen without changing anything."
+    },
+    {
+      "flag": "--exclude=PATTERN",
+      "description": "Skip matching files."
+    },
+    {
+      "flag": "-e ssh",
+      "description": "Specify the remote shell (default is ssh anyway)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "rsync -av project/ backup/",
+      "output": null,
+      "explanation": "Synchronizes project into backup, copying only changed data. NOTE the trailing slashes: project/ copies the contents into backup/; without it, backup/project/ is created."
+    },
+    {
+      "command": "rsync -avz --delete ./site/ user@server:/var/www/site/",
+      "output": null,
+      "explanation": "Mirrors a website to a server over SSH with compression. --delete removes remote files that disappeared locally."
+    },
+    {
+      "command": "rsync -avP big.iso user@server:/tmp/",
+      "output": null,
+      "explanation": "Resumable large-file transfer with a progress bar; re-running continues instead of restarting."
+    },
+    {
+      "command": "rsync -an --delete src/ dst/",
+      "output": null,
+      "explanation": "Dry run: lists exactly what would be copied and deleted. Always dry-run first when using --delete."
+    },
+    {
+      "command": "rsync -av --exclude=\"node_modules\" --exclude=\".git\" . /mnt/usb/backup/",
+      "output": null,
+      "explanation": "Backs up a project while skipping heavy, regenerable directories."
+    }
+  ],
+  "related": [
+    "scp",
+    "ssh",
+    "cp",
+    "tar"
+  ],
+  "tags": [
+    "sync",
+    "backup",
+    "copy",
+    "ssh",
+    "mirror",
+    "efficient"
+  ],
+  "docs": "https://rsync.samba.org/",
+  "about": [
+    "rsync compares file size and mtime by default (the \"quick check\") and for changed files transfers only differing blocks via its delta algorithm — dramatically faster than scp for repeated syncs. It preserves almost everything with -a and can run as a daemon, but SSH is the usual transport."
+  ],
+  "useCases": [
+    "Scheduled backups (cron + rsync).",
+    "Deploying websites incrementally.",
+    "Mirroring directories and resuming interrupted transfers."
+  ],
+  "mistakes": [
+    "Confusing trailing slashes: src and src/ select different data. Test with -n first.",
+    "Using --delete without --dry-run and deleting data on the destination that you meant to keep."
+  ],
+  "warnings": [
+    "--delete is destructive on the destination. Combine with -n (dry run) before every real run, especially in scripts."
+  ],
+  "distroNotes": "rsync is present on virtually all Linux distributions and macOS. On Windows it runs via WSL or cwRsync."
+}

@@ -1,0 +1,84 @@
+{
+  "slug": "apt-get",
+  "name": "apt-get",
+  "category": "package-management",
+  "subcategory": "Debian and Ubuntu",
+  "difficulty": "beginner",
+  "description": "The lower-level, script-stable APT front end. Same engine as apt with a guaranteed-stable output and option set.",
+  "syntax": "apt-get [OPTIONS] COMMAND [PACKAGE...]",
+  "flags": [
+    {
+      "flag": "update / upgrade",
+      "description": "Refresh index / install upgrades."
+    },
+    {
+      "flag": "install / remove / purge",
+      "description": "Install / remove (keep config) / remove with config."
+    },
+    {
+      "flag": "dist-upgrade",
+      "description": "Upgrade handling complex dependency changes (apt's full-upgrade)."
+    },
+    {
+      "flag": "-y",
+      "description": "Assume yes on all prompts."
+    },
+    {
+      "flag": "--no-install-recommends",
+      "description": "Skip recommended packages — smaller, minimal installs."
+    },
+    {
+      "flag": "autoremove / autoclean",
+      "description": "Remove orphaned dependencies / delete cached .deb files."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo apt-get update",
+      "output": null,
+      "explanation": "Refreshes the package index. Required before install on a fresh system."
+    },
+    {
+      "command": "sudo apt-get install -y --no-install-recommends curl ca-certificates",
+      "output": null,
+      "explanation": "The standard Dockerfile pattern: minimal non-interactive install of just what is needed."
+    },
+    {
+      "command": "sudo apt-get dist-upgrade",
+      "output": null,
+      "explanation": "Full upgrade that may install or remove packages to satisfy new dependencies."
+    },
+    {
+      "command": "sudo apt-get autoclean",
+      "output": null,
+      "explanation": "Removes cached .deb files that can no longer be downloaded — reclaims /var/cache/apt space."
+    }
+  ],
+  "related": [
+    "apt",
+    "dpkg"
+  ],
+  "tags": [
+    "packages",
+    "install",
+    "script",
+    "debian",
+    "ubuntu"
+  ],
+  "docs": "https://manpages.debian.org/bookworm/apt/apt-get.8.en.html",
+  "about": [
+    "apt-get predates apt and guarantees backward compatibility, which is why scripts, Dockerfiles, and CI pipelines use it. For interactive use apt is prettier; for automation apt-get is the contract."
+  ],
+  "useCases": [
+    "Dockerfiles and provisioning scripts.",
+    "Minimal installs without recommends.",
+    "Any place output stability matters."
+  ],
+  "mistakes": [
+    "Mixing apt and apt-get in scripts — pick one (apt-get) for automation."
+  ],
+  "warnings": [
+    "Same engine and lock as apt: never run two package operations simultaneously."
+  ],
+  "distroNotes": "Debian-family only."
+}

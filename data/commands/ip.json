@@ -1,0 +1,91 @@
+{
+  "slug": "ip",
+  "name": "ip",
+  "category": "networking",
+  "subcategory": "Network interfaces",
+  "difficulty": "intermediate",
+  "description": "The modern iproute2 tool for interfaces, addresses, routes, and more — the official replacement for ifconfig, route, and arp.",
+  "syntax": "ip [OBJECT] [COMMAND]",
+  "flags": [
+    {
+      "flag": "a",
+      "description": "-addr: show/add/remove IP addresses."
+    },
+    {
+      "flag": "l",
+      "description": "-link: show interface state and hardware info; ip link set dev eth0 up brings an interface up."
+    },
+    {
+      "flag": "r",
+      "description": "-route: show kernel routing table; ip route add adds routes."
+    },
+    {
+      "flag": "n",
+      "description": "-neigh: neighbor (ARP) table."
+    },
+    {
+      "flag": "-c",
+      "description": "Colorized output (also always the default on newer iproute2)."
+    },
+    {
+      "flag": "-br",
+      "description": "Brief, script-friendly output."
+    }
+  ],
+  "examples": [
+    {
+      "command": "ip a",
+      "output": "\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500\n    inet 192.168.1.20/24 brd 192.168.1.255 scope global eth0\n    inet6 fe80::5054:ff:fe12:3456/64 scope link\n",
+      "explanation": "Shows interfaces with their IPv4/IPv6 addresses. This machine has 192.168.1.20/24 on eth0."
+    },
+    {
+      "command": "ip -br a",
+      "output": "\nlo     UNKNOWN  127.0.0.1/8\neth0   UP       192.168.1.20/24\nwlan0  DOWN\n",
+      "explanation": "Brief mode: one line per interface — the fastest \"what is my IP\" check."
+    },
+    {
+      "command": "ip r",
+      "output": "\ndefault via 192.168.1.1 dev eth0 proto dhcp\n192.168.1.0/24 dev eth0 proto kernel scope link\n",
+      "explanation": "The routing table: default gateway is 192.168.1.1 on eth0. No gateway here means no internet."
+    },
+    {
+      "command": "sudo ip addr add 192.168.1.50/24 dev eth0",
+      "output": null,
+      "explanation": "Adds a temporary IP address — lost at reboot; persist it in NetworkManager or netplan/systemd-networkd config."
+    },
+    {
+      "command": "sudo ip link set dev eth0 up",
+      "output": null,
+      "explanation": "Brings an interface up (down disables it)."
+    }
+  ],
+  "related": [
+    "ifconfig",
+    "ss",
+    "ping",
+    "traceroute"
+  ],
+  "tags": [
+    "network",
+    "ip",
+    "interface",
+    "route",
+    "address"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/ip.8.html",
+  "about": [
+    "ip replaces the deprecated net-tools suite (ifconfig, route, arp, netstat) with a coherent object model. Net-tools is unmaintained and misses features such as policy routing and multiple addresses per interface. Distribution netconfig tools (NetworkManager, systemd-networkd, netplan) persist what ip changes temporarily."
+  ],
+  "useCases": [
+    "Check your IP addresses and routes.",
+    "Diagnose interface state (UP/DOWN, carrier).",
+    "Temporarily test addresses and routes."
+  ],
+  "mistakes": [
+    "Expecting ip changes to survive reboots — they are runtime-only.",
+    "Confusing ip a (addresses) with ip l (link state): an interface can be UP with no address."
+  ],
+  "warnings": [
+    "ip link set down on a remote server can cut your SSH access instantly if you are on that interface."
+  ]
+}

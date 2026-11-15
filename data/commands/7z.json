@@ -1,0 +1,90 @@
+{
+  "slug": "7z",
+  "name": "7z",
+  "category": "archive-compression",
+  "subcategory": "7-Zip",
+  "difficulty": "intermediate",
+  "description": "p7zip's archiver: high AES-256 compression/encryption, supports dozens of formats including its own .7z.",
+  "syntax": "7z [COMMAND] [OPTIONS] ARCHIVE [FILES...]",
+  "flags": [
+    {
+      "flag": "a",
+      "description": "Add files to archive."
+    },
+    {
+      "flag": "x",
+      "description": "Extract with full paths."
+    },
+    {
+      "flag": "e",
+      "description": "Extract flat (all files into current dir — usually not what you want)."
+    },
+    {
+      "flag": "l",
+      "description": "List contents."
+    },
+    {
+      "flag": "-pPASSWORD",
+      "description": "Set/use a password (AES-256 on .7z)."
+    },
+    {
+      "flag": "-mhe=on",
+      "description": "Encrypt also the file NAMES (header encryption)."
+    },
+    {
+      "flag": "-tTYPE",
+      "description": "Force format: -tzip, -tgzip, -t7z."
+    }
+  ],
+  "examples": [
+    {
+      "command": "7z a -p backup.7z project/",
+      "output": null,
+      "explanation": "Creates project.7z encrypted with AES-256 (prompts for the password)."
+    },
+    {
+      "command": "7z a -p -mhe=on secrets.7z keys/",
+      "output": null,
+      "explanation": "Encrypts both contents AND filenames — with plain -p, filenames stay readable."
+    },
+    {
+      "command": "7z x backup.7z",
+      "output": null,
+      "explanation": "Extracts with directory structure preserved."
+    },
+    {
+      "command": "7z l backup.7z",
+      "output": null,
+      "explanation": "Lists contents; with header encryption it asks for the password first."
+    }
+  ],
+  "related": [
+    "zip",
+    "tar",
+    "gpg",
+    "xz"
+  ],
+  "tags": [
+    "7z",
+    "encrypt",
+    "archive",
+    "aes",
+    "compress"
+  ],
+  "docs": "https://www.7-zip.org/",
+  "about": [
+    "7z offers the strongest widely-available archive encryption (AES-256 + optional header encryption) and good compression. p7zip is the Linux port; the full 7-Zip (7zz, from the 7-Zip project) is newer and faster. For scripts, prefer passing the password via a file or environment rather than -p on the command line."
+  ],
+  "useCases": [
+    "Encrypted archives for sensitive data.",
+    "Cross-platform exchange with Windows users.",
+    "High-ratio compression."
+  ],
+  "mistakes": [
+    "Using -pSECRET on the command line — the password lands in shell history; use the interactive prompt or --password-file where supported.",
+    "Using e instead of x and flattening the directory structure."
+  ],
+  "warnings": [
+    "If you lose the password, the data is unrecoverable — AES-256 is not brute-forceable in practice."
+  ]
+}

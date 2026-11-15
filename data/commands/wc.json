@@ -1,0 +1,72 @@
+{
+  "slug": "wc",
+  "name": "wc",
+  "category": "text-processing",
+  "subcategory": "Counting",
+  "difficulty": "beginner",
+  "description": "Counts lines, words, and bytes (or characters) in files or input.",
+  "syntax": "wc [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-l",
+      "description": "Count lines."
+    },
+    {
+      "flag": "-w",
+      "description": "Count words."
+    },
+    {
+      "flag": "-c",
+      "description": "Count bytes."
+    },
+    {
+      "flag": "-m",
+      "description": "Count characters (respects multibyte UTF-8)."
+    },
+    {
+      "flag": "-L",
+      "description": "Length of the longest line."
+    }
+  ],
+  "examples": [
+    {
+      "command": "wc -l access.log",
+      "output": "\n48211 access.log\n",
+      "explanation": "The number of lines — for a log, the number of requests."
+    },
+    {
+      "command": "ls | wc -l",
+      "output": "\n17\n",
+      "explanation": "Counts items in the current directory."
+    },
+    {
+      "command": "grep -c ERROR app.log",
+      "output": null,
+      "explanation": "Alternative to wc -l for counting matches: grep -c prints the count directly."
+    }
+  ],
+  "related": [
+    "grep",
+    "sort",
+    "uniq",
+    "head"
+  ],
+  "tags": [
+    "count",
+    "lines",
+    "words",
+    "statistics"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/wc-invocation.html",
+  "about": [
+    "With no options wc prints all three counts: lines, words, bytes. When reading from a pipe there is no filename column, which is convenient in scripts: n=$(grep -c x file)."
+  ],
+  "useCases": [
+    "Count log entries, results, or files.",
+    "Measure text size before processing.",
+    "Quick code metrics: wc -l *.py."
+  ],
+  "mistakes": [
+    "Confusing -c (bytes) with -m (characters) on UTF-8 text — they differ when accents or emoji are present."
+  ]
+}

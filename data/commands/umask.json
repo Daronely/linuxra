@@ -1,0 +1,64 @@
+{
+  "slug": "umask",
+  "name": "umask",
+  "category": "permissions",
+  "subcategory": "Understanding Linux permissions",
+  "difficulty": "intermediate",
+  "description": "Sets or shows the permission mask that determines the default permissions of newly created files and directories.",
+  "syntax": "umask [-S] ",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Print the current octal mask."
+    },
+    {
+      "flag": "-S",
+      "description": "Symbolic display, e.g. u=rwx,g=rx,o=rx."
+    },
+    {
+      "flag": "MASK",
+      "description": "Set the mask, e.g. 022 or 077."
+    }
+  ],
+  "examples": [
+    {
+      "command": "umask",
+      "output": "\n0022\n",
+      "explanation": "The typical default: subtract from 666 for files (644) and from 777 for directories (755)."
+    },
+    {
+      "command": "umask -S",
+      "output": "\nu=rwx,g=rx,o=rx\n",
+      "explanation": "Symbolic form of the same mask."
+    },
+    {
+      "command": "umask 077 && touch secret.txt",
+      "output": "\n-rw------- 1 user user 0 Jan 12 09:00 secret.txt\n",
+      "explanation": "With mask 077, new files are 600 and directories 700 — nothing readable by group or others (result shown via ls -l)."
+    }
+  ],
+  "related": [
+    "chmod",
+    "chown",
+    "stat"
+  ],
+  "tags": [
+    "permissions",
+    "default",
+    "security",
+    "mask"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man2/umask.2.html",
+  "about": [
+    "umask removes permission bits from the defaults: files start at 666 (no execute), directories at 777. A mask of 022 removes w for group/others, giving files 644 and directories 755. A mask of 077 removes all group/other bits, giving 600/700. The mask is per-process and inherited from the login shell, PAM, or systemd service settings."
+  ],
+  "useCases": [
+    "Make your home directory private: umask 077 in ~/.bashrc.",
+    "Tighten defaults for a service by setting UMask= in its systemd unit.",
+    "Understand why files created by scripts have \"unexpected\" permissions."
+  ],
+  "mistakes": [
+    "Setting umask in a script and expecting it to affect the parent shell.",
+    "Expecting umask to change existing files — it only affects future creations."
+  ]
+}

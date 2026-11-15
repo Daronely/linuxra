@@ -1,0 +1,62 @@
+{
+  "slug": "printenv",
+  "name": "printenv",
+  "category": "shell-terminal",
+  "subcategory": "Environment variables",
+  "difficulty": "beginner",
+  "description": "Prints environment variables — all of them, or specific ones.",
+  "syntax": "printenv [OPTIONS] [NAME...]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Print the entire environment."
+    },
+    {
+      "flag": "NAME",
+      "description": "Print the value of NAME only (empty output and exit code 1 if unset)."
+    },
+    {
+      "flag": "-0",
+      "description": "NUL-terminate output for safe scripting."
+    }
+  ],
+  "examples": [
+    {
+      "command": "printenv HOME",
+      "output": "\n/home/user\n",
+      "explanation": "Prints just the value of HOME."
+    },
+    {
+      "command": "printenv PATH SHELL LANG",
+      "output": "\n/usr/local/bin:/usr/bin:/bin\n/bin/bash\nen_US.UTF-8\n",
+      "explanation": "Prints several specific variables."
+    },
+    {
+      "command": "[ -n \"$API_KEY\" ] || { echo \"API_KEY not set\"; exit 1; }",
+      "output": null,
+      "explanation": "The script pattern for required variables — printenv exits nonzero for unset names, so it works in conditions too."
+    }
+  ],
+  "related": [
+    "env",
+    "export",
+    "printenv"
+  ],
+  "tags": [
+    "environment",
+    "variables",
+    "inspect"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/printenv.1.html",
+  "about": [
+    "printenv prints only EXPORTED variables (the environment), unlike set which also shows shell-local variables and functions. It is part of coreutils, so it works identically in scripts and cron where shell builtins may not."
+  ],
+  "useCases": [
+    "Check exact variable values.",
+    "Verify what a cron job or service actually receives.",
+    "Conditionals on variable presence."
+  ],
+  "mistakes": [
+    "Using printenv to find shell-local variables — use set or declare -p for those."
+  ]
+}

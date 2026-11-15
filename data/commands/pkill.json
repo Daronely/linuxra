@@ -1,0 +1,80 @@
+{
+  "slug": "pkill",
+  "name": "pkill",
+  "category": "processes",
+  "subcategory": "Killing processes",
+  "difficulty": "intermediate",
+  "description": "Sends signals to processes selected by name, pattern, or attributes — pkill NAME is the shortcut for kill $(pgrep NAME).",
+  "syntax": "pkill [OPTIONS] PATTERN",
+  "flags": [
+    {
+      "flag": "PATTERN",
+      "description": "Signal matching processes with SIGTERM (15) by default."
+    },
+    {
+      "flag": "-9",
+      "description": "-KILL: force kill (cannot be caught or cleaned up)."
+    },
+    {
+      "flag": "-f",
+      "description": "Match the full command line."
+    },
+    {
+      "flag": "-u USER",
+      "description": "Only processes of USER."
+    },
+    {
+      "flag": "-HUP",
+      "description": "Send SIGHUP — many daemons reload their configuration on it."
+    },
+    {
+      "flag": "-x",
+      "description": "Exact match of the whole name."
+    }
+  ],
+  "examples": [
+    {
+      "command": "pkill chrome",
+      "output": null,
+      "explanation": "Politely asks all chrome processes to terminate (SIGTERM)."
+    },
+    {
+      "command": "pkill -9 -f \"python3 app.py\"",
+      "output": null,
+      "explanation": "Force-kills the matching script. -9 is a last resort — processes get no chance to save state."
+    },
+    {
+      "command": "pkill -HUP nginx",
+      "output": null,
+      "explanation": "Reloads nginx worker processes without dropping connections — the classic graceful reload signal."
+    }
+  ],
+  "related": [
+    "kill",
+    "pgrep",
+    "killall",
+    "ps"
+  ],
+  "tags": [
+    "kill",
+    "signal",
+    "terminate",
+    "processes"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/pkill.1.html",
+  "about": [
+    "Signals: SIGTERM (15) requests a clean shutdown; SIGKILL (9) is immediate and unconditional; SIGHUP (1) conventionally means \"reload config\"; SIGSTOP/SIGCONT pause and resume. Always try SIGTERM first."
+  ],
+  "useCases": [
+    "Stop runaway applications.",
+    "Reload daemons with -HUP.",
+    "Kill all processes of a pattern at once."
+  ],
+  "mistakes": [
+    "Starting with -9 out of habit — it prevents programs from flushing data and removing lock files.",
+    "Matching too broadly: pkill ssh can kill your own session's sshd child."
+  ],
+  "warnings": [
+    "pkill -9 -f with a loose pattern can match your own shell command line and kill your session. Verify with pgrep -a first."
+  ]
+}

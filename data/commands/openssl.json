@@ -1,0 +1,85 @@
+{
+  "slug": "openssl",
+  "name": "openssl",
+  "category": "security-firewall",
+  "subcategory": "Certificates",
+  "difficulty": "advanced",
+  "description": "The OpenSSL toolkit: TLS certificate inspection, generation, encryption, and protocol testing from the command line.",
+  "syntax": "openssl COMMAND [OPTIONS]",
+  "flags": [
+    {
+      "flag": "s_client -connect",
+      "description": "Open a raw TLS connection to inspect a server certificate."
+    },
+    {
+      "flag": "x509 -text -noout",
+      "description": "Decode and display a certificate file."
+    },
+    {
+      "flag": "req -x509 -newkey",
+      "description": "Generate a self-signed certificate (dev/testing)."
+    },
+    {
+      "flag": "enc -aes-256-cbc",
+      "description": "Encrypt a file with a password."
+    },
+    {
+      "flag": "dgst -sha256 FILE",
+      "description": "File checksum (hashing)."
+    },
+    {
+      "flag": "version -a",
+      "description": "OpenSSL build details."
+    }
+  ],
+  "examples": [
+    {
+      "command": "openssl s_client -connect example.com:443 -brief",
+      "output": "\nConnection state... : OK\nProtocol version... : TLSv1.3\nVerification...    : OK\n",
+      "explanation": "Connects to the server over TLS and reports the negotiated protocol and certificate verification — the definitive \"is TLS working?\" test."
+    },
+    {
+      "command": "openssl x509 -in cert.pem -text -noout | grep -E \"Subject:|Not After\"",
+      "output": null,
+      "explanation": "Shows who a certificate belongs to and when it expires — the check for \"why did TLS suddenly break?\"."
+    },
+    {
+      "command": "echo | openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates",
+      "output": null,
+      "explanation": "One-liner: remote certificate expiry dates without any files — perfect for expiry monitoring scripts."
+    },
+    {
+      "command": "openssl dgst -sha256 ubuntu.iso",
+      "output": "\ne3b0c44298fc1c14...  ubuntu.iso\n",
+      "explanation": "Computes a checksum to compare against the publisher's published hash."
+    }
+  ],
+  "related": [
+    "curl",
+    "gpg",
+    "ssh"
+  ],
+  "tags": [
+    "tls",
+    "ssl",
+    "certificate",
+    "encryption",
+    "debug"
+  ],
+  "docs": "https://www.openssl.org/docs/",
+  "about": [
+    "openssl is both a library and a CLI. The s_client subcommand is the universal TLS debugger when curl is too abstract; x509 decodes certificates; req generates certificate signing requests (CSRs) for real certificates. Note LibreSSL (macOS/BSD) differs subtly in available subcommands."
+  ],
+  "useCases": [
+    "Inspect certificates and expiry dates.",
+    "Debug TLS handshake problems.",
+    "Generate hashes and self-signed dev certificates."
+  ],
+  "mistakes": [
+    "Using self-signed certificates in production.",
+    "Confusing the private key file (.key, never share) with the certificate (.crt/.pem, public)."
+  ],
+  "warnings": [
+    "Private keys generated with openssl must be protected like passwords (chmod 600, never committed)."
+  ]
+}

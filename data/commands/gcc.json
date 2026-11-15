@@ -1,0 +1,86 @@
+{
+  "slug": "gcc",
+  "name": "gcc",
+  "category": "dev-tools",
+  "subcategory": "GCC",
+  "difficulty": "intermediate",
+  "description": "The GNU Compiler Collection C compiler: compiles C (and with g++, C++) source into executables.",
+  "syntax": "gcc [OPTIONS] FILES... [-o OUTPUT]",
+  "flags": [
+    {
+      "flag": "-o FILE",
+      "description": "Output executable name (default a.out)."
+    },
+    {
+      "flag": "-Wall -Wextra",
+      "description": "Enable important warnings — use them always."
+    },
+    {
+      "flag": "-g",
+      "description": "Include debug symbols (for gdb)."
+    },
+    {
+      "flag": "-O0/-O2/-O3",
+      "description": "Optimization levels: none / standard / aggressive."
+    },
+    {
+      "flag": "-c",
+      "description": "Compile only, producing an object file (.o)."
+    },
+    {
+      "flag": "-std=c17",
+      "description": "Choose the C standard."
+    },
+    {
+      "flag": "-lm",
+      "description": "Link the math library (order matters: after sources)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "gcc -Wall hello.c -o hello",
+      "output": null,
+      "explanation": "Compiles hello.c into the executable hello with all common warnings enabled."
+    },
+    {
+      "command": "gcc -g -O2 main.c utils.c -o app",
+      "output": null,
+      "explanation": "Multi-file build with debug symbols and standard optimization."
+    },
+    {
+      "command": "gcc -c module.c",
+      "output": null,
+      "explanation": "Produces module.o for later linking — how larger projects split compilation."
+    },
+    {
+      "command": "./hello",
+      "output": null,
+      "explanation": "Runs the result. Executables need ./ because the current directory is not in PATH."
+    }
+  ],
+  "related": [
+    "make",
+    "gdb",
+    "strace"
+  ],
+  "tags": [
+    "compiler",
+    "c",
+    "build",
+    "development"
+  ],
+  "docs": "https://gcc.gnu.org/onlinedocs/",
+  "about": [
+    "The typical pipeline: preprocess → compile → assemble → link. Warnings (-Wall -Wextra) catch most beginner bugs before runtime; -g enables gdb to map binaries to source lines. Debug and release builds differ: -O0 -g for debugging, -O2 for production."
+  ],
+  "useCases": [
+    "Compiling C projects.",
+    "Building software from source.",
+    "Learning systems programming."
+  ],
+  "mistakes": [
+    "Forgetting -lm when using math functions: \"undefined reference to sqrt\".",
+    "Running the output without ./ — the shell does not search the current directory."
+  ],
+  "distroNotes": "gcc is the default C compiler on virtually all distributions (package: gcc / build-essential on Debian, gcc / Development Tools group on RHEL)."
+}

@@ -1,0 +1,84 @@
+{
+  "slug": "chown",
+  "name": "chown",
+  "category": "permissions",
+  "subcategory": "Understanding Linux permissions",
+  "difficulty": "intermediate",
+  "description": "Changes the owner and/or group of files and directories. Requires root for changing owners.",
+  "syntax": "chown [OPTIONS] USER[:GROUP] FILE...",
+  "flags": [
+    {
+      "flag": "USER",
+      "description": "Change owner only."
+    },
+    {
+      "flag": "USER:GROUP",
+      "description": "Change owner and group."
+    },
+    {
+      "flag": ":GROUP",
+      "description": "Change group only (same as chgrp)."
+    },
+    {
+      "flag": "-R",
+      "description": "Recursive."
+    },
+    {
+      "flag": "--reference=FILE",
+      "description": "Copy ownership from another file."
+    },
+    {
+      "flag": "--from=OLD",
+      "description": "Change only files currently owned by OLD."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo chown user file.txt",
+      "output": null,
+      "explanation": "Gives file.txt to user, keeping the current group."
+    },
+    {
+      "command": "sudo chown www-data:www-data /var/www/html",
+      "output": null,
+      "explanation": "Hands a web root to the web server user and group — the classic nginx/apache setup step."
+    },
+    {
+      "command": "sudo chown -R user:user project/",
+      "output": null,
+      "explanation": "Recursively fixes ownership of an entire project tree, e.g. after extracting an archive as root."
+    },
+    {
+      "command": "sudo chown :developers shared/",
+      "output": null,
+      "explanation": "Changes only the group, keeping the owner."
+    }
+  ],
+  "related": [
+    "chmod",
+    "umask",
+    "getfacl"
+  ],
+  "tags": [
+    "ownership",
+    "permissions",
+    "users",
+    "security"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/chown-invocation.html",
+  "about": [
+    "Only root can give a file away or take it; regular users may change the group to one they belong to. Ownership matters because permissions are evaluated per triad: if the web server cannot read your files, the first thing to check is the owner."
+  ],
+  "useCases": [
+    "Assign files to service accounts (www-data, postgres).",
+    "Fix ownership after copying files as root or extracting archives.",
+    "Prepare shared directories for teams."
+  ],
+  "mistakes": [
+    "Forgetting sudo — chown to another user fails without root.",
+    "Recursive chown on system directories like / or /usr, which breaks the system."
+  ],
+  "warnings": [
+    "Never run chown -R on / or system paths. Incorrect ownership of /usr, /etc, or /var can render the system unbootable."
+  ]
+}

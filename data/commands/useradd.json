@@ -1,0 +1,90 @@
+{
+  "slug": "useradd",
+  "name": "useradd",
+  "category": "users-groups",
+  "subcategory": "Creating users",
+  "difficulty": "intermediate",
+  "description": "The low-level command for creating new user accounts (adduser is a friendlier interactive wrapper on Debian-based systems).",
+  "syntax": "useradd [OPTIONS] USERNAME",
+  "flags": [
+    {
+      "flag": "-m",
+      "description": "Create the home directory /home/USERNAME and copy skeleton files from /etc/skel."
+    },
+    {
+      "flag": "-s SHELL",
+      "description": "Set the login shell (e.g. -s /bin/bash). Without it, some systems default to /bin/sh."
+    },
+    {
+      "flag": "-G GROUPS",
+      "description": "Additional groups (comma-separated) besides the primary one."
+    },
+    {
+      "flag": "-g GROUP",
+      "description": "Set the primary group."
+    },
+    {
+      "flag": "-u UID",
+      "description": "Set a specific user ID."
+    },
+    {
+      "flag": "-d PATH",
+      "description": "Custom home directory path."
+    },
+    {
+      "flag": "-e DATE",
+      "description": "Set an expiration date for the account (YYYY-MM-DD)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo useradd -m -s /bin/bash alice",
+      "output": null,
+      "explanation": "Creates the user alice with a home directory and bash as the shell."
+    },
+    {
+      "command": "sudo passwd alice",
+      "output": "\nNew password: \n",
+      "explanation": "useradd does NOT set a password — the account stays locked until you run passwd."
+    },
+    {
+      "command": "sudo useradd -m -G docker,sudo -s /bin/bash bob",
+      "output": null,
+      "explanation": "Creates bob and immediately adds him to the docker and sudo groups."
+    },
+    {
+      "command": "grep alice /etc/passwd",
+      "output": "\nalice:x:1001:1001::/home/alice:/bin/bash\n",
+      "explanation": "The seven fields: name, password placeholder (x = in /etc/shadow), UID, GID, comment, home, shell."
+    }
+  ],
+  "related": [
+    "usermod",
+    "userdel",
+    "passwd",
+    "id"
+  ],
+  "tags": [
+    "users",
+    "accounts",
+    "create",
+    "admin"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+  "about": [
+    "useradd edits /etc/passwd, /etc/shadow, and /etc/group according to the defaults in /etc/default/useradd and /etc/login.defs. On Debian/Ubuntu, adduser is an interactive script that wraps useradd with saner defaults (creates home, prompts for password). On RHEL/Fedora, adduser is usually just a symlink to useradd."
+  ],
+  "useCases": [
+    "Create service accounts with specific UIDs.",
+    "Provision users in scripts with exact options.",
+    "Understand what adduser does under the hood."
+  ],
+  "mistakes": [
+    "Forgetting -m — the user is created without a home directory.",
+    "Forgetting to set a password with passwd, leaving the account unusable."
+  ],
+  "warnings": [
+    "Running useradd without -s on some distributions creates accounts with /bin/sh or nologin; check /etc/default/useradd for your defaults."
+  ],
+  "distroNotes": "useradd comes from shadow-utils. adduser behavior differs: full interactive tool on Debian/Ubuntu, symlink to useradd on RHEL-family."
+}

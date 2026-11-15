@@ -1,0 +1,80 @@
+{
+  "slug": "parted",
+  "name": "parted",
+  "category": "disk-storage",
+  "subcategory": "Disk partitions",
+  "difficulty": "intermediate",
+  "description": "A partition editor that works both interactively and in scripts, with GPT support and online resizing.",
+  "syntax": "parted [OPTIONS] [DEVICE [COMMAND]]",
+  "flags": [
+    {
+      "flag": "print",
+      "description": "Show the partition table."
+    },
+    {
+      "flag": "mklabel gpt",
+      "description": "Create a new GPT label (DESTROYS the existing table)."
+    },
+    {
+      "flag": "mkpart NAME FS START END",
+      "description": "Create a partition, e.g. mkpart primary ext4 1MiB 100%."
+    },
+    {
+      "flag": "resizepart N END",
+      "description": "Resize partition N to a new end position (online-capable)."
+    },
+    {
+      "flag": "rm N",
+      "description": "Delete partition N."
+    },
+    {
+      "flag": "-s",
+      "description": "-script: never prompt — for automation."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo parted /dev/sdb print",
+      "output": "\nModel: ATA Samsung SSD 860\nDisk /dev/sdb: 500GB\nPartition Table: gpt\nNumber  Start  End    Size   File system  Name\n 1      1049kB 500GB  500GB  ext4         data\n",
+      "explanation": "Shows the disk model, table type (gpt), and partitions with exact byte positions."
+    },
+    {
+      "command": "sudo parted -s /dev/sdb mklabel gpt mkpart data ext4 1MiB 100%",
+      "output": null,
+      "explanation": "Scripted setup: new GPT label plus one ext4-typed partition spanning the disk. The -s flag prevents prompts."
+    },
+    {
+      "command": "sudo parted /dev/sda resizepart 2 100%",
+      "output": null,
+      "explanation": "Grows partition 2 to fill the disk — typically followed by growpart, then resize2fs (ext4) or xfs_growfs (xfs) on the filesystem."
+    }
+  ],
+  "related": [
+    "fdisk",
+    "mkfs",
+    "lsblk"
+  ],
+  "tags": [
+    "partition",
+    "gpt",
+    "resize",
+    "script",
+    "storage"
+  ],
+  "docs": "https://www.gnu.org/software/parted/manual/parted.html",
+  "about": [
+    "parted positions are exact: units like MiB/GiB avoid rounding surprises (use 1MiB, not 0%, for alignment). Unlike fdisk it applies commands immediately — there is no w confirmation step. resizepart works on mounted partitions when the kernel supports it, making it the tool for growing cloud volumes."
+  ],
+  "useCases": [
+    "Scripted disk provisioning.",
+    "Growing partitions on cloud VMs.",
+    "GPT management."
+  ],
+  "mistakes": [
+    "Forgetting that parted applies changes instantly — no undo.",
+    "Using 0% as start and getting misaligned partitions on some disks."
+  ],
+  "warnings": [
+    "mklabel destroys the partition table immediately. On the wrong disk, that is instant data loss."
+  ]
+}

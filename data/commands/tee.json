@@ -1,0 +1,66 @@
+{
+  "slug": "tee",
+  "name": "tee",
+  "category": "text-processing",
+  "subcategory": "Text streams",
+  "difficulty": "beginner",
+  "description": "Reads standard input and writes it both to standard output and to one or more files — a T-splitter in the pipe.",
+  "syntax": "tee [OPTIONS] FILE...",
+  "flags": [
+    {
+      "flag": "-a",
+      "description": "Append to the files instead of overwriting."
+    },
+    {
+      "flag": "-i",
+      "description": "Ignore interrupt signals."
+    },
+    {
+      "flag": "/dev/tty",
+      "description": "A special useful target: also display on the terminal."
+    }
+  ],
+  "examples": [
+    {
+      "command": "echo \"config=true\" | tee -a app.conf",
+      "output": null,
+      "explanation": "Appends the line to app.conf AND shows it on screen — handy when sudo blocks a plain >> redirect: echo ... | sudo tee -a /etc/file."
+    },
+    {
+      "command": "make 2>&1 | tee build.log",
+      "output": null,
+      "explanation": "Saves the full build output to a file while still watching it live."
+    },
+    {
+      "command": "ls -l | tee listing.txt | wc -l",
+      "output": null,
+      "explanation": "Saves a copy mid-pipeline and continues processing the stream."
+    }
+  ],
+  "related": [
+    "xargs",
+    "cat",
+    "sudo"
+  ],
+  "tags": [
+    "pipe",
+    "split",
+    "log",
+    "redirect"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/tee-invocation.html",
+  "about": [
+    "tee exists to solve a pipe limitation: a normal redirect (>) consumes the stream and ends the pipeline. tee copies it, letting you save and process simultaneously. The sudo tee pattern is essential for writing to root-owned files: command | sudo tee /etc/file > /dev/null."
+  ],
+  "useCases": [
+    "Log pipeline output while watching it.",
+    "Write to protected files with sudo without losing the pipe.",
+    "Branch a stream to multiple files."
+  ],
+  "mistakes": [
+    "Forgetting -a and overwriting the target file on every run."
+  ],
+  "warnings": [
+    "tee without -a truncates its target file immediately, even if no data arrives."
+  ]
+}

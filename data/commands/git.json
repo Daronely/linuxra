@@ -1,0 +1,105 @@
+{
+  "slug": "git",
+  "name": "git",
+  "category": "dev-tools",
+  "subcategory": "Git",
+  "difficulty": "beginner",
+  "description": "The distributed version control system: tracks changes, branches, merges, and synchronizes work across machines and teams.",
+  "syntax": "git [COMMAND] [OPTIONS]",
+  "flags": [
+    {
+      "flag": "init",
+      "description": "Start tracking a new project."
+    },
+    {
+      "flag": "clone URL",
+      "description": "Copy a remote repository locally."
+    },
+    {
+      "flag": "status",
+      "description": "What changed, what is staged."
+    },
+    {
+      "flag": "add FILE",
+      "description": "Stage changes for the next commit."
+    },
+    {
+      "flag": "commit -m \"msg\"",
+      "description": "Record staged changes."
+    },
+    {
+      "flag": "push / pull",
+      "description": "Send to / fetch from the remote."
+    },
+    {
+      "flag": "branch / checkout / switch",
+      "description": "Create and change branches."
+    },
+    {
+      "flag": "log --oneline",
+      "description": "Compact history view."
+    },
+    {
+      "flag": "diff",
+      "description": "Show unstaged changes."
+    }
+  ],
+  "examples": [
+    {
+      "command": "git init && git add . && git commit -m \"initial commit\"",
+      "output": null,
+      "explanation": "Starts version control on a project: initialize, stage everything, record."
+    },
+    {
+      "command": "git clone https://github.com/user/repo.git",
+      "output": null,
+      "explanation": "Downloads a repository with its full history."
+    },
+    {
+      "command": "git status",
+      "output": null,
+      "explanation": "The command to run constantly: shows modified files, staged files, and current branch."
+    },
+    {
+      "command": "git switch -c feature/login",
+      "output": null,
+      "explanation": "Creates and switches to a new branch for isolated work."
+    },
+    {
+      "command": "git log --oneline -5",
+      "output": "\na1b2c3d add search feature\ne4f5g6h fix sidebar overlap\n",
+      "explanation": "Compact history: hash, message."
+    },
+    {
+      "command": "git push origin main",
+      "output": null,
+      "explanation": "Uploads your commits to the remote."
+    }
+  ],
+  "related": [
+    "gcc",
+    "make"
+  ],
+  "tags": [
+    "git",
+    "version control",
+    "collaboration",
+    "development"
+  ],
+  "docs": "https://git-scm.com/doc",
+  "about": [
+    "Git records snapshots, not diffs: each commit is a full tree referenced by a hash. The staging area (index) lets you compose commits deliberately. Branches are just movable pointers — creating them is instant, which is why feature-branch workflows dominate."
+  ],
+  "useCases": [
+    "Version control for any text project.",
+    "Team collaboration via remotes.",
+    "Deploy workflows and CI triggers."
+  ],
+  "mistakes": [
+    "Committing secrets (.env, keys) — they stay in history even after deletion; rewrite history or rotate the secret.",
+    "git push --force on shared branches, erasing teammates' work."
+  ],
+  "warnings": [
+    "Everything committed is effectively permanent. Review git status and git diff before every commit."
+  ]
+}

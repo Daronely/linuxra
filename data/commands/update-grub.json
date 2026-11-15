@@ -1,0 +1,54 @@
+{
+  "slug": "update-grub",
+  "name": "update-grub",
+  "category": "linux-administration",
+  "subcategory": "Boot process",
+  "difficulty": "intermediate",
+  "description": "Debian/Ubuntu wrapper that regenerates the GRUB boot menu configuration from /etc/default/grub and detected kernels.",
+  "syntax": "update-grub",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "Scans kernels, rebuilds /boot/grub/grub.cfg."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo nano /etc/default/grub && sudo update-grub",
+      "output": null,
+      "explanation": "The workflow: edit GRUB settings (timeout, default entry, kernel parameters via GRUB_CMDLINE_LINUX), then regenerate."
+    },
+    {
+      "command": "sudo update-grub",
+      "output": "\nFound linux image: /boot/vmlinuz-6.8.0-45-generic\nFound linux image: /boot/vmlinuz-6.5.0-14-generic\n",
+      "explanation": "Confirms which kernels the boot menu will offer."
+    }
+  ],
+  "related": [
+    "uname",
+    "systemctl"
+  ],
+  "tags": [
+    "grub",
+    "boot",
+    "kernel",
+    "menu"
+  ],
+  "docs": "https://www.gnu.org/software/grub/manual/",
+  "about": [
+    "grub.cfg is generated — never edit it directly; edits vanish on the next update. The source of truth is /etc/default/grub (settings) and /etc/grub.d/ (scripts). On RHEL-family the equivalent is grub2-mkconfig -o /boot/grub2/grub.cfg."
+  ],
+  "useCases": [
+    "Change boot timeout or default kernel.",
+    "Add kernel parameters (quiet splash, nomodeset).",
+    "Refresh the menu after installing a custom kernel."
+  ],
+  "mistakes": [
+    "Editing /boot/grub/grub.cfg directly and losing changes.",
+    "Forgetting to run update-grub after editing /etc/default/grub."
+  ],
+  "warnings": [
+    "A broken GRUB update can make the system unbootable — keep a Live USB handy and verify the output lists your kernel."
+  ],
+  "distroNotes": "Debian/Ubuntu-family convenience script. Other distros call grub2-mkconfig or grub-mkconfig directly."
+}

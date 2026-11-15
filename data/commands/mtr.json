@@ -1,0 +1,70 @@
+{
+  "slug": "mtr",
+  "name": "mtr",
+  "category": "networking",
+  "subcategory": "Connectivity testing",
+  "difficulty": "intermediate",
+  "description": "Combines ping and traceroute in a live view: continuous statistics per hop — loss percentage and latency trends on the path to a host.",
+  "syntax": "mtr [OPTIONS] HOST",
+  "flags": [
+    {
+      "flag": "(interactive)",
+      "description": "Live updating view. Press q to quit."
+    },
+    {
+      "flag": "-r",
+      "description": "Report mode: run a fixed number of cycles and print a summary (best for sharing)."
+    },
+    {
+      "flag": "-c N",
+      "description": "Number of cycles in report mode (default 10)."
+    },
+    {
+      "flag": "-n",
+      "description": "Numeric output, no DNS lookups."
+    },
+    {
+      "flag": "-w",
+      "description": "Wide report format."
+    },
+    {
+      "flag": "-z",
+      "description": "Show AS numbers (autonomous systems) per hop."
+    }
+  ],
+  "examples": [
+    {
+      "command": "mtr -rw -c 20 example.com",
+      "output": "\nHOST: myserver        Loss%  Avg  Best  Wrst\n 1. 192.168.1.1        0.0%  1.1   0.9   2.3\n 2. 10.50.0.1          0.0%  9.8   9.1  11.2\n 3. 72.14.196.1        0.0% 12.4  11.8  14.0\n 4. 142.250.74.142     0.0% 13.1  12.6  15.9\n",
+      "explanation": "A shareable report: 20 probes per hop with loss and latency statistics. Loss appearing at one hop and staying through the rest indicates a real problem there."
+    },
+    {
+      "command": "mtr -n -z -w example.com",
+      "output": null,
+      "explanation": "Wide report with AS numbers, useful for identifying which network operator owns a problem hop."
+    }
+  ],
+  "related": [
+    "traceroute",
+    "ping"
+  ],
+  "tags": [
+    "route",
+    "loss",
+    "latency",
+    "diagnose",
+    "combined"
+  ],
+  "docs": "https://www.bitwizard.nl/mtr/",
+  "about": [
+    "mtr runs traceroute continuously and aggregates results, distinguishing transient single-hop loss (often just ICMP rate limiting) from sustained loss that propagates to the destination (a real fault). It needs root for raw sockets unless installed setuid or run in UDP mode."
+  ],
+  "useCases": [
+    "Proving network problems to an ISP with hard data.",
+    "Diagnosing intermittent latency and loss.",
+    "Monitoring route quality over time."
+  ],
+  "mistakes": [
+    "Reading single-hop loss as a fault — check whether the loss persists to subsequent hops."
+  ]
+}

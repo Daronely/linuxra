@@ -1,0 +1,83 @@
+{
+  "slug": "passwd",
+  "name": "passwd",
+  "category": "users-groups",
+  "subcategory": "Password management",
+  "difficulty": "beginner",
+  "description": "Changes user passwords and password policies (expiry, lock state).",
+  "syntax": "passwd [OPTIONS] [USERNAME]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Change your own password (prompts for the current one)."
+    },
+    {
+      "flag": "USERNAME",
+      "description": "As root: change another user's password without knowing the old one."
+    },
+    {
+      "flag": "-l / -u",
+      "description": "Lock / unlock a password (same effect as usermod -L/-U)."
+    },
+    {
+      "flag": "-S",
+      "description": "Show password status: set, locked, or empty."
+    },
+    {
+      "flag": "-e",
+      "description": "Force the password to expire at next login."
+    },
+    {
+      "flag": "-d",
+      "description": "Delete the password (passwordless login — dangerous)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "passwd",
+      "output": "\nChanging password for user.\nCurrent password: \nNew password: \n",
+      "explanation": "Changes your own password. Weak passwords are rejected if they are too short, dictionary-based, or similar to the old one (PAM policy)."
+    },
+    {
+      "command": "sudo passwd alice",
+      "output": "\nNew password: \n",
+      "explanation": "As root, resets alice's password without knowing the previous one — the standard \"forgot password\" recovery."
+    },
+    {
+      "command": "sudo passwd -S alice",
+      "output": "\nalice P 01/12/2025 0 99999 7 -1\n",
+      "explanation": "Status: P = password set, L = locked, NP = no password."
+    },
+    {
+      "command": "sudo passwd -e alice",
+      "output": null,
+      "explanation": "Forces alice to choose a new password at her next login — standard practice for initial accounts."
+    }
+  ],
+  "related": [
+    "usermod",
+    "su",
+    "sudo"
+  ],
+  "tags": [
+    "password",
+    "users",
+    "security",
+    "account"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+  "about": [
+    "passwd writes the (hashed) password to /etc/shadow, which only root can read. Password quality is enforced by PAM modules (pam_pwquality on most modern distros). Hashing defaults to yescrypt on Debian 11+/Ubuntu 22+ and SHA-512 elsewhere."
+  ],
+  "useCases": [
+    "Change your own password.",
+    "Reset a forgotten user password as admin.",
+    "Lock accounts quickly with -l."
+  ],
+  "mistakes": [
+    "Typing the password on the command line (e.g. echo pass | passwd) — it leaks into shell history; always use the interactive prompt."
+  ],
+  "warnings": [
+    "passwd -d removes the password entirely, allowing passwordless login on some configurations. Never use it on real accounts."
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "slug": "cut",
+  "name": "cut",
+  "category": "text-processing",
+  "subcategory": "Extracting text",
+  "difficulty": "beginner",
+  "description": "Cuts out selected fields or character ranges from each line of input.",
+  "syntax": "cut [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-d DELIM",
+      "description": "Field delimiter (default is TAB)."
+    },
+    {
+      "flag": "-f LIST",
+      "description": "Select fields, e.g. -f1, -f1,3, or -f2-4."
+    },
+    {
+      "flag": "-c LIST",
+      "description": "Select character positions, e.g. -c1-10."
+    },
+    {
+      "flag": "--complement",
+      "description": "Invert the selection (all fields except the listed ones)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "cut -d: -f1 /etc/passwd",
+      "output": "\nroot\ndaemon\nuser\n",
+      "explanation": "Prints the username (first colon-separated field) of every account."
+    },
+    {
+      "command": "cut -d, -f2,4 data.csv",
+      "output": null,
+      "explanation": "Extracts the 2nd and 4th comma-separated columns."
+    },
+    {
+      "command": "echo \"abcdefgh\" | cut -c1-3",
+      "output": "\nabc\n",
+      "explanation": "Prints characters 1 through 3 of each line."
+    }
+  ],
+  "related": [
+    "awk",
+    "sed",
+    "tr"
+  ],
+  "tags": [
+    "columns",
+    "extract",
+    "fields",
+    "slice"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/cut-invocation.html",
+  "about": [
+    "cut is a simple, fast slicer. Its main limitation: consecutive delimiters are each treated as a separator, so cut struggles with whitespace-aligned output (use awk for that) and cannot re-order or repeat columns."
+  ],
+  "useCases": [
+    "Pull a single column from delimited data.",
+    "Extract fixed-width regions.",
+    "Shorten git hashes: git log --pretty=format:%h | cut -c1-7."
+  ],
+  "mistakes": [
+    "Using -d' ' with cut on space-aligned columns — consecutive spaces create empty fields; awk handles this correctly."
+  ]
+}

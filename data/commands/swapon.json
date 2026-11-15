@@ -1,0 +1,80 @@
+{
+  "slug": "swapon",
+  "name": "swapon",
+  "category": "disk-storage",
+  "subcategory": "Swap",
+  "difficulty": "intermediate",
+  "description": "Enables swap space — a file or partition the kernel uses as overflow RAM.",
+  "syntax": "swapon [OPTIONS] [DEVICE|FILE]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Show active swap devices."
+    },
+    {
+      "flag": "DEVICE",
+      "description": "Enable a swap partition, e.g. swapon /dev/sda3."
+    },
+    {
+      "flag": "-s",
+      "description": "Summary of swap usage (deprecated; prefer /proc/swaps or swapon --show)."
+    },
+    {
+      "flag": "--show",
+      "description": "Modern summary output."
+    },
+    {
+      "flag": "-p N",
+      "description": "Priority (higher = used first)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile",
+      "output": null,
+      "explanation": "Creates a 2 GB swap file with safe permissions."
+    },
+    {
+      "command": "sudo mkswap /swapfile && sudo swapon /swapfile",
+      "output": null,
+      "explanation": "Formats the file as swap and enables it immediately."
+    },
+    {
+      "command": "echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab",
+      "output": null,
+      "explanation": "Makes the swap permanent across reboots."
+    },
+    {
+      "command": "swapon --show",
+      "output": "\nNAME      TYPE  SIZE USED PRIO\n/swapfile file    2G   0B   -2\n",
+      "explanation": "Confirms the swap is active and shows usage."
+    }
+  ],
+  "related": [
+    "free",
+    "sysctl",
+    "top"
+  ],
+  "tags": [
+    "swap",
+    "memory",
+    "virtual",
+    "storage"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/swapon.8.html",
+  "about": [
+    "Swap extends RAM to disk: the kernel pages out cold memory when RAM runs low. Partition swap is slightly faster; file swap is flexible and resizable. The swappiness sysctl (vm.swappiness, default 60) controls how eagerly the kernel swaps — lower values favor RAM. On systems with hibernation, swap must be at least as large as RAM."
+  ],
+  "useCases": [
+    "Add swap to small VPS instances.",
+    "Increase swap before heavy workloads.",
+    "Fix \"out of memory\" kills (OOM) with breathing room."
+  ],
+  "mistakes": [
+    "Forgetting mkswap before swapon on a new file.",
+    "Creating swap on btrfs without the NODATACOW/ chattr +C handling — it corrupts or fails."
+  ],
+  "warnings": [
+    "Swap on slow disk turns memory pressure into extreme slowness; monitor with free and vmstat."
+  ]
+}

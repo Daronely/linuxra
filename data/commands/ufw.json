@@ -1,0 +1,95 @@
+{
+  "slug": "ufw",
+  "name": "ufw",
+  "category": "security-firewall",
+  "subcategory": "Firewall management",
+  "difficulty": "beginner",
+  "description": "Uncomplicated Firewall: a friendly front end to nftables/iptables for managing Linux firewall rules.",
+  "syntax": "ufw [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "enable / disable",
+      "description": "Activate / deactivate the firewall (persists across reboots)."
+    },
+    {
+      "flag": "status verbose",
+      "description": "Rules and default policies in readable form."
+    },
+    {
+      "flag": "allow PORT[/tcp|udp]",
+      "description": "Permit a port, e.g. allow 22/tcp or allow 80,443/tcp."
+    },
+    {
+      "flag": "deny PORT",
+      "description": "Block a port."
+    },
+    {
+      "flag": "delete allow 22/tcp",
+      "description": "Remove a rule."
+    },
+    {
+      "flag": "default deny incoming",
+      "description": "Set the default policy (deny incoming is the safe baseline)."
+    },
+    {
+      "flag": "limit 22/tcp",
+      "description": "Allow but rate-limit (blocks brute force)."
+    },
+    {
+      "flag": "reset",
+      "description": "Remove all rules (asks for confirmation)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo ufw allow OpenSSH && sudo ufw enable",
+      "output": null,
+      "explanation": "THE safe activation sequence: allow SSH FIRST, then enable — otherwise enabling ufw on a remote server cuts your connection."
+    },
+    {
+      "command": "sudo ufw status verbose",
+      "output": "\nStatus: active\nDefault: deny (incoming), allow (outgoing)\nTo         Action      From\n22/tcp     LIMIT IN    Anywhere\n80,443/tcp ALLOW IN    Anywhere\n",
+      "explanation": "Deny-by-default with explicit exceptions: SSH (rate-limited) and web ports. This is the shape of a healthy server firewall."
+    },
+    {
+      "command": "sudo ufw allow from 10.0.0.0/24 to any port 5432",
+      "output": null,
+      "explanation": "Allows PostgreSQL access ONLY from the internal network — never from the whole internet."
+    },
+    {
+      "command": "sudo ufw delete allow 8080/tcp",
+      "output": null,
+      "explanation": "Removes a rule that is no longer needed."
+    }
+  ],
+  "related": [
+    "firewall-cmd",
+    "iptables",
+    "nmap",
+    "ss"
+  ],
+  "tags": [
+    "firewall",
+    "security",
+    "ports",
+    "network",
+    "ufw"
+  ],
+  "docs": "https://manpages.ubuntu.com/manpages/noble/en/man8/ufw.8.html",
+  "about": [
+    "ufw translates simple rules into nftables (older: iptables). Default policies matter most: deny incoming, allow outgoing is the standard starting point. Rules are evaluated top-down; the first match wins, so ordering matters. ufw persists its state across reboots automatically once enabled."
+  ],
+  "useCases": [
+    "Server firewall setup in minutes.",
+    "Rate-limiting SSH brute force.",
+    "Restricting database/service ports to internal networks."
+  ],
+  "mistakes": [
+    "Enabling ufw before allowing SSH — you lock yourself out of a remote server.",
+    "Assuming ufw is active by default — it is inactive until enabled."
+  ],
+  "warnings": [
+    "On cloud providers (AWS/GCP/Azure), security groups filter traffic BEFORE ufw; both layers must allow the port."
+  ],
+  "distroNotes": "Preinstalled on Ubuntu; available in most distro repositories. RHEL-family commonly uses firewalld (firewall-cmd) instead."
+}

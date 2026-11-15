@@ -1,0 +1,12 @@
+{
+  "commands": 147,
+  "categories": 20,
+  "subcategories": 99,
+  "examples": 524,
+  "flags": 748,
+  "difficulty": {
+    "beginner": 85,
+    "intermediate": 44,
+    "advanced": 18
+  }
+}

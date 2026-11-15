@@ -1,0 +1,80 @@
+/* ==========================================================================
+   LINUXORA — responsive rules. Desktop-first base, refined per breakpoint.
+   ========================================================================== */
+
+/* ---- laptop: ≤ 1280px ---- */
+@media (max-width: 1280px) {
+  :root { --sidebar-w: 250px; }
+  .main { padding: var(--sp-5) var(--sp-5) var(--sp-7); }
+}
+
+/* ---- small laptop / large tablet: ≤ 1024px ---- */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; z-index: 80;
+    height: 100vh; width: min(320px, 88vw);
+    background: var(--bg-raised);
+    transform: translateX(-100%); transition: transform 260ms cubic-bezier(0.2, 0.7, 0.3, 1);
+    box-shadow: var(--shadow-lg); padding-top: var(--sp-4);
+  }
+  .sidebar.drawer-open { transform: translateX(0); }
+  .sidebar-close { display: inline-grid; }
+  .mobile-only { display: inline-flex; }
+  .topbar-logo { display: inline-flex; }
+  .search-trigger-label, .search-trigger kbd { display: none; }
+  .search-trigger { padding: 8px 10px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .pn-nav { grid-template-columns: 1fr; }
+  .pn-next { text-align: left; align-items: flex-start; }
+  .daily-card { flex-direction: column; align-items: flex-start; }
+  .daily-side { flex-direction: row; align-items: center; }
+}
+
+/* ---- tablet: ≤ 768px ---- */
+@media (max-width: 768px) {
+  :root { --sp-8: 3rem; }
+  .topbar { padding: 0 var(--sp-4); }
+  .main { padding: var(--sp-4) var(--sp-4) var(--sp-7); }
+  .hero { padding-top: var(--sp-4); }
+  .hero-sub { font-size: var(--fs-md); }
+  .hero-actions .btn { flex: 1; justify-content: center; min-width: 140px; }
+  .cmd-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+  .cat-grid { grid-template-columns: 1fr; }
+  .concept-grid { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr 1fr; }
+  .path-grid { grid-template-columns: 1fr; }
+  .perm-result { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .search-overlay { padding-top: 6vh; }
+}
+
+/* ---- phone: ≤ 560px ---- */
+@media (max-width: 560px) {
+  body { font-size: 0.95rem; }
+  .cmd-grid { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
+  .tool-panel { padding: var(--sp-4); }
+  .perm-grid { grid-template-columns: 1fr; }
+  .cron-fields { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; }
+  .hero-search { padding: 11px 14px; }
+  .hero-search kbd { display: none; }
+  .search-trigger { margin-left: auto; }
+  .code-block pre { font-size: var(--fs-xs); }
+  .term-body { font-size: var(--fs-xs); }
+  .category-hero-head { flex-direction: column; gap: var(--sp-3); }
+  .daily-card { padding: var(--sp-4); }
+  .cat-num-big { width: 52px; height: 52px; font-size: var(--fs-lg); }
+}
+
+/* ---- print: documentation-friendly ---- */
+@media print {
+  .topbar, .sidebar, .toc, .site-footer, .search-overlay,
+  .copy-btn, .term-input-row, .hero-actions, .btn { display: none !important; }
+  .layout { grid-template-columns: 1fr; }
+  body { background: #fff; color: #111; }
+  .code-block { border: 1px solid #ccc; background: #f7f7f9; }
+  .code-block pre { color: #111; }
+}

@@ -1,0 +1,80 @@
+{
+  "slug": "modprobe",
+  "name": "modprobe",
+  "category": "linux-administration",
+  "subcategory": "Kernel modules",
+  "difficulty": "advanced",
+  "description": "Loads or removes kernel modules (drivers, filesystems) with automatic dependency resolution.",
+  "syntax": "modprobe [OPTIONS] MODULE",
+  "flags": [
+    {
+      "flag": "MODULE",
+      "description": "Load the module and its dependencies."
+    },
+    {
+      "flag": "-r MODULE",
+      "description": "Remove the module (if not in use)."
+    },
+    {
+      "flag": "-v",
+      "description": "Verbose."
+    },
+    {
+      "flag": "-c",
+      "description": "Show the configuration (blacklists, aliases)."
+    },
+    {
+      "flag": "MODULE param=value",
+      "description": "Load with parameters, e.g. modprobe snd_hda_intel model=generic."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo modprobe vboxdrv",
+      "output": null,
+      "explanation": "Loads the VirtualBox kernel driver on demand."
+    },
+    {
+      "command": "sudo modprobe -r usb_storage",
+      "output": null,
+      "explanation": "Unloads the USB storage driver (e.g. before a forensic image)."
+    },
+    {
+      "command": "lsmod | grep nvidia",
+      "output": "\nnvidia_uvm      1236992  0\nnvidia         56545280  12 nvidia_uvm\n",
+      "explanation": "Verifies the module loaded and shows its dependents."
+    },
+    {
+      "command": "echo \"blacklist nouveau\" | sudo tee /etc/modprobe.d/nouveau.conf",
+      "output": null,
+      "explanation": "Prevents a module from loading at boot — the standard way to keep the nouveau driver away from NVIDIA systems."
+    }
+  ],
+  "related": [
+    "lsmod",
+    "sysctl",
+    "uname"
+  ],
+  "tags": [
+    "kernel",
+    "modules",
+    "drivers",
+    "admin"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+  "about": [
+    "Modules live in /lib/modules/$(uname -r)/. modprobe reads /etc/modprobe.d/ for options and blacklists and resolves dependencies automatically — unlike the raw insmod/rmmod, which require exact paths and ignore dependencies. Loaded modules appear in lsmod."
+  ],
+  "useCases": [
+    "Load hardware drivers on demand.",
+    "Blacklist problematic drivers.",
+    "Tune module parameters."
+  ],
+  "mistakes": [
+    "Using insmod directly and failing on dependencies — modprobe handles them.",
+    "Expecting modprobe to persist across reboots — persistent loading needs /etc/modules-load.d/ entries."
+  ],
+  "warnings": [
+    "Removing a module in use (check lsmod's Used by column) can destabilize the system; the kernel refuses when the count is nonzero."
+  ]
+}

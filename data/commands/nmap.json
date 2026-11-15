@@ -1,0 +1,89 @@
+{
+  "slug": "nmap",
+  "name": "nmap",
+  "category": "networking",
+  "subcategory": "Port inspection",
+  "difficulty": "advanced",
+  "description": "A network discovery and security scanning tool: finds live hosts, open ports, running services, and operating system fingerprints.",
+  "syntax": "nmap [OPTIONS] TARGET",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "TCP connect scan of 1000 common ports on the target."
+    },
+    {
+      "flag": "-p-",
+      "description": "-p PORTS: all 65535 ports / specific ports or ranges."
+    },
+    {
+      "flag": "-sV",
+      "description": "Probe open ports to determine service versions."
+    },
+    {
+      "flag": "-sS",
+      "description": "SYN \"half-open\" scan (stealthier, needs root)."
+    },
+    {
+      "flag": "-sn",
+      "description": "Ping sweep only: find live hosts without port scanning."
+    },
+    {
+      "flag": "-O",
+      "description": "OS detection (needs root)."
+    },
+    {
+      "flag": "-A",
+      "description": "Aggressive: versions, OS, scripts, traceroute."
+    },
+    {
+      "flag": "--script=NAME",
+      "description": "Run NSE scripts, e.g. --script=vuln."
+    }
+  ],
+  "examples": [
+    {
+      "command": "nmap 192.168.1.0/24 -sn",
+      "output": null,
+      "explanation": "Discovers which devices are alive on the local network without port scanning them."
+    },
+    {
+      "command": "nmap -sV -p 22,80,443 server.local",
+      "output": "\nPORT   STATE SERVICE VERSION\n22/tcp open  ssh     OpenSSH 8.9p1\n80/tcp open  http    nginx 1.24.0\n",
+      "explanation": "Scans three ports and fingerprints the exact software versions behind them."
+    },
+    {
+      "command": "nmap -p- --min-rate 5000 10.0.0.5",
+      "output": null,
+      "explanation": "Scans all 65535 ports quickly — use this when a service hides on a non-standard port."
+    }
+  ],
+  "related": [
+    "ss",
+    "nc",
+    "ufw"
+  ],
+  "tags": [
+    "scan",
+    "security",
+    "ports",
+    "discovery",
+    "audit"
+  ],
+  "docs": "https://nmap.org/book/man.html",
+  "about": [
+    "nmap is the industry-standard scanner for authorized security assessment and network inventory. Its NSE scripting engine (hundreds of scripts) can enumerate services, check for vulnerabilities, and gather banners. Scanning hosts you do not own or lack permission for may be illegal and will trip intrusion detection systems."
+  ],
+  "useCases": [
+    "Inventory your own network.",
+    "Verify firewall rules do what you think.",
+    "Security assessment of systems you are authorized to test."
+  ],
+  "mistakes": [
+    "Scanning networks without written authorization.",
+    "Believing \"filtered\" means closed — filtered means a firewall dropped the probe; the port may still be open."
+  ],
+  "warnings": [
+    "Only scan systems you own or have explicit permission to test. Port scanning is treated as hostile activity on most networks."
+  ],
+  "distroNotes": "Install via package manager (nmap package). Windows builds exist; some features (raw packet scans) are Linux/macOS best."
+}

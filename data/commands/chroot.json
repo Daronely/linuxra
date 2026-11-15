@@ -1,0 +1,57 @@
+{
+  "slug": "chroot",
+  "name": "chroot",
+  "category": "linux-administration",
+  "subcategory": "System configuration",
+  "difficulty": "advanced",
+  "description": "Runs a command with a different directory as its filesystem root — the foundation of recovery environments and containers.",
+  "syntax": "chroot [OPTIONS] NEWROOT [COMMAND]",
+  "flags": [
+    {
+      "flag": "NEWROOT",
+      "description": "The directory that becomes /."
+    },
+    {
+      "flag": "NEWROOT COMMAND",
+      "description": "Run COMMAND inside the new root."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo mount /dev/sda2 /mnt && sudo chroot /mnt",
+      "output": null,
+      "explanation": "THE recovery pattern: boot a Live USB, mount the broken system's root, chroot into it — now update-grub, passwd, and apt operate on the real system."
+    },
+    {
+      "command": "sudo chroot /mnt /bin/bash",
+      "output": null,
+      "explanation": "Explicitly specifies the shell to run inside the new root."
+    }
+  ],
+  "related": [
+    "mount",
+    "unshare"
+  ],
+  "tags": [
+    "chroot",
+    "recovery",
+    "root",
+    "isolation",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man2/chroot.2.html",
+  "about": [
+    "chroot changes only the filesystem root view — it does NOT isolate processes, network, or users (that requires namespaces/containers). The new root must contain everything the command needs: libraries (/lib), devices (/dev via bind mount), and proc (/proc). A typical rescue sequence bind-mounts /dev, /proc, and /sys first."
+  ],
+  "useCases": [
+    "Repair unbootable systems from a Live USB.",
+    "Build minimal application environments (the ancestor of containers)."
+  ],
+  "mistakes": [
+    "Chrooting without mounting /proc, /dev, /sys — tools inside fail mysteriously.",
+    "Forgetting to copy resolv.conf, so DNS fails inside."
+  ],
+  "warnings": [
+    "chroot is NOT a security boundary. Processes inside can still access the network and, as root, escape via file descriptors. Use real containers/namespaces for isolation."
+  ]
+}

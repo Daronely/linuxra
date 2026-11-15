@@ -1,0 +1,80 @@
+{
+  "slug": "du",
+  "name": "du",
+  "category": "file-directory",
+  "subcategory": "Disk usage",
+  "difficulty": "beginner",
+  "description": "Estimates disk space used by files and directories.",
+  "syntax": "du [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-h",
+      "description": "Human-readable sizes (K, M, G)."
+    },
+    {
+      "flag": "-s",
+      "description": "Summary: total for each argument only, not per subdirectory."
+    },
+    {
+      "flag": "-a",
+      "description": "Include individual files, not just directories."
+    },
+    {
+      "flag": "--max-depth=N",
+      "description": "Limit the depth of the per-directory breakdown."
+    },
+    {
+      "flag": "-x",
+      "description": "Stay on one filesystem (skip other mounts)."
+    },
+    {
+      "flag": "--exclude=PATTERN",
+      "description": "Skip files matching a pattern."
+    }
+  ],
+  "examples": [
+    {
+      "command": "du -sh /var/log",
+      "output": "\n2.3G    /var/log\n",
+      "explanation": "Total size of the /var/log directory, human-readable."
+    },
+    {
+      "command": "du -h --max-depth=1 /home/user | sort -rh",
+      "output": "\n4.2G    /home/user/Downloads\n1.1G    /home/user/projects\n380M    /home/user/.cache\n9.4G    /home/user\n",
+      "explanation": "Shows which subfolders consume the most space, sorted largest first — the fastest way to find disk hogs."
+    },
+    {
+      "command": "du -sh * | sort -rh | head -5",
+      "output": null,
+      "explanation": "The five biggest items in the current directory."
+    }
+  ],
+  "related": [
+    "df",
+    "ls",
+    "find"
+  ],
+  "tags": [
+    "disk",
+    "space",
+    "size",
+    "usage",
+    "cleanup"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/du-invocation.html",
+  "about": [
+    "du walks the tree and sums the disk blocks actually used, which can differ from apparent file size due to block allocation, sparse files, and hard links (counted once). Compare with df for whole-filesystem usage."
+  ],
+  "useCases": [
+    "Find what is consuming disk space.",
+    "Estimate directory sizes before copying or backing up.",
+    "Verify cleanup results."
+  ],
+  "mistakes": [
+    "Confusing du (space used by files) with df (free/used space on filesystems).",
+    "Forgetting -s and getting thousands of lines for a large tree."
+  ],
+  "warnings": [
+    "du on / without -x traverses mounted drives and can take a long time; use du -xh --max-depth=1 / to stay on the root filesystem."
+  ]
+}

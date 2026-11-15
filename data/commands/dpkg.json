@@ -1,0 +1,88 @@
+{
+  "slug": "dpkg",
+  "name": "dpkg",
+  "category": "package-management",
+  "subcategory": "Debian and Ubuntu",
+  "difficulty": "intermediate",
+  "description": "The base package manager for .deb files: installs, removes, and inspects individual packages without dependency resolution.",
+  "syntax": "dpkg [OPTIONS] COMMAND",
+  "flags": [
+    {
+      "flag": "-i FILE.deb",
+      "description": "Install a local .deb file (dependencies must already be present)."
+    },
+    {
+      "flag": "-l [PATTERN]",
+      "description": "List installed packages matching a pattern."
+    },
+    {
+      "flag": "-L PKG",
+      "description": "List files installed by a package."
+    },
+    {
+      "flag": "-S FILE",
+      "description": "Which package owns this file? (reverse lookup)."
+    },
+    {
+      "flag": "-r PKG / -P PKG",
+      "description": "Remove / purge a package."
+    },
+    {
+      "flag": "--configure -a",
+      "description": "Configure all pending packages — the standard recovery command."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo dpkg -i ./code_1.96.0_amd64.deb",
+      "output": "\ndpkg: dependency problems prevent configuration...\n",
+      "explanation": "Installs a downloaded .deb. If dependencies are missing, finish the job with sudo apt-get install -f."
+    },
+    {
+      "command": "dpkg -l | grep nginx",
+      "output": "\nii  nginx  1.24.0-2ubuntu7  amd64  high performance web server\n",
+      "explanation": "ii = installed OK. Other prefixes (rc = removed with config remnants, un = unknown) reveal package states."
+    },
+    {
+      "command": "dpkg -L nginx | head",
+      "output": null,
+      "explanation": "Shows every file the nginx package placed on disk."
+    },
+    {
+      "command": "dpkg -S /usr/bin/curl",
+      "output": "\ncurl: /usr/bin/curl\n",
+      "explanation": "Finds which installed package provides a file."
+    },
+    {
+      "command": "sudo dpkg --configure -a",
+      "output": null,
+      "explanation": "Recovers from an interrupted apt/dpkg transaction — run this if apt complains about unconfigured packages."
+    }
+  ],
+  "related": [
+    "apt",
+    "apt-get",
+    "rpm"
+  ],
+  "tags": [
+    "deb",
+    "packages",
+    "install",
+    "inspect",
+    "debian"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/dpkg.1.html",
+  "about": [
+    "dpkg is the foundation apt sits on. It never downloads from repositories and never resolves dependencies — apt does both by calling dpkg. Direct dpkg -i is for local .deb files, e.g. vendor downloads or debs built locally."
+  ],
+  "useCases": [
+    "Install downloaded .deb files.",
+    "Inspect package contents and ownership.",
+    "Recover a broken package state."
+  ],
+  "mistakes": [
+    "Using dpkg -i for packages available in repositories — apt resolves dependencies, dpkg does not.",
+    "Panicking after a failed dpkg -i: run sudo apt-get install -f to fix dependencies."
+  ],
+  "distroNotes": "Debian-family only."
+}

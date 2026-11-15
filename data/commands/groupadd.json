@@ -1,0 +1,69 @@
+{
+  "slug": "groupadd",
+  "name": "groupadd",
+  "category": "users-groups",
+  "subcategory": "Managing groups",
+  "difficulty": "beginner",
+  "description": "Creates a new group. Groups collect users to simplify permission management.",
+  "syntax": "groupadd [OPTIONS] GROUPNAME",
+  "flags": [
+    {
+      "flag": "-g GID",
+      "description": "Use a specific group ID."
+    },
+    {
+      "flag": "-r",
+      "description": "Create a system group with a GID below 1000."
+    },
+    {
+      "flag": "-f",
+      "description": "Exit successfully if the group already exists."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo groupadd developers",
+      "output": null,
+      "explanation": "Creates the group developers."
+    },
+    {
+      "command": "sudo usermod -aG developers alice",
+      "output": null,
+      "explanation": "Adds alice to the new group (groups only become useful once users join)."
+    },
+    {
+      "command": "sudo chgrp -R developers /srv/project",
+      "output": null,
+      "explanation": "Assigns a directory tree to the group so every member shares access."
+    },
+    {
+      "command": "getent group developers",
+      "output": "\ndevelopers:x:1005:alice,bob\n",
+      "explanation": "Shows the group entry and its members."
+    }
+  ],
+  "related": [
+    "usermod",
+    "chgrp",
+    "id"
+  ],
+  "tags": [
+    "groups",
+    "users",
+    "permissions",
+    "admin"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man8/groupadd.8.html",
+  "about": [
+    "Groups are stored in /etc/group. A user has one primary group (in /etc/passwd) and any number of supplementary groups. New files created by a user inherit their primary group unless the directory has the SGID bit set, which forces inheritance of the directory's group — the key trick for shared folders."
+  ],
+  "useCases": [
+    "Set up shared team directories.",
+    "Model roles (developers, operators, auditors).",
+    "Manage service access groups (docker, wireshark)."
+  ],
+  "mistakes": [
+    "Creating a group but forgetting to add users or set directory group ownership.",
+    "Expecting group changes to apply to running sessions — users must re-login."
+  ]
+}

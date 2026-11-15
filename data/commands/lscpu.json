@@ -1,0 +1,58 @@
+{
+  "slug": "lscpu",
+  "name": "lscpu",
+  "category": "system-info",
+  "subcategory": "CPU information",
+  "difficulty": "beginner",
+  "description": "Displays detailed CPU architecture information: cores, threads, caches, frequencies, and features.",
+  "syntax": "lscpu [OPTIONS]",
+  "flags": [
+    {
+      "flag": "(no args)",
+      "description": "Full CPU report."
+    },
+    {
+      "flag": "-e",
+      "description": "-extended: one line per logical CPU."
+    },
+    {
+      "flag": "-p",
+      "description": "Parseable output for scripts."
+    }
+  ],
+  "examples": [
+    {
+      "command": "lscpu | head -12",
+      "output": "\nArchitecture:            x86_64\nCPU(s):                  8\n  Thread(s) per core:    2\n  Core(s) per socket:    4\nModel name:              Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz\n",
+      "explanation": "8 logical CPUs = 4 physical cores x 2 threads (hyperthreading). The real compute capacity is the core count, not the CPU(s) count."
+    },
+    {
+      "command": "lscpu | grep MHz",
+      "output": null,
+      "explanation": "Current and maximum CPU frequencies — useful to spot throttling."
+    }
+  ],
+  "related": [
+    "top",
+    "free",
+    "dmidecode"
+  ],
+  "tags": [
+    "cpu",
+    "cores",
+    "hardware",
+    "info"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+  "about": [
+    "lscpu collects data from /proc/cpuinfo and sysfs and presents it in a structured way. Key fields: CPU(s) (logical), Core(s) per socket x Socket(s) (physical), NUMA nodes, virtualization support, and CPU flags (look for vmx/svm for nested virtualization, avx2 for SIMD support)."
+  ],
+  "useCases": [
+    "Check core/thread counts for capacity planning.",
+    "Verify CPU features before installing software.",
+    "Compare machines."
+  ],
+  "mistakes": [
+    "Counting CPU(s) as physical cores — divide by Threads per core."
+  ]
+}

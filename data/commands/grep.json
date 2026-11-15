@@ -1,0 +1,113 @@
+{
+  "slug": "grep",
+  "name": "grep",
+  "category": "text-processing",
+  "subcategory": "Searching inside files",
+  "difficulty": "beginner",
+  "description": "Searches input for lines matching a pattern and prints them; the workhorse of text filtering on Linux.",
+  "syntax": "grep [OPTIONS] PATTERN [FILE...]",
+  "flags": [
+    {
+      "flag": "-i",
+      "description": "Ignore case."
+    },
+    {
+      "flag": "-v",
+      "description": "Invert: print lines that do NOT match."
+    },
+    {
+      "flag": "-r",
+      "description": "-R: search directories recursively."
+    },
+    {
+      "flag": "-n",
+      "description": "Prefix matches with line numbers."
+    },
+    {
+      "flag": "-c",
+      "description": "Count matching lines instead of printing them."
+    },
+    {
+      "flag": "-l",
+      "description": "Print only the names of files with matches."
+    },
+    {
+      "flag": "-w",
+      "description": "Match whole words only."
+    },
+    {
+      "flag": "-E",
+      "description": "Extended regex (same as egrep); -F for fixed strings (fastest)."
+    },
+    {
+      "flag": "-A N / -B N / -C N",
+      "description": "Show N lines after / before / around each match."
+    },
+    {
+      "flag": "--color=auto",
+      "description": "Highlight matches in color."
+    }
+  ],
+  "examples": [
+    {
+      "command": "grep \"error\" app.log",
+      "output": "\n[2025-01-12 10:01:22] ERROR: connection refused\n",
+      "explanation": "Prints every line containing \"error\" (case-sensitive)."
+    },
+    {
+      "command": "grep -in \"timeout\" nginx.conf",
+      "output": "\n25:proxy_read_timeout 60;\n88:keepalive_timeout 65;\n",
+      "explanation": "Case-insensitive search with line numbers, so you can jump straight to the lines."
+    },
+    {
+      "command": "grep -rn \"TODO\" src/",
+      "output": "\nsrc/main.js:14: // TODO: validate input\nsrc/utils.js:3: // TODO: add tests\n",
+      "explanation": "Recursive search through a source tree showing file and line for each match."
+    },
+    {
+      "command": "ps aux | grep nginx",
+      "output": "\nroot      1024  0.0  0.1  43212  8940 ?  Ss  09:00  0:00 nginx: master process\nwww-data  1025  0.0  0.2  46880 14200 ?  S   09:00  0:02 nginx: worker process\n",
+      "explanation": "Filters process output. Note the grep process itself often appears; use pgrep to avoid that."
+    },
+    {
+      "command": "grep -c \"GET \" access.log",
+      "output": "\n48211\n",
+      "explanation": "Counts matching lines — here, the number of GET requests."
+    },
+    {
+      "command": "grep -A 3 \"Traceback\" app.log",
+      "output": null,
+      "explanation": "Shows each Traceback line plus the 3 lines after it, capturing the error details."
+    }
+  ],
+  "related": [
+    "sed",
+    "awk",
+    "find",
+    "pgrep"
+  ],
+  "tags": [
+    "search",
+    "filter",
+    "regex",
+    "text",
+    "log"
+  ],
+  "docs": "https://www.gnu.org/software/grep/manual/",
+  "about": [
+    "grep interprets patterns as basic regular expressions by default: . any char, * repetition, ^/$ anchors, [abc] character classes. Use -E for +, ?, |, and groups without backslashes, or -P for Perl-compatible regex where supported. -F treats the pattern as a literal string and is the fastest option for fixed text."
+  ],
+  "useCases": [
+    "Find text in files and command output.",
+    "Filter logs for errors and warnings.",
+    "Count occurrences and locate files containing a term."
+  ],
+  "mistakes": [
+    "Patterns with spaces or special characters left unquoted: grep error: connection fails; use grep \"error: connection\".",
+    "Forgetting that grep matches substrings: grep \"cat\" also matches \"category\"; use -w for whole words."
+  ],
+  "warnings": [
+    "grep on /dev, /proc, or binary files can produce \"Binary file matches\" noise or hang; use -a to force text or --exclude-dir to skip directories."
+  ],
+  "distroNotes": "GNU grep supports -P (PCRE) and --include/--exclude patterns. BSD grep historically lacks -P; ripgrep and ag are popular faster alternatives but are third-party tools."
+}

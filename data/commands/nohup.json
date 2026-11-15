@@ -1,0 +1,62 @@
+{
+  "slug": "nohup",
+  "name": "nohup",
+  "category": "processes",
+  "subcategory": "Background processes",
+  "difficulty": "beginner",
+  "description": "Runs a command immune to hangups (SIGHUP), so it keeps running after the terminal or SSH session closes; output goes to nohup.out by default.",
+  "syntax": "nohup COMMAND [ARGS...]",
+  "flags": [
+    {
+      "flag": "COMMAND &",
+      "description": "nohup plus & keeps the process running in the background after logout."
+    },
+    {
+      "flag": "-p PID",
+      "description": "Apply nohup-like immunity to a running process (GNU coreutils 28+)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "nohup ./backup.sh &",
+      "output": "\nnohup: ignoring input and appending output to 'nohup.out'\n",
+      "explanation": "Starts the backup in the background; it survives disconnecting from SSH."
+    },
+    {
+      "command": "nohup ./server > server.log 2>&1 &",
+      "output": null,
+      "explanation": "The professional version: redirects both stdout and stderr to a chosen log file instead of nohup.out."
+    },
+    {
+      "command": "disown -h %1",
+      "output": null,
+      "explanation": "Alternative: after starting a job with &, disown -h removes it from the shell's HUP list."
+    }
+  ],
+  "related": [
+    "jobs",
+    "nohup",
+    "ps"
+  ],
+  "tags": [
+    "background",
+    "detach",
+    "logout",
+    "survive"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/nohup-invocation.html",
+  "about": [
+    "When a terminal closes, the kernel sends SIGHUP to its session; nohup makes the child ignore it and redirects stdout to nohup.out if not otherwise directed. For long-running services, prefer systemd units or tmux/screen; nohup is for quick one-off persistence."
+  ],
+  "useCases": [
+    "Keep scripts running after SSH disconnects.",
+    "Start long downloads or migrations before leaving."
+  ],
+  "mistakes": [
+    "Forgetting & and blocking the terminal anyway.",
+    "Losing output in nohup.out — always redirect explicitly."
+  ],
+  "warnings": [
+    "A nohup'd process still holds the terminal's working directory open; cd elsewhere first if you plan to unmount."
+  ]
+}

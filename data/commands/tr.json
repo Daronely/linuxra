@@ -1,0 +1,78 @@
+{
+  "slug": "tr",
+  "name": "tr",
+  "category": "text-processing",
+  "subcategory": "Replacing text",
+  "difficulty": "beginner",
+  "description": "Translates or deletes characters from standard input.",
+  "syntax": "tr [OPTIONS] SET1 [SET2]",
+  "flags": [
+    {
+      "flag": "SET1 SET2",
+      "description": "Replaces characters of SET1 with the corresponding characters of SET2."
+    },
+    {
+      "flag": "-d SET",
+      "description": "Deletes the characters in SET."
+    },
+    {
+      "flag": "-s SET",
+      "description": "Squeezes repeated characters in SET into one."
+    },
+    {
+      "flag": "-c",
+      "description": "Complement: operate on all characters NOT in SET1."
+    }
+  ],
+  "examples": [
+    {
+      "command": "echo \"hello\" | tr a-z A-Z",
+      "output": "\nHELLO\n",
+      "explanation": "Uppercases the text."
+    },
+    {
+      "command": "echo \"a,b;c\" | tr ',;' '..'",
+      "output": "\na.b.c\n",
+      "explanation": "Translates multiple characters one-for-one."
+    },
+    {
+      "command": "tr -d '\\r' < win.txt > unix.txt",
+      "output": null,
+      "explanation": "Removes carriage returns — the standard fix for Windows CRLF line endings."
+    },
+    {
+      "command": "echo \"a   b    c\" | tr -s ' '",
+      "output": "\na b c\n",
+      "explanation": "Squeezes runs of spaces into single spaces."
+    },
+    {
+      "command": "tr -cd '0-9' < mixed.txt",
+      "output": null,
+      "explanation": "Keeps only digits, deleting everything else (-c complement, -d delete)."
+    }
+  ],
+  "related": [
+    "sed",
+    "awk",
+    "cut"
+  ],
+  "tags": [
+    "translate",
+    "characters",
+    "case",
+    "clean"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/tr-invocation.html",
+  "about": [
+    "tr works on characters only — it cannot handle multi-character strings (use sed for that). It always reads stdin and writes stdout; there is no direct file argument. Character classes like [:upper:] and [:digit:] are supported."
+  ],
+  "useCases": [
+    "Change case.",
+    "Clean line endings.",
+    "Normalize whitespace.",
+    "Strip unwanted characters from data."
+  ],
+  "mistakes": [
+    "Trying tr \"old\" \"new\" with multi-character words — tr is strictly character-by-character."
+  ]
+}

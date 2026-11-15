@@ -1,0 +1,49 @@
+{
+  "slug": "whoami",
+  "name": "whoami",
+  "category": "users-groups",
+  "subcategory": "User identity",
+  "difficulty": "beginner",
+  "description": "Prints the effective username of the current process.",
+  "syntax": "whoami",
+  "flags": [
+    {
+      "flag": "(no options)",
+      "description": "Prints the current effective user name."
+    }
+  ],
+  "examples": [
+    {
+      "command": "whoami",
+      "output": "\nuser\n",
+      "explanation": "You are logged in as user."
+    },
+    {
+      "command": "sudo whoami",
+      "output": "\nroot\n",
+      "explanation": "After sudo, the effective user is root — a quick way to verify that sudo works."
+    }
+  ],
+  "related": [
+    "id",
+    "who",
+    "su",
+    "sudo"
+  ],
+  "tags": [
+    "identity",
+    "user",
+    "basic"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/whoami.1.html",
+  "about": [
+    "whoami is equivalent to id -un. It prints the effective UID's name, which is what matters for permission checks — inside a sudo shell it reports root even though your login name is unchanged."
+  ],
+  "useCases": [
+    "Verify which account you are operating as before destructive work.",
+    "Confirm sudo/su switched you to root."
+  ],
+  "mistakes": [
+    "Using whoami to check login identity over the effective identity — use logname or who for the original login."
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "slug": "systemctl",
+  "name": "systemctl",
+  "category": "services-systemd",
+  "subcategory": "Managing services",
+  "difficulty": "beginner",
+  "description": "Controls systemd: services (units), system state, targets, and timers — the central administration tool on modern Linux.",
+  "syntax": "systemctl [OPTIONS] COMMAND [UNIT...]",
+  "flags": [
+    {
+      "flag": "start UNIT / stop UNIT",
+      "description": "Start / stop a service now."
+    },
+    {
+      "flag": "restart UNIT / reload UNIT",
+      "description": "Restart / make a running service re-read its config."
+    },
+    {
+      "flag": "status UNIT",
+      "description": "State, memory, PID, and the last log lines of a service."
+    },
+    {
+      "flag": "enable UNIT / disable UNIT",
+      "description": "Start at boot / no longer start at boot (does not start it now)."
+    },
+    {
+      "flag": "--now",
+      "description": "Combine: enable --now starts the service immediately AND at boot."
+    },
+    {
+      "flag": "list-units --type=service",
+      "description": "All services and their states."
+    },
+    {
+      "flag": "list-unit-files",
+      "description": "All installed unit files with their enable state."
+    },
+    {
+      "flag": "daemon-reload",
+      "description": "Re-read unit files after editing them."
+    },
+    {
+      "flag": "is-active / is-enabled UNIT",
+      "description": "Script-friendly yes/no checks."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sudo systemctl start nginx",
+      "output": null,
+      "explanation": "Starts nginx right now. It does not enable it for future boots."
+    },
+    {
+      "command": "sudo systemctl enable --now nginx",
+      "output": null,
+      "explanation": "The modern idiom: enable at boot AND start immediately in one command."
+    },
+    {
+      "command": "systemctl status nginx",
+      "output": "\n● nginx.service - A high performance web server\n   Active: active (running) since Sat 2025-01-12 08:00:11 UTC; 2h 14min ago\n   Memory: 12.4M\n   CGroup: /system.slice/nginx.service\n",
+      "explanation": "Green \"active (running)\" is healthy; \"failed\" or \"activating (auto-restart)\" needs journalctl -u nginx for details."
+    },
+    {
+      "command": "sudo systemctl restart nginx",
+      "output": null,
+      "explanation": "Full stop+start. Use reload instead when the service supports it — reload re-reads config without dropping connections."
+    },
+    {
+      "command": "systemctl list-units --type=service --state=failed",
+      "output": "\nUNIT            LOAD   ACTIVE SUB    DESCRIPTION\nmariadb.service loaded failed failed MariaDB 10.11 database server\n",
+      "explanation": "Lists all failed services — the first thing to check on a misbehaving server."
+    },
+    {
+      "command": "sudo systemctl daemon-reload",
+      "output": null,
+      "explanation": "Required after editing any .service file, before restarting it."
+    }
+  ],
+  "related": [
+    "journalctl",
+    "service",
+    "timedatectl"
+  ],
+  "tags": [
+    "services",
+    "systemd",
+    "start",
+    "boot",
+    "manage"
+  ],
+  "docs": "https://www.freedesktop.org/software/systemd/man/systemctl.html",
+  "about": [
+    "systemd boots the system and supervises services, sockets, timers, and mounts as \"units\". enable creates symlinks in /etc/systemd/system/multi-user.target.wants/; start runs it now. The two are independent — a service can be enabled but stopped, or running but disabled."
+  ],
+  "useCases": [
+    "Manage every server service.",
+    "Diagnose failed services.",
+    "Control boot behavior of software."
+  ],
+  "mistakes": [
+    "Using enable expecting the service to start now — use enable --now.",
+    "Forgetting daemon-reload after editing unit files."
+  ],
+  "warnings": [
+    "systemctl reboot and systemctl poweroff work too — double-check the hostname before running them on remote servers."
+  ],
+  "distroNotes": "systemd distributions (Debian 8+, Ubuntu, Fedora, RHEL 7+, Arch, openSUSE). Alpine and Void use OpenRC/runit instead."
+}

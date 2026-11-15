@@ -1,0 +1,73 @@
+{
+  "slug": "df",
+  "name": "df",
+  "category": "file-directory",
+  "subcategory": "Disk usage",
+  "difficulty": "beginner",
+  "description": "Reports free and used disk space for mounted filesystems.",
+  "syntax": "df [OPTIONS] [FILE...]",
+  "flags": [
+    {
+      "flag": "-h",
+      "description": "Human-readable sizes."
+    },
+    {
+      "flag": "-T",
+      "description": "Show filesystem type (ext4, xfs, tmpfs...)."
+    },
+    {
+      "flag": "-i",
+      "description": "Show inode usage instead of block usage."
+    },
+    {
+      "flag": "-x TYPE",
+      "description": "Exclude a filesystem type, e.g. -x tmpfs."
+    },
+    {
+      "flag": "--output=FIELDS",
+      "description": "Custom columns (source,fstype,size,used,avail,pcent,target)."
+    }
+  ],
+  "examples": [
+    {
+      "command": "df -h",
+      "output": "\nFilesystem      Size  Used Avail Use% Mounted on\n/dev/sda2        98G   41G   52G  44% /\ntmpfs           7.8G     0  7.8G   0% /dev/shm\n/dev/sdb1       916G  612G  258G  71% /data\n",
+      "explanation": "Shows each mounted filesystem with size, usage, and mount point. The Use% column tells you when a disk is filling up."
+    },
+    {
+      "command": "df -hT /home",
+      "output": "\nFilesystem     Type  Size  Used Avail Use% Mounted on\n/dev/sda3      ext4  197G   88G   99G  48% /home\n",
+      "explanation": "Checks a specific path and reveals its filesystem type."
+    },
+    {
+      "command": "df -i",
+      "output": "\nFilesystem     Inodes  IUsed  IFree IUse% Mounted on\n/dev/sda2      6.1M    412K   5.7M    7% /\n",
+      "explanation": "Inode usage: a filesystem can be \"full\" even with free space if all inodes are consumed by millions of small files."
+    }
+  ],
+  "related": [
+    "du",
+    "mount",
+    "lsblk",
+    "fdisk"
+  ],
+  "tags": [
+    "disk",
+    "space",
+    "filesystem",
+    "monitor"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/df-invocation.html",
+  "about": [
+    "df reads usage from the kernel for each mounted filesystem. tmpfs entries are RAM-based; squashfs and overlay entries appear in containers and Live systems. A 100% full root filesystem causes failed writes, broken updates, and log loss — monitor Use% regularly."
+  ],
+  "useCases": [
+    "Check remaining disk space.",
+    "Verify that a new disk was mounted correctly.",
+    "Diagnose inode exhaustion with df -i."
+  ],
+  "mistakes": [
+    "Panic over a nearly full tmpfs — it is RAM-backed and shrinks automatically.",
+    "Ignoring inode usage: deleting large files will not help when inodes are exhausted; millions of tiny files must go."
+  ]
+}

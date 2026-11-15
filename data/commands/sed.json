@@ -1,0 +1,97 @@
+{
+  "slug": "sed",
+  "name": "sed",
+  "category": "text-processing",
+  "subcategory": "Replacing text",
+  "difficulty": "intermediate",
+  "description": "A stream editor that transforms text: substitution, deletion, insertion, and line selection, applied line by line.",
+  "syntax": "sed [OPTIONS] COMMAND [FILE...]",
+  "flags": [
+    {
+      "flag": "s/old/new/",
+      "description": "Substitute: replaces the first occurrence of old per line; add g for all occurrences."
+    },
+    {
+      "flag": "-i",
+      "description": "Edit files in place (optionally with a backup suffix: -i.bak)."
+    },
+    {
+      "flag": "-n",
+      "description": "Suppress automatic printing; use with p to print selected lines."
+    },
+    {
+      "flag": "-E",
+      "description": "Extended regular expressions."
+    },
+    {
+      "flag": "/pattern/d",
+      "description": "Delete lines matching a pattern."
+    },
+    {
+      "flag": "-n NUMBERp",
+      "description": "Print a specific line, e.g. -n 5p."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sed 's/hello/world/' file.txt",
+      "output": null,
+      "explanation": "Prints file.txt with the first \"hello\" on each line replaced by \"world\" — the original file is unchanged without -i."
+    },
+    {
+      "command": "sed -i 's/Port 22/Port 2222/' /etc/ssh/sshd_config",
+      "output": null,
+      "explanation": "Edits the file in place, changing the SSH port. Keep a backup for important configs: sed -i.bak."
+    },
+    {
+      "command": "sed 's/foo/bar/g' in.txt > out.txt",
+      "output": null,
+      "explanation": "Replaces every occurrence on every line and writes the result to a new file."
+    },
+    {
+      "command": "sed -n '5,10p' file.txt",
+      "output": "\nline 5\nline 6\n...\nline 10\n",
+      "explanation": "Prints only lines 5 through 10."
+    },
+    {
+      "command": "sed '/^#/d;/^$/d' config.conf",
+      "output": null,
+      "explanation": "Deletes comment lines (starting with #) and empty lines — a quick way to see the effective configuration."
+    },
+    {
+      "command": "sed -E 's/([0-9]{4})-([0-9]{2})-([0-9]{2})/\\3.\\2.\\1/' dates.txt",
+      "output": null,
+      "explanation": "Reorders ISO dates (2025-01-12 becomes 12.01.2025) using capture groups."
+    }
+  ],
+  "related": [
+    "awk",
+    "grep",
+    "cut"
+  ],
+  "tags": [
+    "replace",
+    "substitute",
+    "stream",
+    "edit",
+    "regex"
+  ],
+  "docs": "https://www.gnu.org/software/sed/manual/",
+  "about": [
+    "sed processes input one line at a time through an editing script. The s command is by far the most used: s/PATTERN/REPLACEMENT/FLAGS. Delimiters can be any character — s|/old/path|/new/path|g avoids escaping slashes. & in the replacement inserts the whole match; \\1..\\9 insert capture groups."
+  ],
+  "useCases": [
+    "Batch text replacement across files.",
+    "Strip comments and blank lines from configs.",
+    "Extract specific line ranges from large files.",
+    "Transform output inside pipes."
+  ],
+  "mistakes": [
+    "Forgetting to quote the expression: unquoted s/old/new/ lets the shell misinterpret slashes.",
+    "Using -i on a file you also read in the same pipeline — results are undefined."
+  ],
+  "warnings": [
+    "sed -i rewrites the file and can destroy it on a bad expression. Test on a copy or use the backup suffix first."
+  ],
+  "distroNotes": "GNU sed allows -i without a suffix; BSD/macOS sed requires -i ''. Scripts intended for both need sed -i '' on BSD."
+}

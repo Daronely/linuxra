@@ -1,0 +1,64 @@
+{
+  "slug": "taskset",
+  "name": "taskset",
+  "category": "advanced-linux",
+  "subcategory": "Cgroups",
+  "difficulty": "advanced",
+  "description": "Sets or retrieves a process's CPU affinity — which cores it may run on.",
+  "syntax": "taskset [OPTIONS] [MASK] COMMAND",
+  "flags": [
+    {
+      "flag": "-c LIST",
+      "description": "Core list form, e.g. -c 0,2-3 (more readable than hex masks)."
+    },
+    {
+      "flag": "-p PID",
+      "description": "Get/set affinity of a running process."
+    },
+    {
+      "flag": "-a",
+      "description": "Apply to all threads of the process."
+    }
+  ],
+  "examples": [
+    {
+      "command": "taskset -c 0,1 ./benchmark",
+      "output": null,
+      "explanation": "Pins the benchmark to cores 0–1 for consistent, repeatable measurements."
+    },
+    {
+      "command": "taskset -pc 2140",
+      "output": "\npid 2140's current affinity list: 0-7\n",
+      "explanation": "Shows which cores a running process may use."
+    },
+    {
+      "command": "sudo taskset -pc 2-3 2140",
+      "output": null,
+      "explanation": "Restricts a running process to cores 2–3 — live core isolation for a noisy process."
+    }
+  ],
+  "related": [
+    "nice",
+    "lscpu",
+    "ps"
+  ],
+  "tags": [
+    "cpu",
+    "affinity",
+    "cores",
+    "performance",
+    "advanced"
+  ],
+  "docs": "https://man7.org/linux/man-pages/man1/taskset.1.html",
+  "about": [
+    "Affinity is a scheduling constraint, not a usage limiter — a process pinned to one core can still use 100% of it. Real resource capping needs cgroups (systemd CPUQuota=) or cpulimit. Pinning helps with cache locality, NUMA placement, and benchmark reproducibility."
+  ],
+  "useCases": [
+    "Deterministic benchmarks.",
+    "Isolating noisy processes from latency-sensitive ones.",
+    "NUMA-aware placement on multi-socket servers."
+  ],
+  "mistakes": [
+    "Expecting taskset to limit CPU percentage — it only selects cores."
+  ]
+}

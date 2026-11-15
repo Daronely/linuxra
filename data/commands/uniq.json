@@ -1,0 +1,72 @@
+{
+  "slug": "uniq",
+  "name": "uniq",
+  "category": "text-processing",
+  "subcategory": "Counting",
+  "difficulty": "beginner",
+  "description": "Filters adjacent repeated lines: removes, counts, or shows duplicates.",
+  "syntax": "uniq [OPTIONS] [INPUT [OUTPUT]]",
+  "flags": [
+    {
+      "flag": "-c",
+      "description": "Prefix lines with the number of occurrences."
+    },
+    {
+      "flag": "-d",
+      "description": "Print only duplicated lines."
+    },
+    {
+      "flag": "-u",
+      "description": "Print only unique (non-repeated) lines."
+    },
+    {
+      "flag": "-i",
+      "description": "Ignore case."
+    },
+    {
+      "flag": "-w N",
+      "description": "Compare only the first N characters."
+    }
+  ],
+  "examples": [
+    {
+      "command": "sort names.txt | uniq",
+      "output": "\nalice\nbob\ncarol\n",
+      "explanation": "Removes duplicates. uniq only compares adjacent lines, so input must be sorted first."
+    },
+    {
+      "command": "sort access.log | uniq -c | sort -rn | head -3",
+      "output": "\n    942 203.0.113.7\n    510 198.51.100.9\n     87 192.0.2.44\n",
+      "explanation": "The classic frequency ranking: count repetitions, sort numerically, take the top hits."
+    },
+    {
+      "command": "uniq -d words.txt",
+      "output": null,
+      "explanation": "Shows only the lines that appear more than once in a row."
+    }
+  ],
+  "related": [
+    "sort",
+    "awk",
+    "wc",
+    "cut"
+  ],
+  "tags": [
+    "duplicate",
+    "unique",
+    "count",
+    "frequency"
+  ],
+  "docs": "https://www.gnu.org/software/coreutils/manual/html_node/uniq-invocation.html",
+  "about": [
+    "uniq compares neighboring lines only. The sort | uniq -c | sort -rn pipeline is one of the most useful idioms on Linux for \"what appears most often\". For unsorted data, awk '!seen[$0]++' is a common alternative."
+  ],
+  "useCases": [
+    "Count and rank IP addresses, URLs, or error types.",
+    "Remove duplicate entries from sorted lists.",
+    "Detect repeated lines in logs."
+  ],
+  "mistakes": [
+    "Running uniq without sorting first — non-adjacent duplicates survive."
+  ]
+}
